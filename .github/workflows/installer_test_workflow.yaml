@@ -8,12 +8,13 @@ on:
 
 env:
     MAVEN_INSTALLER_ARGS: '-P create-installer'
+    MAVEN_SETTINGS: '/home/ec2-user/maven/.m2/settings.xml'
 
 
 jobs:
     installer-test:
         name: Test
-        runs-on: macos-latest
+        runs-on: self-hosted
         steps:
           - name: Checkout Repository
             uses: actions/checkout@v4
@@ -47,6 +48,7 @@ jobs:
             run: |
               ./mvnw --version
                 ./mvnw clean install \
+                    -s ${{env.MAVEN_SETTINGS}}
                     ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{env.jpackageAppName}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{env.jpackageAppVersion}}  \
                     --batch-mode \
                     -e \
