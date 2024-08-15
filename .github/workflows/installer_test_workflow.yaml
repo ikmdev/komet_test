@@ -42,7 +42,7 @@ jobs:
             if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
             run: |
               echo "jpackageAppName=Komet-SNAPSHOT-MACOS-${{github.ref_name}}" >> $GITHUB_ENV
-              echo "jpackageAppVersion=${{steps.get_current_version.outputs.POM_VERSION}}-BUILD_NUMBER" >> $GITHUB_ENV
+              echo "jpackageAppVersion=${{steps.get_current_version.outputs.POM_VERSION}}-${{github.run_number}}" >> $GITHUB_ENV
     
           - name: Build Installers
             run: |
