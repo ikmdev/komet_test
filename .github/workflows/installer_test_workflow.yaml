@@ -4,7 +4,7 @@ run-name: Installer Workflow Test
 
 
 on:
-  push:
+  workflow_dispatch:
 
 env:
     MAVEN_INSTALLER_ARGS: '-P create-installer'
