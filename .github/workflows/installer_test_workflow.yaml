@@ -48,7 +48,7 @@ jobs:
             run: |
               ./mvnw --version
                 ./mvnw clean install \
-                    -s ${{env.MAVEN_SETTINGS}}
+                    -s ${{env.MAVEN_SETTINGS}} \
                     ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{env.jpackageAppName}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{env.jpackageAppVersion}}  \
                     --batch-mode \
                     -e \
@@ -61,4 +61,4 @@ jobs:
             uses: actions/upload-artifact@v4
             with:
              name: test-artifact
-             path: ${{env.PWD}}/application/target/dist/snapshot-installer/*
+             path: application/target/dist/snapshot-installer/*
