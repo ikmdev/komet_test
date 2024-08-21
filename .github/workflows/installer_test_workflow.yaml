@@ -1,0 +1,63 @@
+name: Installer Workflow
+
+run-name: Installer Workflow Test
+
+
+on:
+  workflow_dispatch:
+
+env:
+    MAVEN_INSTALLER_ARGS: '-P create-installer'
+    MAVEN_SETTINGS: '/home/ec2-user/maven/.m2/settings.xml'
+
+
+jobs:
+    installer-test:
+        name: Test
+        runs-on: ubuntu-20.04
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4
+
+          - name: Current Path
+            run: echo "PWD=$(pwd)" >> $GITHUB_ENV
+           
+      
+          - name: Setup Java
+            uses: actions/setup-java@v4
+            with:
+              distribution: 'zulu'
+              java-version: '21'
+            
+          - name: Extract Version
+            id: get_current_version
+            run: |
+                echo "POM_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+      
+          - name: Print Maven POM project version
+            run: |
+              echo "version = ${{ steps.get_current_version.outputs.POM_VERSION }}"
+      
+          - name: Verify Is SNAPSHOT Version
+            if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
+            run: |
+              echo "jpackageAppName=Komet-SNAPSHOT-MACOS-${{github.ref_name}}" >> $GITHUB_ENV
+              echo "jpackageAppVersion=${{steps.get_current_version.outputs.POM_VERSION}}-${{github.run_number}}" >> $GITHUB_ENV
+    
+          - name: Build Installers
+            run: |
+                 mvn --version
+                 mvn clean install \
+                    ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{env.jpackageAppName}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{env.jpackageAppVersion}}  \
+                    --batch-mode \
+                    -e \
+                    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                    -Dmaven.build.cache.enabled=false \
+                    -DskipTests \
+                    -DskipITs
+        
+          - name: Upload Installer
+            uses: actions/upload-artifact@v4
+            with:
+             name: test-artifact
+             path: application/target/dist/snapshot-installer/*
