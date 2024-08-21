@@ -33,7 +33,6 @@ import dev.ikm.komet.framework.view.ViewProperties;
 import dev.ikm.komet.framework.window.WindowSettings;
 import dev.ikm.komet.kview.events.JournalTileEvent;
 import dev.ikm.komet.kview.events.MakeConceptWindowEvent;
-import dev.ikm.komet.kview.events.ShowNavigationalPanelEvent;
 import dev.ikm.komet.kview.fxutils.MenuHelper;
 import dev.ikm.komet.kview.fxutils.SlideOutTrayHelper;
 import dev.ikm.komet.kview.fxutils.window.WindowSupport;
@@ -114,6 +113,8 @@ import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.*;
 import static dev.ikm.komet.kview.mvvm.viewmodel.DescrNameViewModel.MODULES_PROPERTY;
 import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CREATE;
 import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.MODE;
+import static dev.ikm.komet.kview.mvvm.viewmodel.PatternViewModel.PATTERN_TOPIC;
+import static dev.ikm.komet.kview.mvvm.viewmodel.ProgressViewModel.CANCEL_BUTTON_TEXT_PROP;
 import static dev.ikm.komet.kview.mvvm.viewmodel.ProgressViewModel.TASK_PROPERTY;
 import static dev.ikm.komet.kview.mvvm.viewmodel.StampViewModel.PATHS_PROPERTY;
 import static dev.ikm.komet.preferences.ConceptWindowPreferences.*;
@@ -235,8 +236,6 @@ public class JournalController {
 
     private Subscriber<MakeConceptWindowEvent> makeConceptWindowEventSubscriber;
 
-    private Subscriber<ShowNavigationalPanelEvent> showNavigationalPanelEventSubscriber;
-
     @InjectViewModel
     private NextGenSearchViewModel nextGenSearchViewModel;
 
@@ -285,17 +284,6 @@ public class JournalController {
             }
         };
         journalEventBus.subscribe(JOURNAL_TOPIC, MakeConceptWindowEvent.class, makeConceptWindowEventSubscriber);
-
-        showNavigationalPanelEventSubscriber = evt -> {
-            try {
-                getNavigatorNode().getController().showConcept(evt.getConceptFacade().nid());
-            } catch (Exception e) {
-                LOG.error("Unable to process event: ", e);
-            }
-            navigatorToggleButton.setSelected(true);
-        };
-        journalEventBus.subscribe(JOURNAL_TOPIC, ShowNavigationalPanelEvent.class, showNavigationalPanelEventSubscriber);
-
 
         // initially drop region is invisible
         dropAnimationRegion.setVisible(false);
@@ -360,15 +348,15 @@ public class JournalController {
         setupSlideOutTrayPane(progressListVBox, progressSlideoutTrayPane);
         SlideOutTrayHelper.slideIn(progressSlideoutTrayPane);
     }
+
     private void setupProgressListener() {
         Subscriber<ProgressEvent> progressPopupSubscriber = evt -> {
             // if summon event type, load stuff and reference task to progress popup
             if (evt.getEventType() == SUMMON) {
                 progressToggleButton.setVisible(true);
-                Task<Void> task = (Task<Void>) evt.getTask();
-                JFXNode<Pane, ProgressController> progressJFXNode = createProgressBox(task);
+                Task<Void> task = evt.getTask();
+                JFXNode<Pane, ProgressController> progressJFXNode = createProgressBox(task, evt.getCancelButtonText());
                 ProgressController progressController = progressJFXNode.controller();
-
                 Pane progressPane = progressJFXNode.node();
                 PopOver popOver = new PopOver(progressPane);
 
@@ -386,7 +374,7 @@ public class JournalController {
                 Platform.runLater(() -> popOver.show(progressToggleButton));
 
                 // Create one inside the list for bump out
-                JFXNode<Pane, ProgressController> progressJFXNode2 = createProgressBox(task);
+                JFXNode<Pane, ProgressController> progressJFXNode2 = createProgressBox(task, evt.getCancelButtonText());
                 ProgressController progressController2 = progressJFXNode2.controller();
                 Pane progressBox2 = progressJFXNode2.node();
                 progressController2.getCloseProgressButton().setOnAction(actionEvent -> {
@@ -397,14 +385,20 @@ public class JournalController {
             }
         };
         journalEventBus.subscribe(PROGRESS_TOPIC, ProgressEvent.class, progressPopupSubscriber);
+
+
+
     }
 
-    private JFXNode<Pane, ProgressController> createProgressBox(Task<Void> task) {
+    private JFXNode<Pane, ProgressController> createProgressBox(Task<Void> task, String cancelButtonText) {
         // Create one inside the list for bump out
         // Inject Stamp view model into form.
-        Config config = new Config(ProgressController.class.getResource("progress.fxml"));
-        config.updateViewModel("progressViewModel",
-                (viewModel -> viewModel.setPropertyValue(TASK_PROPERTY, task)));
+        Config config = new Config(ProgressController.class.getResource("progress.fxml"))
+                .updateViewModel("progressViewModel", (viewModel -> viewModel
+                        .setPropertyValue(TASK_PROPERTY, task)
+                        .setPropertyValue(CANCEL_BUTTON_TEXT_PROP, cancelButtonText))
+                );
+
         JFXNode<Pane, ProgressController> progressJFXNode = FXMLMvvmLoader.make(config);
         return progressJFXNode;
     }
@@ -492,8 +486,8 @@ public class JournalController {
         // +------------------------------------
         Config nextGenSearchConfig = new Config(NextGenSearchController.class.getResource(NEXT_GEN_SEARCH_FXML_URL))
                 .updateViewModel("nextGenSearchViewModel", (nextGenSearchViewModel) ->
-                                nextGenSearchViewModel
-                                        .setPropertyValue(MODE, CREATE)
+                        nextGenSearchViewModel
+                                .setPropertyValue(MODE, CREATE)
                 );
 
         JFXNode<Pane, NextGenSearchController> nextGenSearchJFXNode = FXMLMvvmLoader.make(nextGenSearchConfig);
@@ -1148,7 +1142,7 @@ public class JournalController {
             // Applying the preferences naming convention to the files.
             // e.g., journal-window/JOURNAL_Journal_1/CONCEPT_XXX
             KometPreferences conceptPreferences =journalSubWindowPreferences.node(
-                            conceptPreference.getDirectoryName());
+                    conceptPreference.getDirectoryName());
             conceptPreferences.put(CONCEPT_PREF_NAME, conceptPreference.getDirectoryName());
             conceptPreferences.put(NID_TYPE, conceptPreference.getNidType().toString());
             conceptPreferences.putInt(NID_VALUE, conceptPreference.getNid());
@@ -1279,13 +1273,13 @@ public class JournalController {
         stampViewModel.setPropertyValue(PATHS_PROPERTY, stampViewModel.findAllPaths(viewProperties), true)
                 .setPropertyValue(MODULES_PROPERTY, stampViewModel.findAllModules(viewProperties), true);
 
-        ValidationViewModel patternViewModel = new PatternViewModel()
-                .setPropertyValue(VIEW_PROPERTIES, viewProperties)
-                .setPropertyValue(MODE, CREATE)
-                .setPropertyValue(STAMP_VIEW_MODEL, stampViewModel);
-
         Config patternConfig = new Config(PatternDetailsController.class.getResource("pattern-details.fxml"))
-                .addNamedViewModel(new NamedVm("patternViewModel", patternViewModel));
+                .updateViewModel("patternViewModel", (patternViewModel) ->
+                    patternViewModel.setPropertyValue(VIEW_PROPERTIES, viewProperties)
+                            .setPropertyValue(MODE, CREATE)
+                            .setPropertyValue(STAMP_VIEW_MODEL, stampViewModel)
+                            .setPropertyValue(PATTERN_TOPIC, UUID.randomUUID())
+                );
 
         // create lidr window
         JFXNode<Pane, PatternDetailsController> patternJFXNode = FXMLMvvmLoader.make(patternConfig);
