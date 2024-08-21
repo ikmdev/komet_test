@@ -46,8 +46,8 @@ jobs:
     
           - name: Build Installers
             run: |
-              ./mvnw --version
-                ./mvnw clean install \
+                 mvn --version
+                 mvn clean install \
                     -s ${{env.MAVEN_SETTINGS}} \
                     ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{env.jpackageAppName}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{env.jpackageAppVersion}}  \
                     --batch-mode \
