@@ -62,7 +62,8 @@ jobs:
           result-encoding: json
           script: |
               var snapshotBranchName = '';
-              const {branch_name, pom_version, run_number} = process.env
+              const {branch_name, pom_version, run_number} = process.env;
+              console.log(branch_name);
               try {
                 snapshotBranchName = branch_name.split('/')[1].substring(0, Math.min(branch_name.split('/')[1].length, 15));
               } catch(ex) {
