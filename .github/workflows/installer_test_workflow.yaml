@@ -12,10 +12,44 @@ env:
 
 
 jobs:
-    installer-test:
+   initialize:
+      name: Initialize
+      runs-on: ubuntu-20.04
+      outputs:
+        POM_VERSION: ${{steps.get_current_version.outputs.POM_VERSION}}
+        JPACKAGEAPPNAME: ${{steps.snapshot_vars.outputs.jpackageAppName}}
+        JPACKAGEAPPVERSION: ${{steps.snapshot_vars.outputs.jpackageAppVersion}}
+      steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+  
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '21'
+        
+      - name: Extract Version
+        id: get_current_version
+        run: |
+            echo "POM_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+  
+      - name: Print Maven POM project version
+        run: |
+          echo "version = ${{ steps.get_current_version.outputs.POM_VERSION }}"
+  
+      - name: Verify Is SNAPSHOT Version
+        if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
+        id: snapshot_vars
+        run: |
+          echo "jpackageAppName=Komet-SNAPSHOT-TESTOS-${{github.ref_name}}" >> $GITHUB_OUTPUT
+          echo "jpackageAppVersion=1.1.${{github.run_number}}" >> $GITHUB_OUTPUT
+
+   installer-test:
         strategy:
           matrix:
-            os: [macos-latest, ubuntu-latest]
+            os: [macos-14, ubuntu-20.04, windows-2022]
+        needs: initialize
         name: Test
         runs-on: ${{matrix.os}}
         steps:
@@ -27,27 +61,12 @@ jobs:
             with:
               distribution: 'zulu'
               java-version: '21'
-            
-          - name: Extract Version
-            id: get_current_version
-            run: |
-                echo "POM_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
-      
-          - name: Print Maven POM project version
-            run: |
-              echo "version = ${{ steps.get_current_version.outputs.POM_VERSION }}"
-      
-          - name: Verify Is SNAPSHOT Version
-            if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
-            run: |
-              echo "jpackageAppName=Komet-SNAPSHOT-MACOS-${{github.ref_name}}" >> $GITHUB_ENV
-              echo "jpackageAppVersion=1.1.${{github.run_number}}" >> $GITHUB_ENV
     
           - name: Build Installers
             run: |
                  mvn --version
                  mvn clean install \
-                    ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{env.jpackageAppName}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{env.jpackageAppVersion}}  \
+                    ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{needs.initialize.outputs.JPACKAGEAPPNAME}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{needs.initialize.outputs.JPACKAGEAPPVERSION}}  \
                     --batch-mode \
                     -e \
                     -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
