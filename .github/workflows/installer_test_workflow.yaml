@@ -59,7 +59,7 @@ jobs:
           pom_version: ${{steps.get_current_version.outputs.POM_VERSION}}
           run_number: ${{github.run_number}}
         with:
-          result-encoding: array
+          result-encoding: json
           script: |
               var snapshotBranchName = '';
               var {branch_name, pom_version, run_number} = process.env
@@ -76,7 +76,7 @@ jobs:
               console.log(`BRANCH_NAME: ${branch_name}`);
               console.log(`POM_VERSION: ${pom_version}`);
 
-              return [jpackageAppName, jpackageAppVersion, mvnInstallerArgs];
+              return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
       - name: Fail this step
         run: |
