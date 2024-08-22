@@ -67,7 +67,7 @@ jobs:
                  mvn --version
                  mvn clean install \
                     ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{needs.initialize.outputs.JPACKAGEAPPNAME}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{needs.initialize.outputs.JPACKAGEAPPVERSION}}  \
-                    --batch-mode \
+                    -B \
                     -e \
                     -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
                     -Dmaven.build.cache.enabled=false \
