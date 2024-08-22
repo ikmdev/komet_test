@@ -71,7 +71,7 @@ jobs:
               }
 
               const jpackageAppName = `Komet-SNAPSHOT-NODE-${snapshotBranchName}`;
-              const jpackageAppVersion = pom_version.split('\\.')[0] + "." + pom_version.split('\\.')[1] + "." + run_number
+              const jpackageAppVersion = ${{steps.get_current_version.outputs.POM_VERSION}}.split('\\.')[0] + "." + ${{steps.get_current_version.outputs.POM_VERSION}}.split('\\.')[1] + "." + ${{github.run_number}};
               const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
 
               console.log(`BRANCH_NAME: ${branch_name}`);
