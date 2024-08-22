@@ -3,6 +3,8 @@ name: Build Workflow
 run-name: 'Build Workflow -- ${{ github.head_ref || github.ref_name }}'
 
 on:
+    push:
+    pull_request:
     workflow_dispatch:
 
 env:
@@ -17,8 +19,9 @@ jobs:
         with:
             java-version: '21'
             distribution: 'zulu'
-
       - name: Build IKMDEV Code
-        uses: ikmdev/maven-clean-install-build-action@Testing
+        uses: ikmdev/maven-clean-install-build-action@main
         with:
           branch_name: ${{env.BRANCH_NAME}}
+        
+
