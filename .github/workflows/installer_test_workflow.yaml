@@ -53,11 +53,11 @@ jobs:
       - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
         if: env.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
         id: snapshot_installers_vars
+        env:
+          POM: ${{steps.get_current_version.outputs.POM_VERSION}}
         run: |
-          IFS='\\.'
-          read -a pom_substring <<< ${{steps.get_current_version.outputs.POM_VERSION}}
-          echo "First Part -- ${pom.substring[0]}"
-          echo "Second Part -- ${pom.substring[1]}"
+          split=(${POM//.//})
+          echo $split
       - name: Fail this step
         run: |
           echo "${{steps.snapshot_installers_vars.outputs.result}}"
