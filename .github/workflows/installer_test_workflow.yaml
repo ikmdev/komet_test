@@ -15,7 +15,7 @@ jobs:
     installer-test:
         strategy:
           matrix:
-            os: [macos-latest, windows-latest]
+            os: [macos-latest, ubuntu-latest]
         name: Test
         runs-on: ${{matrix.os}}
         steps:
