@@ -13,15 +13,14 @@ env:
 
 jobs:
     installer-test:
+        strategy:
+          matrix:
+            os: [macos-latest, windows-latest]
         name: Test
-        runs-on: macos-latest
+        runs-on: ${{matrix.os}}
         steps:
           - name: Checkout Repository
             uses: actions/checkout@v4
-
-          - name: Current Path
-            run: echo "PWD=$(pwd)" >> $GITHUB_ENV
-           
       
           - name: Setup Java
             uses: actions/setup-java@v4
@@ -59,5 +58,5 @@ jobs:
           - name: Upload Installer
             uses: actions/upload-artifact@v4
             with:
-             name: test-artifact
+             name: Installers
              path: application/target/dist/snapshot-installer/*
