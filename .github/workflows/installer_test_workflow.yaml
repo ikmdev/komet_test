@@ -59,9 +59,9 @@ jobs:
           script: |
               var snapshotBranchName = '';
               try {
-                snapshotBranchName = ${{github.ref_name}}.split('/')[1].substring(0, Math.min(${{github.ref_name}}.split('/')[1].length, 15))
+                snapshotBranchName = ${{github.ref_name}}.split('/')[1].substring(0, Math.min(${{github.ref_name}}.split('/')[1].length, 15));
               } catch(ex) {
-                snapshotBranchName = ${{github.ref_name}}.substring(0, Math.min(${{github.ref_name}}.length, 15))
+                snapshotBranchName = ${{github.ref_name}}.substring(0, Math.min(${{github.ref_name}}.length, 15));
               }
 
               const jpackageAppName = `Komet-SNAPSHOT-NODE-${snapshotBranchName}`;
