@@ -44,6 +44,11 @@ jobs:
         if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
         run: echo "IS_SNAPSHOT=true" >> $GITHUB_ENV
 
+      - name: Print Status
+        run: |
+          echo "IS_SNAPSHOT --  ${{env.IS_SNAPSHOT}}"
+          echo "BRANCH_NAME -- ${{env.BRANCH_NAME}}"
+
       - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
         if: env.IS_SNAPSHOT == true && env.BRANCH_NAME != 'main'
         uses: actions/github-script@v7
