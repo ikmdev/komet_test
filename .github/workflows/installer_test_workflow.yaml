@@ -57,7 +57,7 @@ jobs:
           POM: ${{steps.get_current_version.outputs.POM_VERSION}}
         run: |
           split=(${POM//.//})
-          echo $split
+          echo $split[0]
       - name: Fail this step
         run: |
           echo "${{steps.snapshot_installers_vars.outputs.result}}"
