@@ -89,8 +89,23 @@ jobs:
             run: |
                  mvn clean install ${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs || env.MAVEN_INSTALLER_ARGS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
         
-          - name: Upload Installer
+          - name: Upload Installer (MacOS)
             uses: actions/upload-artifact@v4
+            if: contains(matrix.os, 'macos')
             with:
-             name: Installers-${{matrix.os}}
-             path: application/target/dist/snapshot-installer/*
+             name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.pkg
+             path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.pkg
+
+          - name: Upload Installer (Windows)
+            uses: actions/upload-artifact@v4
+            if: contains(matrix.os, 'windows')
+            with:
+              name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.msi
+              path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.msi
+
+          - name: Upload Installer (Linux)
+            uses: actions/upload-artifact@v4
+            if: contains(matrix.os, 'ubuntu')
+            with:
+              name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.rpm
+              path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.rpm
