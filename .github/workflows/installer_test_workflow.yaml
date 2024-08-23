@@ -57,8 +57,9 @@ jobs:
         with:
           result-encoding: string
           script: |
-              const script = require('./.github/script/test-script.js')
-              return script(${{env.BRANCH_NAME}}, ${{steps.get_current_version.outputs.POM_VERSION}})
+              const script = require('./.github/script/test-script.js');
+              const answer = script(${{env.BRANCH_NAME}}, ${{steps.get_current_version.outputs.POM_VERSION}});
+              return answer;
 
 
       - name: Fail this step
