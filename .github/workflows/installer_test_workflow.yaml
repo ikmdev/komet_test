@@ -58,7 +58,7 @@ jobs:
           result-encoding: string
           script: |
               const script = require('./.github/script/test-script.js');
-              console.log(script);
+              console.log(script("MF DOOM", "Test"));
 
       - name: Fail this step
         run: |
