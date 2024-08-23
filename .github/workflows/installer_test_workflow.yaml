@@ -55,15 +55,26 @@ jobs:
         uses: actions/github-script@v7
         id: snapshot_installers_vars
         with:
-          result-encoding: string
+          result-encoding: json
           script: |
               var snapshotBranchName = '';
+              var branchName = "${{env.BRANCH_NAME}}";
+              var pom_version = "${{steps.get_current_version.outputs.POM_VERSION}}";
+              var run_number = "${{github.run_number}}";
               try {
-                snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
+                snapshotBranchName = branchName.split('/')[1].substring(0, Math.min(branchName.split('/')[1].length, 15))
               } catch(ex) {
-                snapshotBranchName = "${{env.BRANCH_NAME}}".substring(0, Math.min("${{env.BRANCH_NAME}}".length, 15))
+                snapshotBranchName = branchName.substring(0, Math.min(branchName.length, 15))
               }
-              console.log(snapshotBranchName);
+
+              const jpackageAppName = `Komet-SNAPSHOT-NODE-${snapshotBranchName}`;
+              const jpackageAppVersion = pom_version.split('\\.')[0] + "." + pom_version.split('\\.')[1] + "." + run_number;
+              const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}
+
+              console.log(`BRANCH_NAME: ${branchName}`);
+              console.log(`POM_VERSION: ${pom_version}`);
+
+              return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
       - name: Fail this step
         run: |
