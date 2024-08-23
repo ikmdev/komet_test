@@ -65,7 +65,7 @@ jobs:
               }
 
               const jpackageAppName = `Komet-SNAPSHOT-NODE-${snapshotBranchName}`;
-              const jpackageAppVersion = "${{steps.get_current_version.outputs.POM_VERSION}}".split('\\.')[0] + "." + "${{steps.get_current_version.outputs.POM_VERSION}}".split('\\.')[1] + "." + "${{github.run_number}}"
+              const jpackageAppVersion = "${{steps.get_current_version.outputs.POM_VERSION}}".split('.')[0] + "." + "${{steps.get_current_version.outputs.POM_VERSION}}".split('.')[1] + "." + "${{github.run_number}}"
               const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
 
 
@@ -73,7 +73,9 @@ jobs:
 
       - name: Fail this step
         run: |
-          echo "${{steps.snapshot_installers_vars.outputs.result}}"
+          echo "${{steps.snapshot_installers_vars.outputs.result.jpackageAppName}}"
+          echo "${{steps.snapshot_installers_vars.outputs.result.jjpackageAppVersion}}"
+          echo "${{steps.snapshot_installers_vars.outputs.result.mvnInstallerArgs}}"
           exit 1
           
 
