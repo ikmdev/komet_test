@@ -59,9 +59,6 @@ jobs:
           script: |
               const script = require('./.github/script/test-script.js');
               console.log(script);
-              const answer = script(${{env.BRANCH_NAME}}, ${{steps.get_current_version.outputs.POM_VERSION}});
-              return answer;
-
 
       - name: Fail this step
         run: |
