@@ -57,8 +57,8 @@ jobs:
               distribution: 'zulu'
               java-version: '21'
 
-          - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
-            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
+          - name: IS_SNAPSHOT
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true'
             uses: actions/github-script@v7
             id: snapshot_installers_vars
             with:
@@ -70,14 +70,17 @@ jobs:
                   if ("${{matrix.os}}".includes("macos")){
                     macos_suffix = ("${{matrix.os}}".includes("13")) ? "-intel" : "-m1"
                   }
-
-                  var snapshotBranchName = ''; 
                   var NODE_NAME = "${{matrix.os}}".split('-')[0] + macos_suffix;
-                  try {
-                    snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
-                  } catch(ex) {
-                    snapshotBranchName = "${{env.BRANCH_NAME}}".substring(0, Math.min("${{env.BRANCH_NAME}}".length, 15))
+
+                  var snapshotBranchName = 'main'; 
+                  if ("${{env.BRANCH_NAME}}" != "main"){
+                    try {
+                      snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
+                    } catch(ex) {
+                      snapshotBranchName = "${{env.BRANCH_NAME}}".substring(0, Math.min("${{env.BRANCH_NAME}}".length, 15))
+                    }
                   }
+                  
 
                   const jpackageAppName = `Komet-SNAPSHOT-${NODE_NAME}-${snapshotBranchName}`;
                   const jpackageAppVersion = "${{needs.initialize.outputs.POM_VERSION}}".split('.')[0] + "." + "${{needs.initialize.outputs.POM_VERSION}}".split('.')[1] + "." + "${{github.run_number}}"
@@ -86,8 +89,12 @@ jobs:
 
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
-          - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV
-            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
+          - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Non Windows)
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' &&  !contains(matrix.os, 'Windows')
+            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_ENV
+
+          - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Windows)
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && contains(matrix.os, 'Windows')
             run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $env:GITHUB_ENV
   
           - name: Build Installers
