@@ -74,7 +74,7 @@ jobs:
       - name: Fail this step
         run: |
           echo "${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}"
-          echo "${{fromJson(steps.snapshot_installers_vars.outputs.result).jjpackageAppVersion}}"
+          echo "${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}"
           echo "${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}"
           echo "${{steps.snapshot_installers_vars.outputs.result}}"
           exit 1
