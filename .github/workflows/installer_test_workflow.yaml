@@ -69,7 +69,7 @@ jobs:
               const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}
 
 
-              return [jpackageAppName, jpackageAppVersion, mvnInstallerArgs];
+              return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
       - name: Fail this step
         run: |
