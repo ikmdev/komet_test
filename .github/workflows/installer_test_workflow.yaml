@@ -57,8 +57,13 @@ jobs:
         with:
           result-encoding: string
           script: |
-              const script = require('./.github/script/test-script.js');
-              console.log(script("MF DOOM", "Test"));
+              var snapshotBranchName = '';
+              try {
+                snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
+              } catch(ex) {
+                snapshotBranchName = "${{env.BRANCH_NAME}}".substring(0, Math.min("${{env.BRANCH_NAME}}".length, 15))
+              }
+              console.log(snapshotBranchName);
 
       - name: Fail this step
         run: |
