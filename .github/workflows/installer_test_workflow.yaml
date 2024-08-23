@@ -8,7 +8,6 @@ on:
   push:
 
 env:
-    MAVEN_INSTALLER_ARGS: '-P create-installer'
     MAVEN_SETTINGS: '/home/ec2-user/maven/.m2/settings.xml'
     BRANCH_NAME: ${{github.ref_name}}
 
@@ -90,16 +89,18 @@ jobs:
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
           - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Non Windows)
+            id: mavenInstallerArgsNonWindows
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true' &&  !contains(matrix.os, 'Windows')
-            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_ENV
+            run: echo "MAVEN_INSTALLER_ARGS_NON_WINDOWS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_OUTPUT
 
           - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Windows)
+            id: mavenInstallerArgsWindows
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && contains(matrix.os, 'Windows')
-            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" | Out-File -FilePath $env:GITHUB_ENV -Append
+            run: echo "MAVEN_INSTALLER_ARGS_WINDOWS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" | Out-File -FilePath $env:GITHUB_OUTPUT-Append
   
           - name: Build Installers
             run: |
-                 ./mvnw clean install ${{env.MAVEN_INSTALLER_ARGS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
+                 ./mvnw clean install ${{steps.mavenInstallerArgsNonWindows.outputs.MAVEN_INSTALLER_ARGS_NON_WINDOWS || steps.mavenInstallerArgsWindows.outputs.MAVEN_INSTALLER_ARGS_WINDOWS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
         
           - name: Upload SNAPSHOT Installers
             uses: actions/upload-artifact@v4
