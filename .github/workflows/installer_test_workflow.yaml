@@ -88,7 +88,7 @@ jobs:
 
           - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
-            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_ENV
+            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $env:GITHUB_ENV
   
           - name: Build Installers
             run: |
