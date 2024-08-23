@@ -96,8 +96,8 @@ jobs:
           - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Windows)
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && contains(matrix.os, 'Windows')
             run: |   
-              echo "${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $env:MAVEN_INSTALLER_ARGS
-              echo ${{env.MAVEN_INSTALLER_ARGS}}
+              echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> | Out-File -FilePath $env:GITHUB_ENV -Append
+              echo "${{env.MAVEN_INSTALLER_ARGS}}"
               exit 1
   
           - name: Build Installers
