@@ -58,9 +58,9 @@ jobs:
           result-encoding: json
           script: |
               var snapshotBranchName = '';
-              var branchName = "${{env.BRANCH_NAME}}";
-              var pom_version = "${{steps.get_current_version.outputs.POM_VERSION}}";
-              var run_number = "${{github.run_number}}";
+              var branchName = ${{env.BRANCH_NAME}};
+              var pom_version = ${{steps.get_current_version.outputs.POM_VERSION}};
+              var run_number = ${{github.run_number}};
               try {
                 snapshotBranchName = branchName.split('/')[1].substring(0, Math.min(branchName.split('/')[1].length, 15))
               } catch(ex) {
