@@ -23,12 +23,6 @@ jobs:
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-  
-      # - name: Setup Java
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: 'zulu'
-      #     java-version: '21'
         
       - name: Extract Version
         id: get_current_version
@@ -70,8 +64,15 @@ jobs:
             with:
               result-encoding: json
               script: |
-                  var snapshotBranchName = '';
-                  var NODE_NAME = "${{matrix.os}}".split('-')[0];
+                  //Get OS Name
+
+                  var macos_suffix = '';
+                  if ("${{matrix.os}}".includes("macos")){
+                    macos_suffix = ("${{matrix.os}}".includes("13")) ? "-intel" : "-m1"
+                  }
+
+                  var snapshotBranchName = ''; 
+                  var NODE_NAME = "${{matrix.os}}".split('-')[0] + macos_suffix;
                   try {
                     snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
                   } catch(ex) {
@@ -84,28 +85,18 @@ jobs:
 
 
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
+
+          - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
+            run: echo "MAVEN_INSTALLER_ARGS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_ENV
   
           - name: Build Installers
             run: |
-                 mvn clean install ${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs || env.MAVEN_INSTALLER_ARGS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
+                 ./mvnw clean install ${{env.MAVEN_INSTALLER_ARGS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
         
-          - name: Upload Installer (MacOS)
+          - name: Upload SNAPSHOT Installers
             uses: actions/upload-artifact@v4
-            if: contains(matrix.os, 'macos')
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true'
             with:
-             name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.pkg
-             path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.pkg
-
-          - name: Upload Installer (Windows)
-            uses: actions/upload-artifact@v4
-            if: contains(matrix.os, 'windows')
-            with:
-              name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.msi
-              path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.msi
-
-          - name: Upload Installer (Linux)
-            uses: actions/upload-artifact@v4
-            if: contains(matrix.os, 'ubuntu')
-            with:
-              name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.rpm
-              path: application/target/dist/snapshot-installer/${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}.rpm
+             name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}
+             path: application/target/dist/snapshot-installer/*
