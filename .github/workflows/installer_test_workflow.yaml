@@ -5,11 +5,11 @@ run-name: Installer Workflow Test
 
 on:
   workflow_dispatch:
+  push:
 
 env:
     MAVEN_INSTALLER_ARGS: '-P create-installer'
     MAVEN_SETTINGS: '/home/ec2-user/maven/.m2/settings.xml'
-    IS_SNAPSHOT: 'false'
     BRANCH_NAME: ${{github.ref_name}}
 
 
@@ -18,18 +18,17 @@ jobs:
       name: Initialize
       runs-on: ubuntu-20.04
       outputs:
-        POM_VERSION: ${{steps.get_current_version.outputs.POM_VERSION}}
-        JPACKAGEAPPNAME: ${{steps.snapshot_vars.outputs.jpackageAppName}}
-        JPACKAGEAPPVERSION: ${{steps.snapshot_vars.outputs.jpackageAppVersion}}
+        IS_SNAPSHOT: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
+        POM_VERSION: ${{ steps.get_current_version.outputs.POM_VERSION }}
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
   
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '21'
+      # - name: Setup Java
+      #   uses: actions/setup-java@v4
+      #   with:
+      #     distribution: 'zulu'
+      #     java-version: '21'
         
       - name: Extract Version
         id: get_current_version
@@ -40,60 +39,17 @@ jobs:
         run: |
           echo "version = ${{ steps.get_current_version.outputs.POM_VERSION }}"
 
-      - name: Verify Is SNAPSHOT Version
-        if: ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}
-        run: echo "IS_SNAPSHOT=true" >> $GITHUB_ENV
-
       - name: Print Status
         run: |
-          echo "IS_SNAPSHOT --  ${{env.IS_SNAPSHOT}}"
+          echo "IS_SNAPSHOT --  ${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}"
           echo "BRANCH_NAME -- ${{env.BRANCH_NAME}}"
 
-      - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
-        if: env.IS_SNAPSHOT == true && env.BRANCH_NAME != 'main'
-        uses: actions/github-script@v7
-        id: snapshot_installers_vars
-        with:
-          result-encoding: array
-          script: |
-              var snapshotBranchName = '';
-              try {
-                snapshotBranchName = ${{env.BRANCH_NAME}}.split('/')[1].substring(0, Math.min(${{env.BRANCH_NAME}}.split('/')[1].length, 15))
-              } catch(ex) {
-                snapshotBranchName = ${{env.BRANCH_NAME}}.substring(0, Math.min(${{env.BRANCH_NAME}}.length, 15))
-              }
-
-              const jpackageAppName = `Komet-SNAPSHOT-NODE-${snapshotBranchName}`;
-              const jpackageAppVersion = `${{steps.get_current_version.outputs.POM_VERSION}}.split('\\.')[0].${{steps.get_current_version.outputs.POM_VERSION}}.split('\\.')[1].${{github.run_number}}`
-              const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}
-
-              console.log(`BRANCH_NAME: ${{env.BRANCH_NAME}}`);
-              console.log(`POM_VERSION: ${{steps.get_current_version.outputs.POM_VERSION}}`);
-              console.log(`IS_SNAPSHOT: ${{env.IS_SNAPSHOT}}`);
-
-              return [jpackageAppName, jpackageAppVersion, mvnInstallerArgs];
-
-      - name: Fail this step
-        run: |
-          echo "${{steps.snapshot_installers_vars.outputs.result}}"
-          exit 1
           
-
-
-      
-        
-  
-      - name: Verify Is SNAPSHOT Version
-        if: env.IS_SNAPSHOT == 'true'
-        id: snapshot_vars
-        run: |
-          echo "jpackageAppName=Komet-SNAPSHOT-TESTOS-${{github.ref_name}}" >> $GITHUB_OUTPUT
-          echo "jpackageAppVersion=1.1.${{github.run_number}}" >> $GITHUB_OUTPUT
 
    installer-test:
         strategy:
           matrix:
-            os: [macos-14, ubuntu-20.04, windows-2022]
+            os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
         needs: initialize
         name: Test
         runs-on: ${{matrix.os}}
@@ -106,10 +62,32 @@ jobs:
             with:
               distribution: 'zulu'
               java-version: '21'
-    
+
+          - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
+            uses: actions/github-script@v7
+            id: snapshot_installers_vars
+            with:
+              result-encoding: json
+              script: |
+                  var snapshotBranchName = '';
+                  var NODE_NAME = "${{matrix.os}}".split('-')[0];
+                  try {
+                    snapshotBranchName = "${{env.BRANCH_NAME}}".split('/')[1].substring(0, Math.min("${{env.BRANCH_NAME}}".split('/')[1].length, 15))
+                  } catch(ex) {
+                    snapshotBranchName = "${{env.BRANCH_NAME}}".substring(0, Math.min("${{env.BRANCH_NAME}}".length, 15))
+                  }
+
+                  const jpackageAppName = `Komet-SNAPSHOT-${NODE_NAME}-${snapshotBranchName}`;
+                  const jpackageAppVersion = "${{needs.initialize.outputs.POM_VERSION}}".split('.')[0] + "." + "${{needs.initialize.outputs.POM_VERSION}}".split('.')[1] + "." + "${{github.run_number}}"
+                  const mvnInstallerArgs = `-P create-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
+
+
+                  return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
+  
           - name: Build Installers
             run: |
-                 mvn clean install ${{env.MAVEN_INSTALLER_ARGS}} -D"jpackage.app.name"=${{needs.initialize.outputs.JPACKAGEAPPNAME}} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${{needs.initialize.outputs.JPACKAGEAPPVERSION}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
+                 mvn clean install ${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs || env.MAVEN_INSTALLER_ARGS}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
         
           - name: Upload Installer
             uses: actions/upload-artifact@v4
