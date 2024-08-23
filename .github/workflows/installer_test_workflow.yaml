@@ -51,7 +51,7 @@ jobs:
           echo "BRANCH_NAME -- ${{env.BRANCH_NAME}}"
 
       - name: IS_SNAPSHOT & BRANCH IS NOT MAIN
-        if: env.IS_SNAPSHOT == true && env.BRANCH_NAME != 'main'
+        if: env.IS_SNAPSHOT == 'true' && env.BRANCH_NAME != 'main'
         uses: actions/github-script@v7
         id: snapshot_installers_vars
         with:
