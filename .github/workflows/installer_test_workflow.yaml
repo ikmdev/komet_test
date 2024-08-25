@@ -47,6 +47,9 @@ jobs:
         name: Test
         runs-on: ${{matrix.os}}
         steps:
+          - name: Current OS
+            run: echo "Current OS - ${{matrix.os}}"
+
           - name: Checkout Repository
             uses: actions/checkout@v4
       
@@ -91,7 +94,7 @@ jobs:
 
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
-          - name: Build Installers
+          - name: Build Installers (SNAPSHOT)
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true'
             run: |
                  ./mvnw clean install ${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}} -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
@@ -102,3 +105,87 @@ jobs:
             with:
              name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}
              path: application/target/dist/snapshot-installer/*
+
+          - name: Build Installers (Release)
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false'
+            run: |
+              ./mvnw clean install -P create-installer -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
+
+          - name: Publish Linux Installer Release to Nexus Repository Manager
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false' && contains(matrix.os, 'ubuntu')
+            run: |
+              mvn deploy:deploy-file \
+                  --batch-mode \
+                  -e \
+                  -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                  -Dmaven.build.cache.enabled=false \
+                  -Dfile=\$(find application/target/dist/installer/ -name komet-${{needs.initialize.outputs.POM_VERSION}}*.rpm) \
+                  -Durl=https://nexus.build.tinkarbuild.com/repository/maven-releases/ \
+                  -DgroupId=${pomGroupId} \
+                  -DartifactId=komet-installer-linux \
+                  -Dversion=${{needs.initialize.outputs.POM_VERSION}} \
+                  -Dclassifier=unsigned \
+                  -Dtype=pkg \
+                  -Dpackaging=pkg \
+                  -DrepositoryId=titan-maven-releases
+
+          - name: Publish Mac Intel Installer Release to Nexus Repository Manager
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false' && contains(matrix.os, 'macos-13')
+            run: |
+              mvn deploy:deploy-file \
+                  --batch-mode \
+                  -e \
+                  -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                  -Dmaven.build.cache.enabled=false \
+                  -Dfile=\$(find application/target/dist/installer/ -name komet-${{needs.initialize.outputs.POM_VERSION}}*.pkg) \
+                  -Durl=https://nexus.build.tinkarbuild.com/repository/maven-releases/ \
+                  -DgroupId=${pomGroupId} \
+                  -DartifactId=komet-installer-macintel \
+                  -Dversion=${{needs.initialize.outputs.POM_VERSION}} \
+                  -Dclassifier=unsigned \
+                  -Dtype=pkg \
+                  -Dpackaging=pkg \
+                  -DrepositoryId=titan-maven-releases
+
+          - name: Publish Mac M1 Installer Release to Nexus Repository Manager
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false' && contains(matrix.os, 'macos-14')
+            run: |
+             mvn deploy:deploy-file \
+                --batch-mode \
+                -e \
+                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                -Dmaven.build.cache.enabled=false \
+                -Dfile=\$(find application/target/dist/installer/ -name komet-${{needs.initialize.outputs.POM_VERSION}}*.pkg) \
+                -Durl=https://nexus.build.tinkarbuild.com/repository/maven-releases/ \
+                -DgroupId=${pomGroupId} \
+                -DartifactId=komet-installer-macm1 \
+                -Dversion=${{needs.initialize.outputs.POM_VERSION}} \
+                -Dclassifier=unsigned \
+                -Dtype=pkg \
+                -Dpackaging=pkg \
+                -DrepositoryId=titan-maven-releases
+
+          - name: Publish Mac M1 Installer Release to Nexus Repository Manager
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false' && contains(matrix.os, 'windows')
+            run: |
+              mvn deploy:deploy-file \
+                  --batch-mode \
+                  -e \
+                  -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                  -Dmaven.build.cache.enabled=false \
+                  -Dfile=application\\target\\dist\\installer\\Komet-${{needs.initialize.outputs.POM_VERSION}}.msi \
+                  -Durl=https://nexus.build.tinkarbuild.com/repository/maven-releases/ \
+                  -DgroupId=${pomGroupId} \
+                  -DartifactId=komet-installer-windows \
+                  -Dversion=${pomVersion} \
+                  -Dclassifier=unsigned \
+                  -Dtype=msi \
+                  -Dpackaging=msi \
+                  -DrepositoryId=titan-maven-releases
+
+          - name: Upload Release Installers
+            uses: actions/upload-artifact@v4
+            if: needs.initialize.outputs.IS_SNAPSHOT == 'false'
+            with:
+              name: Komet-${{needs.initialize.outputs.POM_VERSION}}-${{matrix.os}}
+              path: application/target/dist/installer/*
