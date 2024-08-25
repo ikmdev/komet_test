@@ -71,7 +71,7 @@ jobs:
                   }
                   
                   // Get OS Name
-                  const NODE_NAME = "${{matrix.ox}}".includes("ubuntu") : "linux" ? "${{matrix.os}}".split('-')[0] + macos_suffix
+                  const NODE_NAME = "${{matrix.ox}}".includes("ubuntu") ? "linux" : "${{matrix.os}}".split('-')[0] + macos_suffix;
                   
 
                   var snapshotBranchName = 'main'; 
