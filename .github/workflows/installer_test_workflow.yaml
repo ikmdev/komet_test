@@ -63,13 +63,16 @@ jobs:
             with:
               result-encoding: json
               script: |
-                  //Get OS Name
+                  //Get MacOS Suffix
 
                   var macos_suffix = '';
                   if ("${{matrix.os}}".includes("macos")){
                     macos_suffix = ("${{matrix.os}}".includes("13")) ? "-intel" : "-m1"
                   }
-                  var NODE_NAME = "${{matrix.os}}".split('-')[0] + macos_suffix;
+                  
+                  // Get OS Name
+                  const NODE_NAME = "${{matrix.ox}}".includes("ubuntu") : "linux" ? "${{matrix.os}}".split('-')[0] + macos_suffix
+                  
 
                   var snapshotBranchName = 'main'; 
                   if ("${{env.BRANCH_NAME}}" != "main"){
@@ -88,16 +91,6 @@ jobs:
 
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
-          # - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Non Windows)
-          #   id: mavenInstallerArgsNonWindows
-          #   if: needs.initialize.outputs.IS_SNAPSHOT == 'true' &&  !contains(matrix.os, 'Windows')
-          #   run: echo "MAVEN_INSTALLER_ARGS_NON_WINDOWS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" >> $GITHUB_OUTPUT
-
-          # - name: IS_SNAPSHOT UPDATE MAVEN INSTALLER ARGS ENV (Windows)
-          #   id: mavenInstallerArgsWindows
-          #   if: needs.initialize.outputs.IS_SNAPSHOT == 'true' && contains(matrix.os, 'Windows')
-          #   run: echo "MAVEN_INSTALLER_ARGS_WINDOWS=${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}}" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-  
           - name: Build Installers
             if: needs.initialize.outputs.IS_SNAPSHOT == 'true'
             run: |
