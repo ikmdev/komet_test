@@ -92,7 +92,8 @@ runs:
        run: ls ./application/target/dist/installer/
 
      - name: upload linux artifact
-       uses: actions/upload-release-asset@v1
+       uses: actions/upload-release-asset@v1.
+       if: inputs.isSnapshot == 'true'
        env:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
