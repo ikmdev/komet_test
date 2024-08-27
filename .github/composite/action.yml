@@ -97,6 +97,6 @@ runs:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
          upload_url: ${{ inputs.release_upload_url }}
-         asset_path: ./application/target/dist/installer/*
+         asset_path: ./application/target/dist/installer/komet-${{inputs.branch_name}}-1.x86_64.rpm
          asset_name: Komet ${{inputs.pom_version}} Installer Linux rpm (unsigned)
          asset_content_type: application/rpm
