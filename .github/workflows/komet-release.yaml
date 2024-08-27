@@ -98,7 +98,7 @@ jobs:
       - name: Set Release Version
         run: |
          mvn -B versions:set \
-            -DnewVersion=${{inputs.release_version}} \
+            -DnewVersion=${{steps.splitCurrentVersion.outputs._0}} \
             -DgenerateBackupPoms=false
 
       - name: Build Release Version
@@ -117,19 +117,19 @@ jobs:
             git add .
             git config user.name "ikmdevops"
             git config user.email ${{vars.IKMDEVOPS_EMAIL}}
-            git commit -m 'Release ${{inputs.release_version}}'
-            git tag -a ${{inputs.release_version}} -m '${{inputs.release_version}}' --force
+            git commit -m 'Release ${{steps.splitCurrentVersion.outputs._0}}'
+            git tag -a ${{steps.splitCurrentVersion.outputs._0}} -m '${{steps.splitCurrentVersion.outputs._0}}' --force
 
       - name: Set Dev Version
         run: |
           mvn -B versions:set \
-          -DnewVersion=${{inputs.snapshot_version}} \
+          -DnewVersion=${{steps.nextSnapshotVersion.outputs.SnapshotVersion}} \
           -DgenerateBackupPoms=false
 
       - name: Commit & Push
         run: |
             git add .
-            git commit -m 'Set next dev version to ${{inputs.snapshot_version}}'
+            git commit -m 'Set next dev version to ${{steps.nextSnapshotVersion.outputs.SnapshotVersion}}'
             git push origin HEAD:main
             git push --tags origin
   
