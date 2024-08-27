@@ -93,13 +93,13 @@ jobs:
           echo "Release Version -- ${{steps.splitCurrentVersion.outputs._0}}"
           echo "Snapshot Version -- ${{steps.nextSnapshotVersion.outputs.SnapshotVersion}}"
  
-  call_release_workflow_with_custom_inputs:
-    name: Call Reusable Workflow With Inputs
-    needs: initialization
-    uses: ikmdev/build-parent/.github/workflows/reusable_release_wf_v2.yaml@main
-    permissions: write-all
-    secrets: inherit
-    with:
-      snapshot_version: ${{needs.initialization.outputs.NEXT_SNAPSHOT_VERSION}}
-      release_version: ${{needs.initialization.outputs.RELEASE_VERSION}}
-      release_message: ${{github.event.inputs.release_message}}
+#   call_release_workflow_with_custom_inputs:
+#     name: Call Reusable Workflow With Inputs
+#     needs: initialization
+#     uses: ikmdev/build-parent/.github/workflows/reusable_release_wf_v2.yaml@main
+#     permissions: write-all
+#     secrets: inherit
+#     with:
+#       snapshot_version: ${{needs.initialization.outputs.NEXT_SNAPSHOT_VERSION}}
+#       release_version: ${{needs.initialization.outputs.RELEASE_VERSION}}
+#       release_message: ${{github.event.inputs.release_message}}
