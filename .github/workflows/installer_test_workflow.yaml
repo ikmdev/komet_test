@@ -5,7 +5,13 @@ run-name: Installer Workflow Test
 
 on:
   workflow_dispatch:
-  push:
+  # push:
+  # workflow_call:
+  #   inputs:
+  #     ref-name:
+  #       required: true
+  #       type: string
+  #       default: ${{github.ref_name}}
 
 env:
     MAVEN_SETTINGS: '/home/ec2-user/maven/.m2/settings.xml'
@@ -22,16 +28,13 @@ jobs:
       steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{inputs.ref-name}}
         
       - name: Extract Version
         id: get_current_version
         run: |
             echo "POM_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
-
-      - name: Komet name
-        run: |
-           echo "REPO_NAME=${{ github.event.repository.name }}" >> $GITHUB_ENV
-           exit 1
   
       - name: Print Maven POM project version
         run: |
@@ -57,6 +60,8 @@ jobs:
 
           - name: Checkout Repository
             uses: actions/checkout@v4
+            with:
+              ref: ${{inputs.ref-name}}
       
           - name: Setup Java
             uses: actions/setup-java@v4
