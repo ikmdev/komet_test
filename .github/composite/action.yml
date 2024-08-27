@@ -88,7 +88,7 @@ runs:
         ./mvnw clean install -P create-installer -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
 
      - name: List Files
-       bash: shell
+       shell: bash
        run: ls ./application/target/dist/installer/
 
      - name: upload linux artifact
