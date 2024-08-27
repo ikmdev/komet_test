@@ -87,9 +87,10 @@ runs:
        run: |
         ./mvnw clean install -P create-installer -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
 
-     - name: List Files
+     - name: List Installer
+       id: get_installer_name
        shell: bash
-       run: ls ./application/target/dist/installer/
+       run: echo "INSTALLER_NAME=$(ls ./application/target/dist/installer/)" >> $GITHUB_OUTPUT
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
@@ -98,6 +99,6 @@ runs:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
          upload_url: ${{ inputs.release_upload_url }}
-         asset_path: ./application/target/dist/installer/komet-${{inputs.branch_name}}.msi
-         asset_name: Komet-${{inputs.pom_version}}-Installer-Windows.msi
+         asset_path: ./application/target/dist/installer/${{steps.get_installer_name}}
+         asset_name: Komet-${{inputs.pom_version}}-Installer-${{inputs.operating_system}}
          asset_content_type: application/msi
