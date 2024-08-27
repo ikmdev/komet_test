@@ -19,7 +19,6 @@ inputs:
     description: "Branch Name"
   github_token:
     required: false
-    default: ${{secrets.GITHUB_TOKEN}}
     description: "Branch Name"
 
 runs:
