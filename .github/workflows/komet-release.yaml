@@ -56,7 +56,6 @@ jobs:
       - name: Get Current Version
         run: |
           echo "POM_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-          exit 1
 
       - name: Print Version
         run: echo ${{env.POM_VERSION}}
