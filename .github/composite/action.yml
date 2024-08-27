@@ -77,7 +77,6 @@ runs:
      - name: Upload SNAPSHOT Installers
        uses: actions/upload-artifact@v4
        if: inputs.isSnapshot == 'true'
-       shell: bash
        with:
         name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}
         path: application/target/dist/snapshot-installer/*
