@@ -92,7 +92,7 @@ runs:
        shell: bash
        run: |
         cd ./application/target/dist/installer
-        echo "INSTALLER_NAME=$(ls ./application/target/dist/installer)" >> $GITHUB_OUTPUT
+        echo "INSTALLER_NAME=$(ls ./application/target/dist/installer/)" >> $GITHUB_OUTPUT
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
