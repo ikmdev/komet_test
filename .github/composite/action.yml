@@ -87,12 +87,16 @@ runs:
        run: |
         ./mvnw clean install -P create-installer -B -e -D"org.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener"=warn -D"maven.build.cache.enabled"=false -DskipTests -DskipITs
 
+     - name: List Files
+       bash: shell
+       run: ls ./application/target/dist/installer/
+
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
        env:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
          upload_url: ${{ inputs.release_upload_url }}
-         asset_path: application/target/dist/installer/*
+         asset_path: ./application/target/dist/installer/*
          asset_name: Komet ${{inputs.pom_version}} Installer Linux rpm (unsigned)
          asset_content_type: application/rpm
