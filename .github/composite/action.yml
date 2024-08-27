@@ -91,7 +91,7 @@ runs:
        id: get_installer_name
        shell: bash
        run: |
-        cd /application/target/dist/installer
+        cd ./application/target/dist/installer
         echo "INSTALLER_NAME="$(ls)"" >> $GITHUB_OUTPUT
 
      - name: upload linux artifact
