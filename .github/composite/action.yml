@@ -90,7 +90,9 @@ runs:
      - name: List Installer
        id: get_installer_name
        shell: bash
-       run: echo "INSTALLER_NAME=$(ls ./application/target/dist/installer/)" >> $GITHUB_OUTPUT
+       run: |
+        cd /application/target/dist/installer
+        echo "INSTALLER_NAME="$(ls)"" >> $GITHUB_OUTPUT
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
