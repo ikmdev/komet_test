@@ -185,7 +185,7 @@ jobs:
             java-version: '21'
 
        - name: Composite Action
-         uses: ikmdev/komet_test/.github/composite/action.yml@main
+         uses: ./.github/composite
          with:
             branch_name: ${{needs.initialization.outputs.RELEASE_VERSION}}
             isSnapshot: "false"
