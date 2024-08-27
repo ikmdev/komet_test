@@ -92,7 +92,7 @@ runs:
        shell: bash
        run: |
         cd ./application/target/dist/installer
-        echo "INSTALLER_NAME="$(ls)"" >> $GITHUB_OUTPUT
+        echo "INSTALLER_NAME=$(ls ./application/target/dist/installer)" >> $GITHUB_OUTPUT
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
@@ -101,6 +101,6 @@ runs:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
          upload_url: ${{ inputs.release_upload_url }}
-         asset_path: ./application/target/dist/installer/${{steps.get_installer_name}}
+         asset_path: ./application/target/dist/installer/${{steps.get_installer_name.outputs.INSTALLER_NAME}}
          asset_name: Komet-${{inputs.pom_version}}-Installer-${{inputs.operating_system}}
          asset_content_type: application/msi
