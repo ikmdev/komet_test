@@ -19,7 +19,7 @@ env:
 # Define jobs within the workflow
 jobs:
   initialization:
-    if: github.repository_owner == 'ikmdev'
+    if: github.repository_owner != 'ikmdev'
     runs-on: ubuntu-latest
     name: Initialization
     outputs:
@@ -162,15 +162,44 @@ jobs:
             draft: false
             prerelease: false
     
-  call_release_workflow_with_custom_inputs:
+#   call_release_workflow_with_custom_inputs:
+#     name: Call Reusable Workflow With Inputs
+#     strategy:
+#       matrix:
+#             #os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+#         os: [ubuntu-20.04]
+#     needs: 
+#         - create_release
+#         - initialization
+#     runs-on: ${{matrix.os}}
+#     steps:
+#        - name: Checkout Code Repository
+#          uses: actions/checkout@v4
+#          with:
+#             token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+    
+#        - name: Setup Java
+#          uses: actions/setup-java@v4
+#          with:
+#             distribution: 'adopt'
+#             java-version: '21'
+
+#        - name: Composite Action
+#          uses: ./.github/composite
+#          with:
+#             branch_name: ${{needs.initialization.outputs.RELEASE_VERSION}}
+#             isSnapshot: "false"
+#            # release_upload_url: ${{needs.create_release.outputs.RELEASE_UPLOAD_URL}}
+#             pom_version: ${{needs.initialization.outputs.RELEASE_VERSION}}
+#             github_token: ${{secrets.GITHUB_TOKEN}}
+#             operating_system: ${{matrix.os}}
+            
+ call_release_workflow_with_custom_inputs:
     name: Call Reusable Workflow With Inputs
     strategy:
       matrix:
             #os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
         os: [ubuntu-20.04]
-    needs: 
-        - create_release
-        - initialization
     runs-on: ${{matrix.os}}
     steps:
        - name: Checkout Code Repository
@@ -187,10 +216,9 @@ jobs:
        - name: Composite Action
          uses: ./.github/composite
          with:
-            branch_name: ${{needs.initialization.outputs.RELEASE_VERSION}}
+            branch_name: "1.41.0"
             isSnapshot: "false"
-            release_upload_url: ${{needs.create_release.outputs.RELEASE_UPLOAD_URL}}
-            pom_version: ${{needs.initialization.outputs.RELEASE_VERSION}}
+            release_upload_url: "https://uploads.github.com/repos/ikmdev/komet_test/releases/172217933/assets{?name,label}"
+            pom_version: "1.41.0"
             github_token: ${{secrets.GITHUB_TOKEN}}
             operating_system: ${{matrix.os}}
-            
