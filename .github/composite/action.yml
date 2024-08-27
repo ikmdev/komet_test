@@ -94,7 +94,7 @@ runs:
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
-       if: inputs.isSnapshot == 'true'
+       if: inputs.isSnapshot == 'false'
        env:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
