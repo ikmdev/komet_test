@@ -185,7 +185,7 @@ jobs:
             java-version: '21'
 
        - name: Composite Action
-         uses: ./composite/action.yml
+         uses: ./.github/composite/action.yml
          with:
             branch_name: ${{github.ref_name}}
             isSnapshot: "false"
