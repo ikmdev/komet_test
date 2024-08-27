@@ -194,7 +194,7 @@ jobs:
 #             github_token: ${{secrets.GITHUB_TOKEN}}
 #             operating_system: ${{matrix.os}}
             
- call_release_workflow_with_custom_inputs:
+  call_release_workflow_with_custom_inputs:
     name: Call Reusable Workflow With Inputs
     strategy:
       matrix:
