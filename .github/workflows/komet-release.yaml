@@ -187,7 +187,7 @@ jobs:
        - name: Composite Action
          uses: ./.github/composite/action.yml
          with:
-            branch_name: ${{github.ref_name}}
+            branch_name: ${{needs.initialization.outputs.RELEASE_VERSION}}
             isSnapshot: "false"
             release_upload_url: ${{needs.create_release.outputs.RELEASE_UPLOAD_URL}}
             pom_version: ${{needs.initialization.outputs.RELEASE_VERSION}}
