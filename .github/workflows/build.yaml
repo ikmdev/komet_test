@@ -32,11 +32,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const octokit = new Octokit({
-                auth: '${{secrets.GITHUB_TOKEN}}'
-            })
-
-            const response = await octokit.request(`GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}`, {
+            const response = await github.request(`GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}`, {
               owner: '${{github.repository_owner}}',
               repo: '${{ github.event.repository.name }}',
               tag: '${{env.BRANCH_NAME}}',
