@@ -9,39 +9,40 @@ on:
 
 env:
   BRANCH_NAME: ${{github.ref_name}}
+  IS_TAG: ${{contains(github.ref_type, 'tag')}}
 
 jobs:
   build-job:
     name: Build Job
     runs-on: ubuntu-24.04
+    outputs:
+      RELEASE_UPLOAD_URL: ${{steps.upload_url.outputs.RELEASE_UPLOAD_URL}}
     steps:
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
             distribution: 'zulu'
 
-      # - name: Build IKMDEV Code
-      #   uses: ikmdev/maven-clean-install-build-action@main
-      #   with:
-      #     branch_name: ${{env.BRANCH_NAME}}
+      - name: Build IKMDEV Code
+        uses: ikmdev/maven-clean-install-build-action@main
+        with:
+          branch_name: ${{env.BRANCH_NAME}}
 
       - name: Get Release URL (Tag)
         id: get_tag_release_url
-        # if: github.ref_type == 'tag'
+        if: env.IS_TAG == 'true'
         uses: octokit/request-action@v2.x
         with:
-          route: GET /repos/${{github.repository}}/releases/tags/1.44.6
-          # owner: ${{github.repository_owner}}
-          # repo: ${{github.event.repository.name}}
+          route: GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
            
       
       - name: Print Info
-        # if: github.ref_type == 'tag'
+        if: env.IS_TAG == 'true'
+        id: upload_url
         run: | 
-         echo ${{fromJson(steps.get_tag_release_url.outputs.data).html_url}}
-         exit 1
+         echo "RELEASE_UPLOAD_URL=${{fromJson(steps.get_tag_release_url.outputs.data).upload_url}}" >> $GITHUB_OUTPUT
      
 
   generate_build_installers:
@@ -66,10 +67,9 @@ jobs:
        - name: Composite Action
          uses: ./.github/composite
          with:
-            branch_name: ${{ needs.release.outputs.RELEASE_VERSION }}
-            isSnapshot: "false"
-            release_upload_url: ${{ needs.release.outputs.RELEASE_UPLOAD_URL }}
-            pom_version: ${{ needs.release.outputs.RELEASE_VERSION }}
+            branch_name: ${{ env.BRANCH_NAME }}
+            isTag: ${{env.IS_TAG}}
+            release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
             github_token: ${{secrets.GITHUB_TOKEN}}
             operating_system: ${{matrix.os}}
         

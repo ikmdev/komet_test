@@ -5,21 +5,18 @@ inputs:
   branch_name:
     required: false
     description: "Branch Name"
-  isSnapshot:
+  isTag:
     required: true
-    description: "Branch Name"
+    description: "Is Tagged Version"
   release_upload_url:
     required: false
-    description: "Branch Name"
+    description: "Release Upload Url"
   operating_system:
     required: true
-    description: "Branch Name"
-  pom_version:
-    required: true
-    description: "Branch Name"
+    description: "Current Operating System"
   github_token:
-    required: false
-    description: "Branch Name"
+    required: true
+    description: "GitHub Token"
 
 runs:
   using: "composite"
@@ -28,8 +25,19 @@ runs:
        run: echo "Current OS - ${{inputs.operating_system}}"
        shell: bash
 
+     - name: Extract Version
+       id: get_current_version
+       shell: bash
+       run: |
+          echo "POM_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+     - name: Verify Is SNAPSHOT Version
+       id: verify_snapshot
+       shell: bash 
+       run: echo "isSnapshot=${{contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}" >> $GITHUB_OUTPUT
+
      - name: IS_SNAPSHOT
-       if: inputs.isSnapshot == 'true'
+       if:  steps.verify_snapshot.outputs.isSnapshot == 'true'
        uses: actions/github-script@v7
        id: snapshot_installers_vars
        with:
@@ -57,14 +65,14 @@ runs:
             
 
             const jpackageAppName = `Komet-SNAPSHOT-${NODE_NAME}-${snapshotBranchName}`;
-            const jpackageAppVersion = "${{inputs.pom_version}}".split('.')[0] + "." + "${{inputs.pom_version}}".split('.')[1] + "." + "${{github.run_number}}"
+            const jpackageAppVersion = "${{steps.get_current_version.outputs.POM_VERSION}}".split('.')[0] + "." + "${{steps.get_current_version.outputs.POM_VERSION}}".split('.')[1] + "." + "${{github.run_number}}"
             const mvnInstallerArgs = `-Pcreate-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
 
 
             return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
 
      - name: Build Installers (SNAPSHOT)
-       if: inputs.isSnapshot == 'true'
+       if:  steps.verify_snapshot.outputs.isSnapshot == 'true'
        run: |
          ./mvnw clean install \
            ${{fromJson(steps.snapshot_installers_vars.outputs.result).mvnInstallerArgs}} \
@@ -78,13 +86,13 @@ runs:
 
      - name: Upload SNAPSHOT Installers
        uses: actions/upload-artifact@v4
-       if: inputs.isSnapshot == 'true'
+       if: steps.verify_snapshot.outputs.isSnapshot == 'true'
        with:
         name: ${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppName}}-${{fromJson(steps.snapshot_installers_vars.outputs.result).jpackageAppVersion}}
         path: application/target/dist/snapshot-installer/*
 
      - name: Build Installers (Release)
-       if: inputs.isSnapshot == 'false'
+       if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
        shell: bash
        run: |
         ./mvnw clean install \
@@ -98,14 +106,14 @@ runs:
 
      - name: List Installer (Release)
        id: get_installer_name
-       if: inputs.isSnapshot == 'false'
+       if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
        shell: bash
        run: |
         echo "INSTALLER_NAME=$(ls ./application/target/dist/installer/)" >> $GITHUB_OUTPUT
 
      - name: Rename Operating System (Release)
        id: get_asset_name_and_type
-       if: inputs.isSnapshot == 'false'
+       if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
        uses: actions/github-script@v7
        with:
         result-encoding: json
@@ -125,7 +133,7 @@ runs:
             os_title = node_name.includes("14") ? "Mac-M1" : "Mac-Intel";
           }
 
-          const assetName = `Komet-${{inputs.pom_version}}-Installer-${os_title}-Unsigned.${asset_type}`;
+          const assetName = `Komet-${{(steps.get_current_version.outputs.POM_VERSION}}-Installer-${os_title}-Unsigned.${asset_type}`;
 
           return {assetName, asset_type};
 
@@ -133,7 +141,7 @@ runs:
 
      - name: upload linux artifact
        uses: actions/upload-release-asset@v1
-       if: inputs.isSnapshot == 'false'
+       if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
        env:
          GITHUB_TOKEN: ${{ inputs.github_token}}
        with:
