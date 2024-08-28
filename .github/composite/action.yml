@@ -89,6 +89,7 @@ runs:
 
      - name: List Installer
        id: get_installer_name
+       if: inputs.isSnapshot == 'false'
        shell: bash
        run: |
         echo "INSTALLER_NAME=$(ls ./application/target/dist/installer/)" >> $GITHUB_OUTPUT
