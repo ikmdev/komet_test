@@ -29,11 +29,11 @@ jobs:
         id: get_tag_release_url
         # if: github.ref_type == 'tag'
         run: |
-         "response=$(curl -L \
+          response=$(curl -L \
           -H "Accept: application/vnd.github+json" \
           -H "Authorization: Bearer ${{secrets.GITHUB_TOKEN}}" \
           -H "X-GitHub-Api-Version: 2022-11-28" \
-          https://api.github.com/repos/${{github.repository}}/releases/tags/1.44.6)"; echo "response=$response"  >> $GITHUB_OUTPUT
+          https://api.github.com/repos/${{github.repository}}/releases/tags/1.44.6); echo "response=$response"  >> $GITHUB_OUTPUT
       
       - name: Print Info
         # if: github.ref_type == 'tag'
