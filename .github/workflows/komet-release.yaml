@@ -36,32 +36,3 @@ jobs:
           gpg_key: ${{secrets.GPG_KEY}}
           gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
             
-#   generate_release_installers:
-#     name: Generate Release Installers
-#     needs: release
-#     strategy:
-#       matrix:
-#         os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
-#     runs-on: ${{matrix.os}}
-#     steps:
-#        - name: Checkout Code Repository
-#          uses: actions/checkout@v4
-#          with:
-#             token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
-#             ref: ${{ needs.release.outputs.RELEASE_VERSION }}
-    
-#        - name: Setup Java
-#          uses: actions/setup-java@v4
-#          with:
-#             distribution: 'adopt'
-#             java-version: '21'
-
-#        - name: Composite Action
-#          uses: ./.github/composite
-#          with:
-#             branch_name: ${{ needs.release.outputs.RELEASE_VERSION }}
-#             isSnapshot: "false"
-#             release_upload_url: ${{ needs.release.outputs.RELEASE_UPLOAD_URL }}
-#             pom_version: ${{ needs.release.outputs.RELEASE_VERSION }}
-#             github_token: ${{secrets.GITHUB_TOKEN}}
-#             operating_system: ${{matrix.os}}

@@ -15,19 +15,31 @@ jobs:
     name: Build Job
     runs-on: ubuntu-24.04
     steps:
-      - name: If Tag
-        if: github.ref_type == 'tag'
-        run: echo "It is Tag ${{env.BRANCH_NAME}}"
-
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
             distribution: 'zulu'
-            
+
       - name: Build IKMDEV Code
         uses: ikmdev/maven-clean-install-build-action@main
         with:
           branch_name: ${{env.BRANCH_NAME}}
+
+      - name: Get Release URL (Tag)
+        id: get_tag_release_url
+        if: github.ref_type == 'tag'
+        run: |
+         curl -L \
+          -H "Accept: application/vnd.github+json" \
+          -H "Authorization: Bearer <YOUR-TOKEN>" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          https://api.github.com/repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}
+      
+      - name: Print Info
+        if: github.ref_type == 'tag'
+        run: | 
+         echo ${{steps.get_tag_release_url.outputs}}
+         exit 1
      
 
   generate_build_installers:
