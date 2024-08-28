@@ -3,8 +3,8 @@ name: Build Workflow
 run-name: 'Build Workflow -- ${{ github.head_ref || github.ref_name }}'
 
 on:
-    # push:
-    # pull_request:
+    push:
+    pull_request:
     workflow_dispatch:
 
 env:
@@ -15,6 +15,8 @@ jobs:
     name: Build Job
     runs-on: ubuntu-24.04
     steps:
+      - name: Print Branch
+        run: echo ${{env.BRANCH_NAME}}
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
