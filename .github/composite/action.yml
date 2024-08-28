@@ -34,7 +34,7 @@ runs:
      - name: Verify Is SNAPSHOT Version
        id: verify_snapshot
        shell: bash 
-       run: echo "isSnapshot=${{contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT')}}" >> $GITHUB_OUTPUT
+       run: echo "isSnapshot=${{ contains(steps.get_current_version.outputs.POM_VERSION, '-SNAPSHOT') }}" >> $GITHUB_OUTPUT
 
      - name: IS_SNAPSHOT
        if:  steps.verify_snapshot.outputs.isSnapshot == 'true'
