@@ -48,6 +48,7 @@ jobs:
          uses: actions/checkout@v4
          with:
             token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+            ref: ${{ needs.release.outputs.RELEASE_VERSION }}
     
        - name: Setup Java
          uses: actions/setup-java@v4
