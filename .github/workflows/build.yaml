@@ -28,25 +28,17 @@ jobs:
       - name: Get Release URL (Tag)
         id: get_tag_release_url
         # if: github.ref_type == 'tag'
-        uses: actions/github-script@v7
+        uses: octokit/request-action@v2.x
         with:
-          result-encoding: string
-          script: |
-            const response = await github.request(`GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}`, {
-              owner: '${{github.repository_owner}}',
-              repo: '${{ github.event.repository.name }}',
-              tag: '${{env.BRANCH_NAME}}',
-              headers: {
-                'X-GitHub-Api-Version': '2022-11-28'
-              }
-            })
-
-            return response.upload_url;
+          route: GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}
+          owner: ${{github.repository_owner}}
+          repo: ${{github.event.repository.name}}
+           
       
       - name: Print Info
         # if: github.ref_type == 'tag'
         run: | 
-         echo ${{steps.get_tag_release_url.outputs.result}}
+         echo ${{steps.get_tag_release_url.outputs.data}}
          exit 1
      
 
