@@ -31,8 +31,10 @@ jobs:
         uses: octokit/request-action@v2.x
         with:
           route: GET /repos/${{github.repository}}/releases/tags/${{env.BRANCH_NAME}}
-          owner: ${{github.repository_owner}}
-          repo: ${{github.event.repository.name}}
+          # owner: ${{github.repository_owner}}
+          # repo: ${{github.event.repository.name}}
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
            
       
       - name: Print Info
