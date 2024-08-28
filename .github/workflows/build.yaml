@@ -40,7 +40,7 @@ jobs:
       - name: Print Info
         # if: github.ref_type == 'tag'
         run: | 
-         echo ${{steps.get_tag_release_url.outputs.data}}
+         echo ${{fromJson(steps.get_tag_release_url.outputs.data).html_url}}
          exit 1
      
 
