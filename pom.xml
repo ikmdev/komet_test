@@ -10,7 +10,7 @@
     <groupId>dev.ikm.komet.github.test</groupId>
     <artifactId>komet-parent</artifactId>
     <name>KOMET</name>
-    <version>1.45.6</version>
+    <version>1.46.6-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2015</inceptionYear>
     <licenses>
