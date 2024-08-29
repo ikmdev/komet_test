@@ -6,11 +6,15 @@ pipeline {
 
     agent any
 
+    //Forked testing
+
     tools {
         jdk "java-21"
         maven 'default'
         git 'git'
     }
+
+
 
     environment {
         /* SONAR_AUTH_TOKEN    = credentials('sonarqube_pac_token')
