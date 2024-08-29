@@ -55,8 +55,8 @@ jobs:
     steps:
        - name: Checkout Code Repository
          uses: actions/checkout@v4
-         with:
-            token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+        #  with:
+        #     token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
     
        - name: Setup Java
          uses: actions/setup-java@v4
