@@ -99,7 +99,7 @@ jobs:
 
                   const jpackageAppName = `Komet-SNAPSHOT-${NODE_NAME}-${snapshotBranchName}`;
                   const jpackageAppVersion = "${{needs.initialize.outputs.POM_VERSION}}".split('.')[0] + "." + "${{needs.initialize.outputs.POM_VERSION}}".split('.')[1] + "." + "${{github.run_number}}"
-                  const mvnInstallerArgs = `-Pcreate-installer -D"jpackage.app.name"=${jpackageAppName}-${jpackageAppVersion} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
+                  const mvnInstallerArgs = `-Pcreate-installer -D"jpackage.app.name"=${jpackageAppName} -D"jpackage.app.dest"=target/dist/snapshot-installer -D"jpackage.app.version"=${jpackageAppVersion}`
 
 
                   return {jpackageAppName, jpackageAppVersion, mvnInstallerArgs};
