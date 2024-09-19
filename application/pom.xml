@@ -281,7 +281,7 @@
                 <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
-                <jpackage.app.name>Komet_${project.version}</jpackage.app.name>
+                <jpackage.app.name>Komet_${project.parent.version}</jpackage.app.name>
                 <jpackage.app.version>${project.version}</jpackage.app.version>
                 <jpackage.app.dest>target/dist/installer</jpackage.app.dest>
             </properties>
