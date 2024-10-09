@@ -88,6 +88,11 @@ jobs:
           
         - name: Display Downloaded Files
           run: ls ~\Installers
+
+        - name: Sign Stuff
+          run: |
+            cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as ~Installers/Komet-SNAPSHOT-linux-main-1.52.${{github.run_number}}
             
 
         
