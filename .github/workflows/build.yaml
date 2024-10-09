@@ -82,9 +82,12 @@ jobs:
 
         - name: Download Artifacts
           uses: actions/download-artifact@v4
+          with:
+            path: ~\Installers
+
           
         - name: Display Downloaded Files
-          run: ls
+          run: ls ~\Installers
             
 
         
