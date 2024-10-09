@@ -45,45 +45,45 @@ jobs:
          echo "RELEASE_UPLOAD_URL=${{fromJson(steps.get_tag_release_url.outputs.data).upload_url}}" >> $GITHUB_OUTPUT
      
 
-  generate_build_installers:
-    name: Generate Release Installers
-    needs: build-job
-    strategy:
-      matrix:
-        #os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
-        os: [ubuntu-20.04]
-    runs-on: ${{matrix.os}}
-    steps:
-       - name: Checkout Code Repository
-         uses: actions/checkout@v4
+  # generate_build_installers:
+  #   name: Generate Release Installers
+  #   needs: build-job
+  #   strategy:
+  #     matrix:
+  #       #os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+  #       os: [ubuntu-20.04]
+  #   runs-on: ${{matrix.os}}
+  #   steps:
+  #      - name: Checkout Code Repository
+  #        uses: actions/checkout@v4
     
-       - name: Setup Java
-         uses: actions/setup-java@v4
-         with:
-            distribution: 'zulu'
-            java-version: '21'
+  #      - name: Setup Java
+  #        uses: actions/setup-java@v4
+  #        with:
+  #           distribution: 'zulu'
+  #           java-version: '21'
 
-       - name: Composite Action
-         uses: ./.github/composite
-         with:
-            branch_name: ${{ env.BRANCH_NAME }}
-            isTag: ${{env.IS_TAG}}
-            release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
-            github_token: ${{secrets.GITHUB_TOKEN}}
-            operating_system: ${{matrix.os}}
+  #      - name: Composite Action
+  #        uses: ./.github/composite
+  #        with:
+  #           branch_name: ${{ env.BRANCH_NAME }}
+  #           isTag: ${{env.IS_TAG}}
+  #           release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
+  #           github_token: ${{secrets.GITHUB_TOKEN}}
+  #           operating_system: ${{matrix.os}}
 
   sign_installers:
      name: Sign Installers
-     needs: generate_build_installers
+    #  needs: generate_build_installers
      runs-on: cloud-hsm
      steps:
         - name: Checkout Code Repository
           uses: actions/checkout@v4
 
-        - name: Download Artifacts
-          uses: actions/download-artifact@v4
-          with:
-            path: ~\Installers
+        # - name: Download Artifacts
+        #   uses: actions/download-artifact@v4
+        #   with:
+        #     path: ~\Installers
 
           
         - name: Display Downloaded Files
@@ -91,9 +91,9 @@ jobs:
 
         - name: Sign Stuff
           run: |
-            sc config "actions.runner.ikmdev-komet_test.CloudHSMRunner" obj= "NT AUTHORITY/SYSTEM" type= own
+            
             cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as ~Installers/Komet-SNAPSHOT-linux-main-1.52.${{github.run_number}}/Komet-SNAPSHOT-linux-main-1.52.${{github.run_number}}-1.x86_64.rpm
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as ~Installers/Komet-SNAPSHOT-linux-main-1.52.99/Komet-SNAPSHOT-linux-main-1.52.99-1.x86_64.rpm
             
 
         
