@@ -76,9 +76,6 @@ jobs:
      name: Sign Installers
     #  needs: generate_build_installers
      runs-on: cloud-hsm
-     defaults:
-       run:
-         shell: pwsh 
      steps:
         - name: Checkout Code Repository
           uses: actions/checkout@v4
