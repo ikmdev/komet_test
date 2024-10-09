@@ -92,6 +92,7 @@ jobs:
         - name: Sign Stuff
           run: |
             whoami
+            Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" -Name "ConsentPromptBehaviorAdmin" -Value 00000000 -Force
             cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
             .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as ~Installers/Komet-SNAPSHOT-linux-main-1.52.99/Komet-SNAPSHOT-linux-main-1.52.99-1.x86_64.rpm
             
