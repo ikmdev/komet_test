@@ -93,7 +93,7 @@ jobs:
           run: |
             whoami
             cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as ~/Installers/Komet-SNAPSHOT-linux-main-1.52.99/Komet-SNAPSHOT-linux-main-1.52.99-1.x86_64.rpm
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Windows\ServiceProfiles\NetworkService\Installers\Komet-SNAPSHOT-linux-main-1.52.99\komet-snapshot-linux-main-1.52.99-1.x86_64.rpm
             
 
         
