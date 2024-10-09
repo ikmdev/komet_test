@@ -50,18 +50,17 @@ jobs:
     needs: build-job
     strategy:
       matrix:
-        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+        #os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+        os: [ubuntu-20.04]
     runs-on: ${{matrix.os}}
     steps:
        - name: Checkout Code Repository
          uses: actions/checkout@v4
-        #  with:
-        #     token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
     
        - name: Setup Java
          uses: actions/setup-java@v4
          with:
-            distribution: 'adopt'
+            distribution: 'zulu'
             java-version: '21'
 
        - name: Composite Action
@@ -72,5 +71,21 @@ jobs:
             release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
             github_token: ${{secrets.GITHUB_TOKEN}}
             operating_system: ${{matrix.os}}
+
+  sign_installers:
+     name: Sign Installers
+     needs: generate_build_installers
+     runs-on: cloud-hsm
+     steps:
+        - name: Checkout Code Repository
+          uses: actions/checkout@v4
+
+        - name: Download Artifacts
+          uses: actions/download-artifact@v4
+          
+        - name: Display Downloaded Files
+          run: ls
+            
+
         
 

@@ -15,9 +15,6 @@ jobs:
     name: Release
     runs-on: ubuntu-24.04
     if: github.repository_owner == 'ikmdev'
-    outputs:
-        RELEASE_UPLOAD_URL: ${{ steps.release_ikmdev_codes.outputs.release_upload_url}}
-        RELEASE_VERSION: ${{steps.release_ikmdev_codes.outputs.release_version}}
     steps:
       - name: Verify Branch
         if: env.BRANCH_NAME != env.TRUNK_BRANCH_NAME
