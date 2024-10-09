@@ -23,10 +23,10 @@ jobs:
             java-version: '21'
             distribution: 'zulu'
 
-      - name: Build IKMDEV Code
-        uses: ikmdev/maven-clean-install-build-action@main
-        with:
-          branch_name: ${{env.BRANCH_NAME}}
+      # - name: Build IKMDEV Code
+      #   uses: ikmdev/maven-clean-install-build-action@pre-sonar
+      #   with:
+      #     branch_name: ${{env.BRANCH_NAME}}
 
       - name: Get Release URL (Tag)
         id: get_tag_release_url
