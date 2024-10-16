@@ -24,8 +24,6 @@ jobs:
 
       - name: Release IKMDEV Code
         id: release_ikmdev_codes
-        permissions:
-         contents: write
         uses: ikmdev/maven-release-action@komet
         with:
           ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
