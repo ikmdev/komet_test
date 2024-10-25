@@ -112,7 +112,7 @@ jobs:
           with:
             upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
             asset_path: ~/Installers/Komet-1.57.6-Installer-Linux-Unsigned.rpm/komet-1.57.6-1.57.6-1.x86_64.rpm
-            asset_name: Komet-1.57.6-Installer-Linux-Signed
+            asset_name: Komet-1.57.6-Installer-Linux-Signed.rpm
             asset_content_type: application/rpm
 
         - name: upload mac-intel artifact
@@ -123,7 +123,7 @@ jobs:
           with:
             upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
             asset_path: ~/Installers/Komet-1.57.6-Installer-Mac-Intel-Unsigned.pkg/"Komet 1.57.6-1.57.6.pkg"
-            asset_name: Komet-1.57.6-Installer-Mac-Intel-Signed
+            asset_name: Komet-1.57.6-Installer-Mac-Intel-Signed.pkg
             asset_content_type: application/pkg
 
         - name: upload mac-m1 artifact
@@ -134,7 +134,7 @@ jobs:
           with:
             upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
             asset_path: ~/Installers/Komet-1.57.6-Installer-Mac-M1-Unsigned.pkg/"Komet 1.57.6-1.57.6.pkg"
-            asset_name: Komet-1.57.6-Installer-Mac-M1-Signed
+            asset_name: Komet-1.57.6-Installer-Mac-M1-Signed.pkg
             asset_content_type: application/pkg
 
         - name: upload windows artifact
@@ -145,5 +145,5 @@ jobs:
           with:
             upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
             asset_path: ~/Installers/Komet-1.57.6-Installer-Windows-Unsigned.msi/"Komet 1.57.6-1.57.6.msi"
-            asset_name: Komet-1.57.6-Installer-Windows-Signed
+            asset_name: Komet-1.57.6-Installer-Windows-Signed.msi
             asset_content_type: application/msi
