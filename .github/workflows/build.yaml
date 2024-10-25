@@ -18,6 +18,11 @@ jobs:
     outputs:
       RELEASE_UPLOAD_URL: ${{steps.upload_url.outputs.RELEASE_UPLOAD_URL}}
     steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
+        with:
+          ref: 1.57.6
+          
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
@@ -45,39 +50,41 @@ jobs:
          echo "RELEASE_UPLOAD_URL=${{fromJson(steps.get_tag_release_url.outputs.data).upload_url}}" >> $GITHUB_OUTPUT
      
 
-  generate_build_installers:
-    name: Generate Release Installers
-    needs: build-job
-    strategy:
-      matrix:
-        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
-    runs-on: ${{matrix.os}}
-    steps:
-       - name: Checkout Code Repository
-         uses: actions/checkout@v4
+  # generate_build_installers:
+  #   name: Generate Release Installers
+  #   needs: build-job
+  #   strategy:
+  #     matrix:
+  #       os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+  #   runs-on: ${{matrix.os}}
+  #   steps:
+  #      - name: Checkout Code Repository
+  #        uses: actions/checkout@v4
     
-       - name: Setup Java
-         uses: actions/setup-java@v4
-         with:
-            distribution: 'zulu'
-            java-version: '21'
+  #      - name: Setup Java
+  #        uses: actions/setup-java@v4
+  #        with:
+  #           distribution: 'zulu'
+  #           java-version: '21'
 
-       - name: Composite Action
-         uses: ./.github/composite
-         with:
-            branch_name: ${{ env.BRANCH_NAME }}
-            isTag: ${{env.IS_TAG}}
-            release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
-            github_token: ${{secrets.GITHUB_TOKEN}}
-            operating_system: ${{matrix.os}}
+  #      - name: Composite Action
+  #        uses: ./.github/composite
+  #        with:
+  #           branch_name: ${{ env.BRANCH_NAME }}
+  #           isTag: ${{env.IS_TAG}}
+  #           release_upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL || '' }}
+  #           github_token: ${{secrets.GITHUB_TOKEN}}
+  #           operating_system: ${{matrix.os}}
 
   sign_installers:
      name: Sign Installers
-     #needs: generate_build_installers
+     needs: build-job
      runs-on: cloud-hsm-v2
      steps:
         - name: Checkout Code Repository
           uses: actions/checkout@v4
+          with:
+            ref: 1.57.6
 
         - name: Download Artifacts
           uses: actions/download-artifact@v4
@@ -93,20 +100,52 @@ jobs:
           run: |
             whoami
             cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Installers\Komet-1.57.6-Installer-Linux-Unsigned.rpm\komet-1.57.6-1.57.6-1.x86_64.rpm
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Installers\Komet-1.57.6-Installer-Mac-Intel-Unsigned.pkg\Komet 1.57.6-1.57.6.pkg
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Installers\Komet-1.57.6-Installer-Mac-M1-Unsigned.pkg\Komet 1.57.6-1.57.6.pkg
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Installers\Komet-1.57.6-Installer-Windows-Unsigned.msi\Komet 1.57.6-1.57.6
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Linux-Unsigned.rpm\komet-1.57.6-1.57.6-1.x86_64.rpm
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Mac-Intel-Unsigned.pkg\Komet 1.57.6-1.57.6.pkg
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Mac-M1-Unsigned.pkg\Komet 1.57.6-1.57.6.pkg
+            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Windows-Unsigned.msi\Komet 1.57.6-1.57.6
             
 
-        # - name: upload linux artifact
-        #   uses: actions/upload-release-asset@v1
-        #   if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
-        #   env:
-        #     GITHUB_TOKEN: ${{ inputs.github_token}}
-        #   with:
-        #     upload_url: ${{ inputs.release_upload_url }}
-        #     asset_path: ./application/target/dist/installer/${{steps.get_installer_name.outputs.INSTALLER_NAME}}
-        #     asset_name: ${{fromJson(steps.get_asset_name_and_type.outputs.result).assetName}}
-        #     asset_content_type: application/${{fromJson(steps.get_asset_name_and_type.outputs.result).asset_type}}
+        - name: upload linux artifact
+          uses: actions/upload-release-asset@v1
+          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          with:
+            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+            asset_path: ~/Installers/Komet-1.57.6-Installer-Linux-Unsigned.rpm/komet-1.57.6-1.57.6-1.x86_64.rpm
+            asset_name: Komet-1.57.6-Installer-Linux-Signed
+            asset_content_type: application/rpm
 
+        - name: upload mac-intel artifact
+          uses: actions/upload-release-asset@v1
+          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          with:
+            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+            asset_path: ~/Installers/Komet-1.57.6-Installer-Mac-Intel-Unsigned.pkg/Komet 1.57.6-1.57.6.pkg
+            asset_name: Komet-1.57.6-Installer-Mac-Intel-Signed
+            asset_content_type: application/pkg
+
+        - name: upload mac-m1 artifact
+          uses: actions/upload-release-asset@v1
+          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          with:
+            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+            asset_path: ~/Installers/Komet-1.57.6-Installer-Mac-M1-Unsigned.pkg/Komet 1.57.6-1.57.6.pkg
+            asset_name: Komet-1.57.6-Installer-Mac-M1-Signed
+            asset_content_type: application/pkg
+
+        - name: upload windows artifact
+          uses: actions/upload-release-asset@v1
+          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+          with:
+            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+            asset_path: ~/Installers/Komet-1.57.6-Installer-Windows-Unsigned.msi/Komet 1.57.6-1.57.6
+            asset_name: Komet-1.57.6-Installer-Windows-Signed
+            asset_content_type: application/msi
