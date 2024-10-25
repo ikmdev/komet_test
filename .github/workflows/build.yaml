@@ -73,7 +73,7 @@ jobs:
 
   sign_installers:
      name: Sign Installers
-    #  needs: generate_build_installers
+     needs: generate_build_installers
      runs-on: cloud-hsm-v2
      steps:
         - name: Checkout Code Repository
