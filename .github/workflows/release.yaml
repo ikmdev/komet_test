@@ -1,4 +1,4 @@
-name: Release Workflow
+name: Komet Release Workflow
 
 run-name: "Releasing ${{ github.event.repository.name }} #${{github.run_number}}"
 
@@ -23,6 +23,7 @@ jobs:
           exit 1
 
       - name: Release IKMDEV Code
+        id: release_ikmdev_codes
         uses: ikmdev/maven-release-action@komet
         with:
           ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
@@ -31,3 +32,4 @@ jobs:
           ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
           gpg_key: ${{secrets.GPG_KEY}}
           gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
+            
