@@ -79,21 +79,31 @@ jobs:
         - name: Checkout Code Repository
           uses: actions/checkout@v4
 
-        # - name: Download Artifacts
-        #   uses: actions/download-artifact@v4
-        #   with:
-        #     path: ~\Installers
+        - name: Download Artifacts
+          uses: actions/download-artifact@v4
+          with:
+            path: ~\Installers
 
           
         - name: Display Downloaded Files
           run: ls ~\Installers
+  
 
-        - name: Sign Stuff
-          run: |
-            whoami
-            cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Windows\ServiceProfiles\NetworkService\Installers\Komet-SNAPSHOT-linux-main-1.52.99\komet-snapshot-linux-main-1.52.99-1.x86_64.rpm
+        # - name: Sign Stuff
+        #   run: |
+        #     whoami
+        #     cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
+        #     .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Windows\ServiceProfiles\NetworkService\Installers\Komet-SNAPSHOT-linux-main-1.52.99\komet-snapshot-linux-main-1.52.99-1.x86_64.rpm
             
 
-        
+        # - name: upload linux artifact
+        #   uses: actions/upload-release-asset@v1
+        #   if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+        #   env:
+        #     GITHUB_TOKEN: ${{ inputs.github_token}}
+        #   with:
+        #     upload_url: ${{ inputs.release_upload_url }}
+        #     asset_path: ./application/target/dist/installer/${{steps.get_installer_name.outputs.INSTALLER_NAME}}
+        #     asset_name: ${{fromJson(steps.get_asset_name_and_type.outputs.result).assetName}}
+        #     asset_content_type: application/${{fromJson(steps.get_asset_name_and_type.outputs.result).asset_type}}
 
