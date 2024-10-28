@@ -101,7 +101,7 @@ jobs:
             .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Linux-Unsigned.rpm\komet-1.57.6-1.57.6-1.x86_64.rpm
             .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Mac-Intel-Unsigned.pkg\"Komet 1.57.6-1.57.6.pkg"
             .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-1.57.6-Installer-Mac-M1-Unsigned.pkg\"Komet 1.57.6-1.57.6.pkg"
-            .\signtool.exe sign /v /sm /as /fd sha256 ${{secrets.CLOUDHSM_HASH}} C:\Users\Administrator\Installers\Komet-1.59.6-Installer-Windows-Unsigned.msi\"Komet 1.59.6-1.59.6.msi"
+            .\signtool.exe sign /v /sm /as /fd sha1 ${{secrets.CLOUDHSM_HASH}} C:\Users\Administrator\Installers\Komet-1.59.6-Installer-Windows-Unsigned.msi\"Komet 1.59.6-1.59.6.msi"
             
 
         - name: upload linux artifact
