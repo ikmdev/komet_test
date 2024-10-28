@@ -21,7 +21,7 @@ jobs:
       - name: Checkout Code Repository
         uses: actions/checkout@v4
         with:
-          ref: 1.58.6
+          ref: 1.59.6
           
       - uses: actions/setup-java@v4
         with:
