@@ -76,7 +76,9 @@ jobs:
 
   sign_installers:
      name: Sign Installers
-     needs: build-job
+     needs: 
+      - build-job
+      - generate_build_installers
      runs-on: cloud-hsm-v2
      if: contains(github.ref_type, 'tag')
      steps:
