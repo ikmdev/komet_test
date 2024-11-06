@@ -99,9 +99,9 @@ jobs:
           run: |
             cd "C:\Program Files (x86)\Windows Kits\10\bin\10.0.22621.0\x64"
             .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Linux-Unsigned.rpm\komet-${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}-1.x86_64.rpm
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Unsigned.pkg\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Unsigned.pkg\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg"
-            .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm  C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Windows-Unsigned.msi\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.msi"
+            # .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Unsigned.pkg\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg"
+            # .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm /as C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Unsigned.pkg\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg"
+            # .\signtool.exe sign /v /fd sha256 /sha1 ${{secrets.CLOUDHSM_HASH}} /sm  C:\Users\Administrator\Installers\Komet-${{env.BRANCH_NAME}}-Installer-Windows-Unsigned.msi\"Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.msi"
             
 
         - name: upload linux artifact
@@ -115,35 +115,35 @@ jobs:
             asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Linux-Signed.rpm
             asset_content_type: application/rpm
 
-        - name: upload mac-intel artifact
-          uses: actions/upload-release-asset@v1
-          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          with:
-            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
-            asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Unsigned.pkg/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg
-            asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Signed.pkg
-            asset_content_type: application/pkg
+        # - name: upload mac-intel artifact
+        #   uses: actions/upload-release-asset@v1
+        #   #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #   with:
+        #     upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+        #     asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Unsigned.pkg/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg
+        #     asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Mac-Intel-Signed.pkg
+        #     asset_content_type: application/pkg
 
-        - name: upload mac-m1 artifact
-          uses: actions/upload-release-asset@v1
-          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          with:
-            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
-            asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Unsigned.pkg/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg
-            asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Signed.pkg
-            asset_content_type: application/pkg
+        # - name: upload mac-m1 artifact
+        #   uses: actions/upload-release-asset@v1
+        #   #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #   with:
+        #     upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+        #     asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Unsigned.pkg/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.pkg
+        #     asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Mac-M1-Signed.pkg
+        #     asset_content_type: application/pkg
 
-        - name: upload windows artifact
-          uses: actions/upload-release-asset@v1
-          #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
-          with:
-            upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
-            asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Windows-Unsigned.msi/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.msi
-            asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Windows-Signed.msi
-            asset_content_type: application/msi
+        # - name: upload windows artifact
+        #   uses: actions/upload-release-asset@v1
+        #   #if: steps.verify_snapshot.outputs.isSnapshot == 'false' && inputs.isTag == 'true'
+        #   env:
+        #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN}}
+        #   with:
+        #     upload_url: ${{ needs.build-job.outputs.RELEASE_UPLOAD_URL}}
+        #     asset_path: C:/Users/Administrator/Installers/Komet-${{env.BRANCH_NAME}}-Installer-Windows-Unsigned.msi/Komet ${{env.BRANCH_NAME}}-${{env.BRANCH_NAME}}.msi
+        #     asset_name: Komet-${{env.BRANCH_NAME}}-Installer-Windows-Signed.msi
+        #     asset_content_type: application/msi
