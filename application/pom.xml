@@ -298,6 +298,7 @@
                             <resourceDir>${jpackage.resourceDir}</resourceDir>
                             <type>${jpackage.type}</type>
                             <icon>${jpackage.icon}</icon>
+                            <licensePath>${jpackage.licensePath}</licensePath>
                             <vendor>IKM</vendor>
                             <runtimeImage>target/kometRuntimeImage</runtimeImage>
                             <module>dev.ikm.komet.application/dev.ikm.komet.app.App</module>
