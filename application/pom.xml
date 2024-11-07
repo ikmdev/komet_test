@@ -299,6 +299,7 @@
                             <type>${jpackage.type}</type>
                             <icon>${jpackage.icon}</icon>
                             <licenseFile>${jpackage.licensePath}</licenseFile>
+                            <linuxRpmLicenseType>${jpackage.linuxRpmLicenseType}</linuxRpmLicenseType>
                             <vendor>IKM</vendor>
                             <runtimeImage>target/kometRuntimeImage</runtimeImage>
                             <module>dev.ikm.komet.application/dev.ikm.komet.app.App</module>
@@ -351,7 +352,8 @@
                 <jpackage.type>RPM</jpackage.type>
                 <jpackage.icon>src/main/resources/icons/Komet.png</jpackage.icon>
                 <jpackage.resourceDir>installer_resources/resourceDir_unix</jpackage.resourceDir>
-                <jpackage.licensePath>../LICENSE.txt</jpackage.licensePath>
+                <jpackage.licensePath>../GPLv3.txt</jpackage.licensePath>
+                <jpackage.linuxRpmLicenseType>GPL</jpackage.linuxRpmLicenseType>
             </properties>
         </profile>
         <profile>
