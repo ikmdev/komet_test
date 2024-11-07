@@ -351,7 +351,7 @@
                 <jpackage.type>RPM</jpackage.type>
                 <jpackage.icon>src/main/resources/icons/Komet.png</jpackage.icon>
                 <jpackage.resourceDir>installer_resources/resourceDir_unix</jpackage.resourceDir>
-                <jpackage.licensePath>${project.basedir}/LICENSE.txt</jpackage.licensePath>
+                <jpackage.licensePath>../LICENSE.txt</jpackage.licensePath>
             </properties>
         </profile>
         <profile>
