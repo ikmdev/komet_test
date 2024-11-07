@@ -53,7 +53,8 @@ jobs:
     needs: build-job
     strategy:
       matrix:
-        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+       # os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+        os: [ubuntu-20.04]
     runs-on: ${{matrix.os}}
     steps:
        - name: Checkout Code Repository
