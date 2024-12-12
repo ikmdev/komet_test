@@ -12,13 +12,13 @@ on:
         
         
 jobs:
-    post-build:
-      name: Post Build Actions
-      runs-on: ubuntu-24.04
-      if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
-      outputs:
-        RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
-      steps:      
+  post-build:
+    name: Post Build Actions
+    runs-on: ubuntu-24.04
+    if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
+    outputs:
+       RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
+    steps:      
       - name: Get Nexus Repo ID
         id:  nexus_repo_id
         run:  |
@@ -48,33 +48,32 @@ jobs:
             ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
             gpg_key: ${{secrets.GPG_KEY}}
             gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
-            release_notes: "Release ${{github.ref_name}}
+            release_notes: "Release ${{github.ref_name}}"
 
-
-    generate_release_installers:
-       name: Generate Release Installers
-       needs: post-build
-       if: contains(github.ref_type, 'tag') == 'true'
-       strategy:
-         matrix:
-           os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
-       runs-on: ${{matrix.os}}
-       steps:
-          - name: Checkout Code Repository
-            uses: actions/checkout@v4
+  generate_release_installers:
+    name: Generate Release Installers
+    needs: post-build
+    if: contains(github.ref_type, 'tag') == 'true'
+    strategy:
+      matrix:
+        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout Code Repository
+        uses: actions/checkout@v4
        
-          - name: Setup Java
-            uses: actions/setup-java@v4
-            with:
-               distribution: 'zulu'
-               java-version: '21'
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'zulu'
+            java-version: '21'
    
-          - name: Composite Action
-            uses: ./.github/installer_composite
-            with:
-               branch_name: ${{ env.BRANCH_NAME }}
-               isTag: "true"
-               release_upload_url: ${{ needs.post-build.outputs.RELEASE_UPLOAD_URL}}
-               github_token: ${{secrets.GITHUB_TOKEN}}
-               operating_system: ${{matrix.os}}
+      - name: Composite Action
+        uses: ./.github/installer_composite
+        with:
+          branch_name: ${{ env.BRANCH_NAME }}
+          isTag: "true"
+          release_upload_url: ${{ needs.post-build.outputs.RELEASE_UPLOAD_URL}}
+          github_token: ${{secrets.GITHUB_TOKEN}}
+          operating_system: ${{matrix.os}}
            
