@@ -1,0 +1,79 @@
+name: Post Build Action
+
+run-name: 'Post Build Action -- ${{github.event.workflow_run.head_branch}}'
+
+on:
+   workflow_run:
+    workflows:
+      - Build Workflow
+    types:
+      - completed
+
+        
+        
+jobs:
+  post-build:
+      name: Post Build Actions
+      runs-on: ubuntu-24.04
+      if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
+      outputs:
+        RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
+      steps:      
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Read Release Notes
+        id: release_notes
+        run:  |
+           echo RELEASE_NOTES=$(cat text_release_notes.txt) >> $GITHUB_OUTPUT
+
+      - name: Get Repo ID
+        id:  nexus_repo_id
+        if: contains(github.ref_type, 'tag')
+        run:  echo "NEXUS_REPO_ID=maven_releases" >> $GITHUB_OUTPUT
+        
+      - name: Post Build Action
+        id: ikmdev_post_build
+        uses: ikmdev/maven-post-release-action@poc-testing
+        with:
+            nexus_repo_id: "maven-releases"
+            nexus_repo_password: ${{secrets.EC2_NEXUS_PASSWORD}}
+            repo_name: ${{github.event.workflow_run.head_repository.full_name}}
+            branch_name: ${{github.event.workflow_run.head_branch}}
+            is_tag: 'true'
+            ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+            github_token: ${{secrets.GITHUB_TOKEN}}
+            ossrh_username: ${{secrets.OSSRH_TOKEN_USER}}
+            ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
+            gpg_key: ${{secrets.GPG_KEY}}
+            gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
+            release_notes: ${{steps.release_notes.outputs.RELEASE_NOTES}}
+
+
+  generate_release_installers:
+    name: Generate Release Installers
+    needs: post-build
+    if: contains(github.ref_type, 'tag') == 'true'
+    strategy:
+      matrix:
+        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+    runs-on: ${{matrix.os}}
+    steps:
+       - name: Checkout Code Repository
+         uses: actions/checkout@v4
+    
+       - name: Setup Java
+         uses: actions/setup-java@v4
+         with:
+            distribution: 'zulu'
+            java-version: '21'
+
+       - name: Composite Action
+         uses: ./.github/installer_composite
+         with:
+            branch_name: ${{ env.BRANCH_NAME }}
+            isTag: "true"
+            release_upload_url: ${{ needs.post-build.outputs.RELEASE_UPLOAD_URL}}
+            github_token: ${{secrets.GITHUB_TOKEN}}
+            operating_system: ${{matrix.os}}
+        
