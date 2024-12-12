@@ -19,35 +19,36 @@ jobs:
       outputs:
         RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
       steps:      
-      - name: Checkout Code
-        uses: actions/checkout@v4
-        
-      - name: Read Release Notes
-        id: release_notes
-        run:  |
-           echo RELEASE_NOTES=$(cat text_release_notes.txt) >> $GITHUB_OUTPUT
-
-      - name: Get Repo ID
+      - name: Get Nexus Repo ID
         id:  nexus_repo_id
-        if: contains(github.ref_type, 'tag')
-        run:  echo "NEXUS_REPO_ID=maven_releases" >> $GITHUB_OUTPUT
+        run:  |
+           if [ $TAG == 'true' ]; then
+             echo "NEXUS_REPO_ID=maven_releases">> $GITHUB_OUTPUT
+           elif [ $TAG == 'false' ]; then
+             echo "NEXUS_REPO_ID=maven_snapshots">> $GITHUB_OUTPUT
+           else
+             echo "ERROR: Incorrect Type $TAG"
+             exit 1
+            fi
+        env:
+           TAG: ${{contains(github.ref_type, 'tag')}}
         
       - name: Post Build Action
         id: ikmdev_post_build
         uses: ikmdev/maven-post-release-action@poc-testing
         with:
-            nexus_repo_id: "maven-releases"
+            nexus_repo_id: ${{steps.nexus_repo_id.outputs.NEXUS_REPO_ID}}
             nexus_repo_password: ${{secrets.EC2_NEXUS_PASSWORD}}
             repo_name: ${{github.event.workflow_run.head_repository.full_name}}
             branch_name: ${{github.event.workflow_run.head_branch}}
-            is_tag: 'true'
+            is_tag: ${{contains(github.ref_type, 'tag')}}
             ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
             github_token: ${{secrets.GITHUB_TOKEN}}
             ossrh_username: ${{secrets.OSSRH_TOKEN_USER}}
             ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
             gpg_key: ${{secrets.GPG_KEY}}
             gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
-            release_notes: ${{steps.release_notes.outputs.RELEASE_NOTES}}
+            release_notes: "Release ${{github.ref_name}}
 
 
   generate_release_installers:
