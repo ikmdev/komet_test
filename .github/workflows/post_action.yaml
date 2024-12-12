@@ -23,9 +23,9 @@ jobs:
         id:  nexus_repo_id
         run:  |
            if [ $TAG == 'true' ]; then
-             echo "NEXUS_REPO_ID=maven_releases">> $GITHUB_OUTPUT
+             echo "NEXUS_REPO_ID=maven-releases">> $GITHUB_OUTPUT
            elif [ $TAG == 'false' ]; then
-             echo "NEXUS_REPO_ID=maven_snapshots">> $GITHUB_OUTPUT
+             echo "NEXUS_REPO_ID=maven-snapshots">> $GITHUB_OUTPUT
            else
              echo "ERROR: Incorrect Type $TAG"
              exit 1
