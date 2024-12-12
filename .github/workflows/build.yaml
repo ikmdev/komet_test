@@ -39,7 +39,7 @@ jobs:
   generate_build_installers:
     name: Generate Snapshot Installers
     needs: build-job
-    if: contains(github.ref_type, 'tag') == 'false'
+    if: ${{contains(github.ref_type, 'tag') == 'false'}}
     strategy:
       matrix:
         os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
