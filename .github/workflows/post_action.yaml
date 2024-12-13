@@ -58,7 +58,7 @@ jobs:
       - name: Composite Action
         uses: ./.github/composite
         with:
-          branch_name: ${{ env.BRANCH_NAME }}
+          branch_name: ${{github.event.workflow_run.head_branch}}
           isTag: "true"
           release_upload_url: ${{ needs.post-build.outputs.RELEASE_UPLOAD_URL}}
           github_token: ${{secrets.GITHUB_TOKEN}}
