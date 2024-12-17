@@ -36,10 +36,14 @@ jobs:
           echo "ERROR: Attempting to release from branch ${{ env.BRANCH_NAME }}. Release from ${{ env.TRUNK_BRANCH_NAME }} branch only."
           exit 1
 
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+
       - name: Shared Release Action
         uses: ikmdev/maven-semver-release-action@gitflow-plugin-test
         with:
           version_type: ${{ github.event.inputs.version_type }}
-          ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
           github_token: ${{secrets.GITHUB_TOKEN}}
           release_version: ${{ github.event.inputs.release_version }}
