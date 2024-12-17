@@ -21,14 +21,18 @@ jobs:
        RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
        IS_SNAPSHOT_VERSION: ${{steps.ikmdev_post_build.outputs.is_snapshot_version}}
     steps:   
-      - name: Post Build Action
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{github.event.workflow_run.head_repository.full_name}}
+          ref: ${{github.event.workflow_run.head_branch}}
+          
+      - name: IKMDEV Post Build Action
         id: ikmdev_post_build
         uses: ikmdev/maven-post-release-action@poc-testing
         with:
             nexus_repo_password: ${{secrets.EC2_NEXUS_PASSWORD}}
-            repo_name: ${{github.event.workflow_run.head_repository.full_name}}
             branch_name: ${{github.event.workflow_run.head_branch}}
-            ikmdevops_pat: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
             github_token: ${{secrets.GITHUB_TOKEN}}
             ossrh_username: ${{secrets.OSSRH_TOKEN_USER}}
             ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
