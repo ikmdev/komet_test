@@ -15,23 +15,22 @@ jobs:
     name: Build Job
     runs-on: ubuntu-24.04
     steps:
+      - name: Pull Request Version Validation
+        if: github.event_name == 'pull_request'
+        uses: ikmdev/maven-pull-request-version-validation-action@main
+        
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      
       - uses: actions/setup-java@v4
         with:
             java-version: '21'
             distribution: 'zulu'
-
-      # - name: Build IKMDEV Code
-      #   uses: ikmdev/maven-clean-install-build-action@v1.1.0
-      #   with:
-      #     branch_name: ${{env.BRANCH_NAME}}
-      #     sonarcloud_token: ${{ secrets.SONAR_TOKEN }}
-      #     sonarcloud_host_url: ${{ 'https://sonarcloud.io/'}}
-      #     sonarcloud_organization: ${{ github.repository_owner }}
-      #     sonarcloud_sources: ${{ 'src/main/java' }}
-      #     sonarcloud_projectKey: ${{ github.repository_owner }}_${{ github.event.repository.name }}
-      #     sonarcloud_coverage_jacoco_xmlReportPaths: ${{ 'target/site/jacoco/jacoco.xml' }}
-      #     sonarcloud_java_binaries: ${{ 'target/classes' }}
-      #     sonarcloud_tests: ${{ '' }}
+          
+      - name: Build IKMDEV Code
+        uses: ikmdev/maven-clean-install-build-action@main
+        with:
+          branch_name: ${{env.BRANCH_NAME}}
      
 
   generate_build_installers:
