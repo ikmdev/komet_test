@@ -29,7 +29,7 @@ jobs:
           
       - name: IKMDEV Post Build Action
         id: ikmdev_post_build
-        uses: ikmdev/maven-post-build-action@poc-testing
+        uses: ikmdev/maven-post-build-action@main
         with:
             nexus_repo_password: ${{secrets.EC2_NEXUS_PASSWORD}}
             branch_name: ${{github.event.workflow_run.head_branch}}
@@ -38,6 +38,7 @@ jobs:
             ossrh_token: ${{secrets.OSSRH_TOKEN_PASS}}
             gpg_key: ${{secrets.GPG_KEY}}
             gpg_passphrase: ${{secrets.GPG_PASSPHRASE}}
+            sonarcloud_token: ${{ secrets.SONAR_TOKEN }}
 
   generate_release_installers:
     name: Generate Release Installers
