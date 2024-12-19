@@ -19,7 +19,7 @@ jobs:
     if: github.event.workflow_run.conclusion == 'success' && github.repository_owner == 'ikmdev'
     outputs:
        RELEASE_UPLOAD_URL: ${{steps.ikmdev_post_build.outputs.release_upload_url}}
-       IS_SNAPSHOT_VERSION: ${{steps.ikmdev_post_build.outputs.is_snapshot_version}}
+       IS_TAG: ${{steps.ikmdev_post_build.outputs.is_tag}}
     steps:   
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
   generate_release_installers:
     name: Generate Release Installers
     needs: post-build
-    if: needs.post-build.outputs.IS_SNAPSHOT_VERSION == 'false'
+    if: needs.post-build.outputs.IS_TAG == 'true'
     strategy:
       matrix:
         os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
