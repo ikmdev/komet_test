@@ -4,7 +4,7 @@
     <parent>
         <groupId>dev.ikm.komet.github.test</groupId>
         <artifactId>komet-parent</artifactId>
-        <version>1.77.0</version>
+        <version>1.78.0-SNAPSHOT</version>
     </parent>
     <artifactId>search</artifactId>
     <dependencies>
