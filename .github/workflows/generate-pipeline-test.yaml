@@ -8,6 +8,7 @@ on:
         description: "Enter Tag Name"
         required: true
         options:
+          - 12.34.0
           - -- SELECT --
           - 12.31.0
           - 12.30.0
