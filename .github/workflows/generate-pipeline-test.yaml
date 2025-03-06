@@ -10,9 +10,8 @@ on:
         description: "Enter Tag Name"
         required: true
         options:
-          -- SELECT --
+          - -- SELECT --
           - 12.27.0
-          - YOUR_TEXT_TO_APPEND
       properties_version:
         type: string 
         description: "Enter Properties Version"
