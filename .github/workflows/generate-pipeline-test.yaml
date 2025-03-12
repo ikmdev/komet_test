@@ -1,5 +1,7 @@
 name: Generate Data Pipeline
+
 run-name: Generate Data Pipeline -- ${{github.ref_name || github.head_ref}}
+
 on:
   workflow_dispatch:
     inputs:
@@ -8,15 +10,18 @@ on:
         description: "Enter Tag Name"
         required: true
         options:
-          - 12.42.0
           - 1.1.0
           - 1.0.0
+
       properties_version:
         type: string
-        description: "Enter Properties Version \nhttps://central.sonatype.com/artifact/dev.ikm.maven.tinkar/tinkar-example-data-properties/versions\n"
+        description: |+
+          Enter Properties Version 
+          https://central.sonatype.com/artifact/dev.ikm.maven.tinkar/tinkar-example-data-properties/versions
         required: true
 env:
   DATA_PROPERTIES_VERSION: tinkar-example-data-properties.version=${{inputs.properties_version}}
+
 jobs:
   generate-data:
     name: Generate Data
@@ -26,6 +31,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: ${{inputs.tag_name}}
+
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -36,6 +42,7 @@ jobs:
           server-password: MAVEN_CENTRAL_TOKEN
           gpg-private-key: ${{secrets.GPG_KEY}}
           gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
       - name: Maven Settings File
         uses: whelk-io/maven-settings-xml-action@v22
         with:
@@ -43,15 +50,64 @@ jobs:
           profiles: '[{"id": "nexus-profile", "properties": {"altDeploymentRepository": "maven-releases::https://nexus.tinkarbuild.com/repository/maven-releases"}}]'
           active_profiles: '["nexus-profile"]'
           output_file: .m2/settings.xml
+
       - name: Maven Build
-        run: "mvn clean install \\\n  --batch-mode \\\n  -U \\\n  -e \\\n  -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \\\n  -Dmaven.build.cache.enabled=false \\\n  -PcodeQuality \\\n  -PgenerateData \\\n  -D${{env.DATA_PROPERTIES_VERSION}} \\\n  ${{  steps.version_verification.outputs.RELEASE_ENFORCEMENT  }} \n"
+        run: |
+              mvn clean install \
+                --batch-mode \
+                -U \
+                -e \
+                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                -Dmaven.build.cache.enabled=false \
+                -PcodeQuality \
+                -PgenerateData \
+                -D${{env.DATA_PROPERTIES_VERSION}} \
+                ${{  steps.version_verification.outputs.RELEASE_ENFORCEMENT  }} 
+              
+  
       - name: Deploy To Nexus
-        run: "mvn deploy \\\n    --batch-mode \\\n    -U \\\n    -e \\\n    -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \\\n    -DskipTests \\\n    -DskipITs \\\n    -s '/home/runner/work/${{github.event.repository.name}}/${{github.event.repository.name}}/.m2/settings.xml'\\\n    -DrepositoryId='maven-releases' \\\n    -D${{env.DATA_PROPERTIES_VERSION}} \n"
+        run: |
+            mvn deploy \
+                --batch-mode \
+                -U \
+                -e \
+                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                -DskipTests \
+                -DskipITs \
+                -s '/home/runner/work/${{github.event.repository.name}}/${{github.event.repository.name}}/.m2/settings.xml'\
+                -DrepositoryId='maven-releases' \
+                -D${{env.DATA_PROPERTIES_VERSION}} 
+  
       - name: Version Verification
-        run: "CURRENT_VERSION=$(mvn help:evaluate -D'expression=project.version' -q -D'forceStdout') \nif [[ \"$CURRENT_VERSION\" == *\"SNAPSHOT\"* ]]; then\n    echo \"::error::Current Version $CURRENT_VERSION Is Invalid\"\n    exit\nfi\n"
-      - name: Publish To OSSRH (Maven Central Staging)
-        run: "mvn deploy \\\n   --batch-mode \\\n   -e \\\n   -U \\\n   -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \\\n   -DskipTests \\\n   -DskipITs \\\n   -Dmaven.main.skip \\\n   -Dmaven.test.skip \\\n   -DrepositoryId=ossrh \\\n   -DrepositoryIdOSSRH='true' \\\n   -PstageOSSRH \\\n   -PdeployReleaseDataArtifacts \\\n   -Dmaven.deploy.skip=true \\\n   -DskipNexusStagingDeployMojo=true \\\n   -Dmaven.build.cache.enabled=false \\\n   -D${{env.DATA_PROPERTIES_VERSION}}  \n        \n"
+        run: |
+            CURRENT_VERSION=$(mvn help:evaluate -D'expression=project.version' -q -D'forceStdout') 
+            if [[ "$CURRENT_VERSION" == *"SNAPSHOT"* ]]; then
+                echo "::error::Current Version $CURRENT_VERSION Is Invalid"
+                exit
+            fi
+            
+  
+      - name: Publish To OSSRH (Maven Central Staging) 
+        run: |
+             mvn deploy \
+                --batch-mode \
+                -e \
+                -U \
+                -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+                -DskipTests \
+                -DskipITs \
+                -Dmaven.main.skip \
+                -Dmaven.test.skip \
+                -DrepositoryId=ossrh \
+                -DrepositoryIdOSSRH='true' \
+                -PstageOSSRH \
+                -PdeployReleaseDataArtifacts \
+                -Dmaven.deploy.skip=true \
+                -DskipNexusStagingDeployMojo=true \
+                -Dmaven.build.cache.enabled=false \
+                -D${{env.DATA_PROPERTIES_VERSION}}  
+                     
         env:
-          MAVEN_USERNAME: ${{secrets.OSSRH_TOKEN_USER}}
-          MAVEN_CENTRAL_TOKEN: ${{secrets.OSSRH_TOKEN_PASS}}
-          MAVEN_GPG_PASSPHRASE: ${{secrets.GPG_PASSPHRASE}}
+              MAVEN_USERNAME: ${{secrets.OSSRH_TOKEN_USER}}
+              MAVEN_CENTRAL_TOKEN: ${{secrets.OSSRH_TOKEN_PASS}}
+              MAVEN_GPG_PASSPHRASE: ${{secrets.GPG_PASSPHRASE}}
