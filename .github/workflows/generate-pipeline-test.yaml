@@ -8,6 +8,7 @@ on:
         description: "Enter Tag Name"
         required: true
         options:
+          - $TAG
           - $LATEST-TAG
           - $LATEST-TAG
           - -- SELECT --
