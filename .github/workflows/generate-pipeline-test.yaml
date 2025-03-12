@@ -9,6 +9,7 @@ on:
         required: true
         options:
           - $TAG
+          - $TAG
           - $LATEST-TAG
           - $LATEST-TAG
           - -- SELECT --
