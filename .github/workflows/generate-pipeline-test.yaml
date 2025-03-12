@@ -9,6 +9,7 @@ on:
         required: true
         options:
           - $LATEST-TAG
+          - $LATEST-TAG
           - -- SELECT --
           - 12.27.0
           - YOUR_TEXT_TO_APPEND
