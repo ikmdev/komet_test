@@ -18,9 +18,7 @@ on:
 
       properties_version:
         type: choice
-        description: |+
-          Enter Properties Version 
-          https://central.sonatype.com/artifact/dev.ikm.maven.tinkar/tinkar-example-data-properties/versions
+        description: Enter Properties Version 
         required: true
         options:
 env:
