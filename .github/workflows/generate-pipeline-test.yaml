@@ -22,10 +22,8 @@ on:
         required: true
         options:
           - Test
-
 env:
   DATA_PROPERTIES_VERSION: tinkar-example-data-properties.version=${{inputs.properties_version}}
-
 jobs:
   generate-data:
     name: Generate Data
