@@ -21,6 +21,7 @@ on:
         description: "Enter Properties Version"
         required: true
         options:
+          - tinkar-example-data-properties-test-v1.12.0
           - tinkar-example-data-properties-test-v1.9.0
           - data-properties-test-parent-v1.10.0
           - tinkar-starter-data-properties-test-v1.18.0
