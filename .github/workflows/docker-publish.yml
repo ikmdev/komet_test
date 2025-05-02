@@ -1,7 +1,7 @@
 name: Build and Publish Nginx Image
 
 on:
-   workflow_dispatch:
+ workflow_dispatch:
 
 jobs:
   build:
@@ -18,7 +18,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build nginx image
-      run: docker-compose up --build ${{ secrets.DOCKER_USERNAME }}/nginx.
+      run: docker-compose up --build ${{ secrets.DOCKER_USERNAME }}/nginx
 
     - name: Push nginx image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/hello-world-website:latest
+      run: docker push ${{ secrets.DOCKER_USERNAME }}//nginx
