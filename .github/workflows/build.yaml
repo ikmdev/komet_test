@@ -1,63 +1,63 @@
-name: Build Workflow
+# name: Build Workflow
 
-run-name: 'Build Workflow -- ${{ github.head_ref || github.ref_name }}'
+# run-name: 'Build Workflow -- ${{ github.head_ref || github.ref_name }}'
 
-on:
-    push:
-    pull_request:
-    workflow_dispatch:
+# on:
+#     push:
+#     pull_request:
+#     workflow_dispatch:
 
-env:
-  BRANCH_NAME: ${{github.ref_name}}
+# env:
+#   BRANCH_NAME: ${{github.ref_name}}
 
-jobs:
-  build-job:
-    name: Build Job
-    runs-on: ubuntu-24.04
-    steps:
-      - name: Pull Request Version Validation
-        if: github.event_name == 'pull_request'
-        uses: ikmdev/maven-pull-request-version-validation-action@main
+# jobs:
+#   build-job:
+#     name: Build Job
+#     runs-on: ubuntu-24.04
+#     steps:
+#       - name: Pull Request Version Validation
+#         if: github.event_name == 'pull_request'
+#         uses: ikmdev/maven-pull-request-version-validation-action@main
         
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+#       - name: Checkout Repository
+#         uses: actions/checkout@v4
       
-      - uses: actions/setup-java@v4
-        with:
-            java-version: '21'
-            distribution: 'zulu'
+#       - uses: actions/setup-java@v4
+#         with:
+#             java-version: '21'
+#             distribution: 'zulu'
           
-      - name: Build IKMDEV Code
-        uses: ikmdev/maven-clean-install-build-action@main
-        with:
-          branch_name: ${{env.BRANCH_NAME}}
+#       - name: Build IKMDEV Code
+#         uses: ikmdev/maven-clean-install-build-action@main
+#         with:
+#           branch_name: ${{env.BRANCH_NAME}}
      
 
-  generate_build_installers:
-    name: Generate Snapshot Installers
-    needs: build-job
-    if: ${{!contains(github.ref_type, 'tag')}}
-    strategy:
-      matrix:
-        os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
-    runs-on: ${{matrix.os}}
-    steps:
-       - name: Checkout Code Repository
-         uses: actions/checkout@v4
+#   generate_build_installers:
+#     name: Generate Snapshot Installers
+#     needs: build-job
+#     if: ${{!contains(github.ref_type, 'tag')}}
+#     strategy:
+#       matrix:
+#         os: [macos-13, macos-14, ubuntu-20.04, windows-2022]
+#     runs-on: ${{matrix.os}}
+#     steps:
+#        - name: Checkout Code Repository
+#          uses: actions/checkout@v4
     
-       - name: Setup Java
-         uses: actions/setup-java@v4
-         with:
-            distribution: 'zulu'
-            java-version: '21'
+#        - name: Setup Java
+#          uses: actions/setup-java@v4
+#          with:
+#             distribution: 'zulu'
+#             java-version: '21'
 
-       - name: Composite Action
-         uses: ./.github/composite
-         with:
-            branch_name: ${{ env.BRANCH_NAME }}
-            isTag: "false"
-            release_upload_url: ${{ '' }}
-            github_token: ${{secrets.GITHUB_TOKEN}}
-            operating_system: ${{matrix.os}}
+#        - name: Composite Action
+#          uses: ./.github/composite
+#          with:
+#             branch_name: ${{ env.BRANCH_NAME }}
+#             isTag: "false"
+#             release_upload_url: ${{ '' }}
+#             github_token: ${{secrets.GITHUB_TOKEN}}
+#             operating_system: ${{matrix.os}}
         
 
