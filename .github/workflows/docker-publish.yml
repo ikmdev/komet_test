@@ -20,7 +20,7 @@ jobs:
     - name: Build nginx image and tag
       run: | 
        docker compose build
-       docker tag nginx:1.26.3 ${{ secrets.DOCKER_USERNAME }}/nginx:1.26.3 
+       docker tag nginx ${{ secrets.DOCKER_USERNAME }}/nginx:1.26.3
 
     - name: Push nginx image
       run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx:1.26.3
