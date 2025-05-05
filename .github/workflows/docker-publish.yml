@@ -19,7 +19,7 @@ jobs:
 
     - name: Build nginx image and tag
       run: | 
-         docker-compose -f docker-compose.yml build nginx
+         docker compose -f docker-compose.yml build nginx
          
 
       #  docker tag nginx ${{ secrets.DOCKER_USERNAME }}/nginx:1.26.3
