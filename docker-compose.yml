@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: docker/Dockerfile-nginx
+    image: sidahal2018/nginx:latest
     container_name: nginx
     ports:
       - "${NGINX_PORT:-8080}:80"
