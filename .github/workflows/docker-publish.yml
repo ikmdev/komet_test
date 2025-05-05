@@ -25,4 +25,5 @@ jobs:
       #  docker tag nginx ${{ secrets.DOCKER_USERNAME }}/nginx:1.26.3
 
     - name: Push nginx image
-      run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx
+      run: docker-compose -f docker-compose.yml push nginx
+      
