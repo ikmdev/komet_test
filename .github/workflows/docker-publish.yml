@@ -1,7 +1,7 @@
 name: Build and Publish Komet App
 
 on:
-
+  workflow_dispatch:
   push:
    tags:
       - '*'
