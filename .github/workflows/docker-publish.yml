@@ -24,10 +24,9 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v4
-        # if: ${{!contains(github.ref_type, 'tag')}}
-        with:
-         context: .
-         push: true
-         tags: ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
+      - name: Build nginx image and tag
+        run: |
+          docker compose -f docker-compose.yml build ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
+
+      - name: Push nginx image
+        run: docker compose -f docker-compose.yml push ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
