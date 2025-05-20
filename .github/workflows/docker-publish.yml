@@ -1,5 +1,7 @@
 name: Build and Publish Komet App
 
+run-name: Build & Publish Komet App -- ${{github.ref_name}}
+
 on:
   workflow_dispatch:
   push:
