@@ -26,7 +26,8 @@ jobs:
 
       - name: Build nginx image and tag
         run: |
-          docker compose -f docker-compose.yml build ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
+          docker compose -f docker-compose.yml build
+          docker tag {{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
 
       - name: Push nginx image
         run: docker compose -f docker-compose.yml push ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
