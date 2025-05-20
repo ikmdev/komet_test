@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.search.SearchNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.search.SearchNodeFactory;
 
-module dev.ikm.komet.search {
+module dev.ikm.komet_test.search {
 
-    requires transitive dev.ikm.komet.framework;
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.search;
-    exports dev.ikm.komet.search;
+    opens dev.ikm.komet_test.search;
+    exports dev.ikm.komet_test.search;
     
     provides KometNodeFactory
             with SearchNodeFactory;

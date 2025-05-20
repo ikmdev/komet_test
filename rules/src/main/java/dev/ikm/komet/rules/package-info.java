@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules;
+package dev.ikm.komet_test.rules;
 /**
  * Goal for observations is to implement a standard model loosely based on analysis normal form, but not
  * concerned with using analysis normal form for requests at this point.

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.terms.ConceptFacade;
 import dev.ikm.tinkar.terms.ProxyFactory;
@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
 
 /**
  * 

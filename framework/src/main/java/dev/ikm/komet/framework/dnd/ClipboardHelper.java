@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.dnd;
+package dev.ikm.komet_test.framework.dnd;
 
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -22,7 +22,7 @@ import dev.ikm.tinkar.terms.EntityProxy;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.ikm.komet.framework.dnd.KometClipboard.*;
+import static dev.ikm.komet_test.framework.dnd.KometClipboard.*;
 
 public class ClipboardHelper {
 

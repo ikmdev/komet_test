@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions.axiom;
+package dev.ikm.komet_test.rules.actions.axiom;
 
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.context.SearchForConceptActionEventHandler;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.context.SearchForConceptActionEventHandler;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
 import dev.ikm.tinkar.terms.EntityFacade;
 import javafx.application.Platform;

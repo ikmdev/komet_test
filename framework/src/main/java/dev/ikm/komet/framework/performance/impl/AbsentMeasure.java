@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance.impl;
+package dev.ikm.komet_test.framework.performance.impl;
 
-import dev.ikm.komet.framework.performance.Measure;
+import dev.ikm.komet_test.framework.performance.Measure;
 import dev.ikm.tinkar.terms.ConceptFacade;
 
 import java.util.Optional;

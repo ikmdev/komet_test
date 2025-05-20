@@ -13,25 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.results;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.results;
 
-import dev.ikm.komet.framework.Identicon;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.Subscriber;
-import dev.ikm.komet.framework.search.SearchPanelController;
-import dev.ikm.komet.framework.search.SearchResultCell;
-import dev.ikm.komet.kview.data.schema.STAMPDetail;
-import dev.ikm.komet.kview.events.StampModifiedEvent;
-import dev.ikm.komet.kview.fxutils.ComboBoxHelper;
-import dev.ikm.komet.kview.lidr.events.AddResultEvent;
-import dev.ikm.komet.kview.lidr.events.ShowPanelEvent;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.ResultsViewModel;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper;
-import dev.ikm.komet.kview.mvvm.view.AbstractBasicController;
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel;
-import dev.ikm.komet.navigator.graph.MultiParentGraphCell;
+import dev.ikm.komet_test.framework.Identicon;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.Subscriber;
+import dev.ikm.komet_test.framework.search.SearchPanelController;
+import dev.ikm.komet_test.framework.search.SearchResultCell;
+import dev.ikm.komet_test.kview.data.schema.STAMPDetail;
+import dev.ikm.komet_test.kview.events.StampModifiedEvent;
+import dev.ikm.komet_test.kview.fxutils.ComboBoxHelper;
+import dev.ikm.komet_test.kview.lidr.events.AddResultEvent;
+import dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ResultsViewModel;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper;
+import dev.ikm.komet_test.kview.mvvm.view.AbstractBasicController;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel;
+import dev.ikm.komet_test.navigator.graph.MultiParentGraphCell;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.entity.ConceptEntity;
 import dev.ikm.tinkar.entity.Entity;
@@ -57,12 +57,12 @@ import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.function.Consumer;
 
-import static dev.ikm.komet.kview.lidr.events.AddResultEvent.ADD_RESULT_TO_ANALYTE_GROUP;
-import static dev.ikm.komet.kview.lidr.events.ShowPanelEvent.SHOW_ADD_ANALYTE_GROUP;
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.*;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ResultsViewModel.*;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
+import static dev.ikm.komet_test.kview.lidr.events.AddResultEvent.ADD_RESULT_TO_ANALYTE_GROUP;
+import static dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent.SHOW_ADD_ANALYTE_GROUP;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.*;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ResultsViewModel.*;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
 
 /**
  * Manual Entry for Results Conformance Panel.

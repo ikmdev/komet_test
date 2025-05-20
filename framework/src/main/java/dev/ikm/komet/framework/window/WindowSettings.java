@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.window;
+package dev.ikm.komet_test.framework.window;
 
 import javafx.beans.property.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.service.PrimitiveData;

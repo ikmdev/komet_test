@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.window;
+package dev.ikm.komet_test.framework.window;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,12 +31,12 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.concurrent.TaskWrapper;
-import dev.ikm.komet.framework.tabs.DetachableTab;
-import dev.ikm.komet.framework.tabs.TabGroup;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.framework.view.ViewMenuTask;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.concurrent.TaskWrapper;
+import dev.ikm.komet_test.framework.tabs.DetachableTab;
+import dev.ikm.komet_test.framework.tabs.TabGroup;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.framework.view.ViewMenuTask;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.service.TinkExecutor;

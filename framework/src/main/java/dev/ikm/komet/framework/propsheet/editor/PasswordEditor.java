@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet.editor;
+package dev.ikm.komet_test.framework.propsheet.editor;
 
 import javafx.beans.property.StringProperty;
 import javafx.scene.control.PasswordField;

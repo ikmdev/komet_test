@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.artifact;
+package dev.ikm.komet_test.artifact;
 
 
-import dev.ikm.komet.framework.concurrent.TaskWrapper;
-import dev.ikm.komet.framework.progress.ProgressHelper;
+import static dev.ikm.komet_test.framework.events.FrameworkTopics.CALCULATOR_CACHE_TOPIC;
+import static dev.ikm.komet_test.framework.events.appevents.RefreshCalculatorCacheEvent.GLOBAL_REFRESH;
+import dev.ikm.komet_test.framework.concurrent.TaskWrapper;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.appevents.RefreshCalculatorCacheEvent;
+import dev.ikm.komet_test.framework.progress.ProgressHelper;
+import dev.ikm.tinkar.entity.EntityCountSummary;
 import dev.ikm.tinkar.entity.load.LoadEntitiesFromProtobufFile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,29 +31,30 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
 
 public class ArtifactImportController {
-    @FXML
 
+    private static final Logger LOG = LoggerFactory.getLogger(ArtifactImportController.class);
+
+    @FXML
     private Label choosenFileLabel;
+
     @FXML
-
-
     private Button importButton;
+
     @FXML
-
-
     private Button cancelButton;
+
     @FXML
-
-
     private ProgressBar importProgressBar;
+
     @FXML
-
-
     private FileChooser fileChooser;
 
     @FXML
@@ -108,7 +114,29 @@ public class ArtifactImportController {
 
         importProgressBar.progressProperty().unbind();
         importProgressBar.progressProperty().bind(importTask.progressProperty());
-        ProgressHelper.progress(importTask, "Cancel Import");
+
+        // let progress manager know about this task.
+        CompletableFuture<EntityCountSummary> future = ProgressHelper.progress(importTask, "Cancel Import");
+        future.whenComplete((entityCountSummary, throwable) -> {
+           if (throwable != null) {
+               importTask.updateMessage("Import Failed: "+throwable.getMessage());
+               throwable.printStackTrace();
+           } else {
+               if (entityCountSummary != null) {
+                   EntityCountSummary ecs = entityCountSummary;
+                   String completeMsg = importTask.getMessage();
+                   importTask.updateMessage("%s - total: %d, C: %d, Sem: %d, P: %d, Stamps: %d".formatted(
+                           completeMsg,
+                           ecs.getTotalCount(),
+                           ecs.conceptsCount(),
+                           ecs.semanticsCount(),
+                           ecs.patternsCount(),
+                           ecs.stampsCount())
+                   );
+               }
+               EvtBusFactory.getDefaultEvtBus().publish(CALCULATOR_CACHE_TOPIC, new RefreshCalculatorCacheEvent(event.getSource(), GLOBAL_REFRESH));
+           }
+        });
     }
 
     @FXML
@@ -116,23 +144,7 @@ public class ArtifactImportController {
         importProgressBar.setProgress(0);
     }
 
-    protected Label getChoosenFileLabel() {
-        return choosenFileLabel;
-    }
-
-    protected Button getImportButton() {
-        return importButton;
-    }
-
-    protected Button getCancelButton() {
-        return cancelButton;
-    }
-
     protected ProgressBar getImportProgressBar() {
         return importProgressBar;
-    }
-
-    protected FileChooser getFileChooser() {
-        return fileChooser;
     }
 }

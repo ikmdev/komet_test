@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.uncertain;
+package dev.ikm.komet_test.framework.uncertain;
 
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
-import dev.ikm.komet.framework.view.LongPropertyWithOverride;
-import dev.ikm.komet.framework.view.ObjectPropertyWithOverride;
+import dev.ikm.komet_test.framework.view.LongPropertyWithOverride;
+import dev.ikm.komet_test.framework.view.ObjectPropertyWithOverride;
 import dev.ikm.tinkar.coordinate.stamp.StampPosition;
 import dev.ikm.tinkar.coordinate.stamp.StampPositionRecord;
 import dev.ikm.tinkar.terms.ConceptFacade;

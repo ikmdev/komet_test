@@ -12,7 +12,6 @@
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
@@ -20,8 +19,9 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.SVGPath?>
+<?import dev.ikm.komet_test.kview.controls.KLWorkspace?>
 
-<BorderPane fx:id="journalBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../kview.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ikm.komet.kview.mvvm.view.journal.JournalController">
+<BorderPane fx:id="journalBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../kview.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.ikm.komet_test.kview.mvvm.view.journal.JournalController">
    <center>
       <BorderPane prefHeight="485.0" prefWidth="544.0" BorderPane.alignment="CENTER">
          <top>
@@ -134,11 +134,7 @@
                         </HBox>
                      </top>
                      <center>
-                        <Pane fx:id="desktopSurfacePane" prefHeight="200.0" prefWidth="200.0" styleClass="desktop-area">
-                           <children>
-                              <Region fx:id="dropAnimationRegion" layoutX="32.0" layoutY="30.0" mouseTransparent="true" prefHeight="200.0" prefWidth="200.0" styleClass="search-drop-region" />
-                           </children>
-                        </Pane>
+                        <KLWorkspace fx:id="workspace" focusTraversable="true"/>
                      </center>
                   </BorderPane>
                </center>
@@ -156,15 +152,7 @@
             </BorderPane>
          </center>
          <left>
-            <StackPane BorderPane.alignment="CENTER">
-               <children>
-                  <Pane fx:id="progressSlideoutTrayPane" styleClass="slideout-tray-pane" />
-                  <Pane fx:id="navSlideoutTrayPane" styleClass="slideout-tray-pane" />
-                  <Pane fx:id="searchSlideoutTrayPane" styleClass="slideout-tray-pane" />
-                  <Pane fx:id="reasonerSlideoutTrayPane" styleClass="slideout-tray-pane" />
-                  <Pane fx:id="nexGenSearchSlideoutTrayPane" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" styleClass="slideout-tray-pane" />
-               </children>
-            </StackPane>
+            <StackPane fx:id="trayPaneContainer" BorderPane.alignment="CENTER" />
          </left>
       </BorderPane>
    </center>
@@ -216,7 +204,7 @@
                </graphic>
             </ToggleButton>
             <Rectangle fill="DODGERBLUE" height="1.0" stroke="BLACK" strokeType="INSIDE" styleClass="divider" width="36.0" />
-            <ToggleButton mnemonicParsing="false" text="ToggleButton" toggleGroup="$sidebarToggleGroup">
+            <ToggleButton fx:id="conceptNavigatorToggleButton" mnemonicParsing="false" text="ToggleButton" toggleGroup="$sidebarToggleGroup">
                <graphic>
                   <Region prefHeight="200.0" prefWidth="200.0">
                      <styleClass>
@@ -237,7 +225,7 @@
                   </Region>
                </graphic>
             </ToggleButton>
-            <ToggleButton mnemonicParsing="false" text="ToggleButton" toggleGroup="$sidebarToggleGroup">
+            <ToggleButton fx:id="nextGenReasonerToggleButton" mnemonicParsing="false" text="ToggleButton" toggleGroup="$sidebarToggleGroup">
                <graphic>
                   <Region prefHeight="200.0" prefWidth="200.0">
                      <styleClass>

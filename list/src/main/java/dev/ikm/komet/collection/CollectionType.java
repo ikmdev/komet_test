@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.collection;
+package dev.ikm.komet_test.collection;
 
 public enum CollectionType {
     SET(".tink.set.txt", "set", "Set"),

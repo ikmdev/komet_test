@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions.concept;
+package dev.ikm.komet_test.rules.actions.concept;
 
-import static dev.ikm.komet.framework.activity.ActivityStreams.BUILDER;
+import static dev.ikm.komet_test.framework.activity.ActivityStreams.BUILDER;
 
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.builder.AxiomBuilderRecord;
-import dev.ikm.komet.framework.builder.ConceptEntityBuilder;
-import dev.ikm.komet.framework.performance.Request;
-import dev.ikm.komet.framework.rulebase.GeneratedActionImmediate;
-import dev.ikm.komet.rules.actions.AbstractActionImmediate;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.builder.AxiomBuilderRecord;
+import dev.ikm.komet_test.framework.builder.ConceptEntityBuilder;
+import dev.ikm.komet_test.framework.performance.Request;
+import dev.ikm.komet_test.framework.rulebase.GeneratedActionImmediate;
+import dev.ikm.komet_test.rules.actions.AbstractActionImmediate;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinate;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinateRecord;

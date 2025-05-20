@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.app.test;
+package dev.ikm.komet_test.app.test;
 
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.framework.window.WindowSettings;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.KometPreferencesImpl;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.window.WindowSettings;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferencesImpl;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.service.CachingService;
 import dev.ikm.tinkar.common.service.PrimitiveData;
@@ -44,7 +44,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static dev.ikm.komet.kview.mvvm.viewmodel.DataViewModelHelper.DATA_TYPE_OPTIONS;
+import static dev.ikm.komet_test.kview.mvvm.model.DataModelHelper.fetchFieldDefinitionDataTypes;
 
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -108,13 +108,13 @@ public class DataTypesViewModelTest {
         });
     }
 
- //   @Test
+//    @Test
     public void loadDataTypesTest2(){
         Platform.startup(() -> {
             ViewProperties viewProperties = createViewProperties();
             ViewCalculator viewCalculator = viewProperties.calculator();
             AtomicInteger counter = new AtomicInteger();
-            DATA_TYPE_OPTIONS.forEach(entityFacade -> {
+            fetchFieldDefinitionDataTypes().forEach(entityFacade -> {
                 Optional<String> stringOptional = viewCalculator.getFullyQualifiedNameText(entityFacade.nid());
                 LOG.info(counter.incrementAndGet() + " - " + stringOptional.orElse(""));
             });

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.graph;
+package dev.ikm.komet_test.navigator.graph;
 
 import javafx.scene.Node;
 import javafx.scene.layout.HBox;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.graphics.Icon;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;

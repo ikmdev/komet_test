@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet;
+package dev.ikm.komet_test.framework.propsheet;
 
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.observable.ObservableSemantic;
-import dev.ikm.komet.framework.observable.ObservableSemanticVersion;
-import dev.ikm.komet.framework.panel.axiom.AxiomView;
-import dev.ikm.komet.framework.propsheet.editor.IntIdListEditor;
-import dev.ikm.komet.framework.propsheet.editor.IntIdSetEditor;
-import dev.ikm.komet.framework.propsheet.editor.ListEditor;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.observable.ObservableSemantic;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticVersion;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomView;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdListEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdSetEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.ListEditor;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.IntIdList;
@@ -189,9 +189,9 @@ public class KometPropertyEditorFactory implements Callback<PropertySheet.Item, 
                     if (property.getObservableField().meaningNid() == TinkarTerm.EL_PLUS_PLUS_INFERRED_TERMINOLOGICAL_AXIOMS.nid()) {
                         premiseType = PremiseType.INFERRED;
                     }
-                    int semanticNid = property.observableField.field().semanticNid();
+                    int semanticNid = property.observableField.field().nid();
                     ObservableSemantic axiomSemantic = ObservableSemantic.get(semanticNid);
-                    ObservableSemanticVersion axiomSemanticVersion = axiomSemantic.getVersionFast(property.observableField.field().semanticVersionStampNid());
+                    ObservableSemanticVersion axiomSemanticVersion = axiomSemantic.getVersionFast(property.observableField.field().versionStampNid());
 
                     AxiomView axiomView = AxiomView.create(axiomSemanticVersion, premiseType, viewProperties);
                     return Optional.of(axiomView);

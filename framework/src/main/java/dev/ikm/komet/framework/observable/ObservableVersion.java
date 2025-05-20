@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -25,13 +25,16 @@ import dev.ikm.tinkar.entity.StampEntity;
 import dev.ikm.tinkar.entity.transaction.Transaction;
 import dev.ikm.tinkar.terms.ConceptFacade;
 import dev.ikm.tinkar.terms.State;
+import org.eclipse.collections.api.map.ImmutableMap;
 
 import java.util.Objects;
 
 public abstract sealed class ObservableVersion<V extends EntityVersion>
-        implements EntityVersion
+        implements EntityVersion, ObservableComponent
         permits ObservableConceptVersion, ObservablePatternVersion, ObservableSemanticVersion, ObservableStampVersion {
     protected final SimpleObjectProperty<V> versionProperty = new SimpleObjectProperty<>();
+
+    private final EntityVersion entityVersion;
 
     final SimpleObjectProperty<State> stateProperty = new SimpleObjectProperty<>();
     final SimpleLongProperty timeProperty = new SimpleLongProperty();
@@ -42,6 +45,7 @@ public abstract sealed class ObservableVersion<V extends EntityVersion>
 
     ObservableVersion(V entityVersion) {
         versionProperty.set(entityVersion);
+        this.entityVersion = entityVersion;
         stateProperty.set(entityVersion.state());
         timeProperty.set(entityVersion.time());
         authorProperty.set(Entity.provider().getEntityFast(entityVersion.authorNid()));
@@ -49,6 +53,8 @@ public abstract sealed class ObservableVersion<V extends EntityVersion>
         pathProperty.set(Entity.provider().getEntityFast(entityVersion.pathNid()));
         addListeners();
     }
+
+    public abstract ImmutableMap<FieldCategory, ObservableField> getObservableFields();
 
     protected void addListeners() {
         stateProperty.addListener((observable, oldValue, newValue) -> {
@@ -116,10 +122,15 @@ public abstract sealed class ObservableVersion<V extends EntityVersion>
                 throw new IllegalStateException("Version is already committed, cannot change value.");
             }
         });
+
     }
 
     public V version() {
         return versionProperty.getValue();
+    }
+
+    public EntityVersion getEntityVersion(){
+        return this.entityVersion;
     }
 
     protected abstract V withStampNid(int stampNid);

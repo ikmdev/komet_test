@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.controls;
+package dev.ikm.komet_test.framework.controls;
 
 
 import javafx.application.Platform;
@@ -26,15 +26,15 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.Dragboard;
 import javafx.stage.WindowEvent;
 import org.controlsfx.property.editor.PropertyEditor;
-import dev.ikm.komet.framework.MenuItemWithText;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.context.AddToContextMenu;
-import dev.ikm.komet.framework.context.AddToContextMenuSimple;
-import dev.ikm.komet.framework.dnd.DragAndDropHelper;
-import dev.ikm.komet.framework.dnd.KometClipboard;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.MenuItemWithText;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.context.AddToContextMenu;
+import dev.ikm.komet_test.framework.context.AddToContextMenuSimple;
+import dev.ikm.komet_test.framework.dnd.DragAndDropHelper;
+import dev.ikm.komet_test.framework.dnd.KometClipboard;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.component.Concept;
 import dev.ikm.tinkar.component.Pattern;
@@ -46,9 +46,9 @@ import dev.ikm.tinkar.terms.ProxyFactory;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static dev.ikm.komet.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
-import static dev.ikm.komet.framework.StyleClasses.CONCEPT_LABEL;
-import static dev.ikm.komet.framework.StyleClasses.PROP_SHEET_ENTITY_LABEL;
+import static dev.ikm.komet_test.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
+import static dev.ikm.komet_test.framework.StyleClasses.CONCEPT_LABEL;
+import static dev.ikm.komet_test.framework.StyleClasses.PROP_SHEET_ENTITY_LABEL;
 
 //~--- non-JDK imports --------------------------------------------------------
 

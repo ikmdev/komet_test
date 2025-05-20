@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.model;
+package dev.ikm.komet_test.kview.lidr.mvvm.model;
 
-import dev.ikm.komet.framework.builder.AxiomBuilderRecord;
-import dev.ikm.komet.framework.panel.axiom.LogicalOperatorsForVertex;
-import dev.ikm.komet.framework.view.ObservableView;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.framework.window.WindowSettings;
-import dev.ikm.komet.kview.data.persistence.SemanticWriter;
-import dev.ikm.komet.kview.data.schema.SemanticDetail;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.KometPreferencesImpl;
+import dev.ikm.komet_test.framework.builder.AxiomBuilderRecord;
+import dev.ikm.komet_test.framework.panel.axiom.LogicalOperatorsForVertex;
+import dev.ikm.komet_test.framework.view.ObservableView;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.window.WindowSettings;
+import dev.ikm.komet_test.kview.data.persistence.SemanticWriter;
+import dev.ikm.komet_test.kview.data.schema.SemanticDetail;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferencesImpl;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.IntIds;
 import dev.ikm.tinkar.common.id.PublicId;
@@ -223,7 +223,7 @@ public class DataModelHelper {
         return NavigationCalculatorWithCache.getCalculator(stampCoordinateRecord, Lists.immutable.of(languageCoordinateRecord), navigationCoordinateRecord);
     }
 
-    public static Optional<Concept> findDeviceManufacturer(PublicId pubId) {
+    public static Optional<ConceptFacade> findDeviceManufacturer(PublicId pubId) {
         return findDeviceManufacturer(viewPropertiesNode().calculator().navigationCalculator(), pubId);
     }
 
@@ -244,24 +244,24 @@ public class DataModelHelper {
         return publicIdAtomicReference.get();
     }
 
-    public static Optional<Concept> findDeviceManufacturer(NavigationCalculator navCalc, PublicId pubId) {
-        AtomicReference<Optional<Concept>> deviceManufacturer = new AtomicReference<>(Optional.empty());
+    public static Optional<ConceptFacade> findDeviceManufacturer(NavigationCalculator navCalc, PublicId pubId) {
+        AtomicReference<Optional<ConceptFacade>> deviceManufacturer = new AtomicReference<>(Optional.empty());
         findLatestLogicalDefinition(navCalc, pubId).ifPresent((latestLogicalDefinition) -> {
             deviceManufacturer.set(findConceptReferenceForRoleType(latestLogicalDefinition, MANUFACTURED_BY.publicId()));
         });
         return deviceManufacturer.get();
     }
 
-    public static Optional<DiTree<Vertex>> findLatestLogicalDefinition(PublicId pubId) {
+    public static Optional<DiTree<EntityVertex>> findLatestLogicalDefinition(PublicId pubId) {
 //        return findLatestLogicalDefinition(viewPropertiesNode().calculator().navigationCalculator(), pubId);
         return findLatestLogicalDefinition(defaultNavigationCalculator(), pubId);
     }
 
-    public static Optional<DiTree<Vertex>> findLatestLogicalDefinition(NavigationCalculator navCalc, PublicId pubId) {
+    public static Optional<DiTree<EntityVertex>> findLatestLogicalDefinition(NavigationCalculator navCalc, PublicId pubId) {
         int componentNid = EntityService.get().nidForPublicId(pubId);
         StampCalculator stampCalculator = navCalc.stampCalculator();
         AtomicReference<StampEntity<StampEntityVersion>> latestStamp = new AtomicReference<>();
-        AtomicReference<DiTree<Vertex>> latestLogicalDefinitionSemanticVersion = new AtomicReference<>();
+        AtomicReference<DiTree<EntityVertex>> latestLogicalDefinitionSemanticVersion = new AtomicReference<>();
 
         for (int navigationPatternNid : navCalc.navigationCoordinate().navigationPatternNids().toArray()) {
             int logicalDefintionPatternNid =
@@ -286,13 +286,13 @@ public class DataModelHelper {
         return Optional.ofNullable(latestLogicalDefinitionSemanticVersion.get());
     }
 
-    public static Optional<Concept> findConceptReferenceForRoleType(DiTree<Vertex> logicalDefinition, PublicId roleTypeToFind) {
-        ImmutableList<Vertex> vertexList = logicalDefinition.vertexMap();
-        for (Vertex vertex : vertexList) {
+    public static Optional<ConceptFacade> findConceptReferenceForRoleType(DiTree<EntityVertex> logicalDefinition, PublicId roleTypeToFind) {
+        ImmutableList<EntityVertex> vertexList = logicalDefinition.vertexMap();
+        for (EntityVertex vertex : vertexList) {
             if (LogicalOperatorsForVertex.ROLE.semanticallyEqual((EntityFacade) vertex.meaning())) {
-                Concept roleTypeProperty = vertex.propertyAsConcept(TinkarTerm.ROLE_TYPE).get();
+                ConceptFacade roleTypeProperty = vertex.propertyAsConcept(TinkarTerm.ROLE_TYPE).get();
                 if (roleTypeProperty.equals(roleTypeToFind)) {
-                    Vertex manufacturerVertex = logicalDefinition.successors(vertex).get(0);
+                    EntityVertex manufacturerVertex = logicalDefinition.successors(vertex).get(0);
                     return manufacturerVertex.propertyAsConcept(TinkarTerm.CONCEPT_REFERENCE);
                 }
             }
@@ -352,10 +352,10 @@ public class DataModelHelper {
     public static boolean isSubtype(NavigationCalculator navCalc, PublicId pubId, PublicId superTypeId) {
         int deviceComponentNid = EntityService.get().nidForPublicId(superTypeId);
 
-        AtomicReference<DiTree<Vertex>> logicalDefinition = new AtomicReference<>();
+        AtomicReference<DiTree<EntityVertex>> logicalDefinition = new AtomicReference<>();
         findLatestLogicalDefinition(navCalc, pubId).ifPresent(logicalDefinition::set);
-        ImmutableList<Vertex> vertexList = logicalDefinition.get().vertexMap();
-        for (Vertex vertex : vertexList) {
+        ImmutableList<EntityVertex> vertexList = logicalDefinition.get().vertexMap();
+        for (EntityVertex vertex : vertexList) {
             if (LogicalOperatorsForVertex.CONCEPT.semanticallyEqual((EntityFacade) vertex.meaning())) {
                 EntityFacade refConcept = (EntityFacade) vertex.propertyAsConcept(TinkarTerm.CONCEPT_REFERENCE).get();
                 if (refConcept.nid() == deviceComponentNid) {

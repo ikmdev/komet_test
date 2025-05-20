@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 //~--- non-JDK imports --------------------------------------------------------
 import javafx.application.Platform;
@@ -39,7 +39,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 
 //~--- non-JDK imports --------------------------------------------------------
-import static dev.ikm.komet.framework.StyleClasses.HEADER_PANEL;
+import static dev.ikm.komet_test.framework.StyleClasses.HEADER_PANEL;
 import org.controlsfx.dialog.ProgressDialog;
 
 //~--- classes ----------------------------------------------------------------

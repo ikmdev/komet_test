@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance;
+package dev.ikm.komet_test.framework.performance;
 
 /**
  * An instruction to provide information or perform another function

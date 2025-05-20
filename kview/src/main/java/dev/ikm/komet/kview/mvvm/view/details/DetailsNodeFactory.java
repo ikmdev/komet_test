@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.details;
+package dev.ikm.komet_test.kview.mvvm.view.details;
 
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.annotations.KometNodeFactoryDisplay;
-import dev.ikm.komet.framework.preferences.Reconstructor;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.annotations.KometNodeFactoryDisplay;
+import dev.ikm.komet_test.framework.preferences.Reconstructor;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 
 @KometNodeFactoryDisplay(journalView = false, dockFXView = false)

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.concurrent;
+package dev.ikm.komet_test.framework.concurrent;
 
 import javafx.concurrent.Task;
 

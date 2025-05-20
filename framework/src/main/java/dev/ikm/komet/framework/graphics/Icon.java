@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.graphics;
+package dev.ikm.komet_test.framework.graphics;
 
 import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
@@ -21,7 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-import static dev.ikm.komet.framework.graphics.IconCheetSheet.*;
+import static dev.ikm.komet_test.framework.graphics.IconCheetSheet.*;
 
 public enum Icon {
 

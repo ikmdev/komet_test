@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel;
+package dev.ikm.komet_test.framework.panel;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -21,9 +21,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WeakChangeListener;
 import javafx.scene.control.ScrollPane;
-import dev.ikm.komet.framework.observable.ObservableEntity;
-import dev.ikm.komet.framework.observable.ObservableEntitySnapshot;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.observable.ObservableEntity;
+import dev.ikm.komet_test.framework.observable.ObservableEntitySnapshot;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.flow.FlowSubscriber;
 import dev.ikm.tinkar.common.util.broadcast.Subscriber;
 import dev.ikm.tinkar.entity.Entity;

@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance;
+package dev.ikm.komet_test.framework.performance;
 
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.performance.impl.StatementHashStore;
+import dev.ikm.komet_test.framework.performance.impl.StatementHashStore;
 
 public interface StatementStore {
     static StatementStore make(Statement... statements) {

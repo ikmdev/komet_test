@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -22,18 +22,18 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToolBar;
 import javafx.stage.Stage;
-import dev.ikm.komet.framework.MenuItemWithText;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.PreferencesService;
+import dev.ikm.komet_test.framework.MenuItemWithText;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.PreferencesService;
 
 import java.util.Optional;
 import java.util.Stack;
 import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
 
 /**
  * 

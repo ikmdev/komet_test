@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.pattern;
+package dev.ikm.komet_test.navigator.pattern;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -28,14 +28,14 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.temp.FxGet;
-import dev.ikm.komet.framework.view.ObservableView;
-import dev.ikm.komet.framework.view.ViewMenuModel;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.temp.FxGet;
+import dev.ikm.komet_test.framework.view.ObservableView;
+import dev.ikm.komet_test.framework.view.ViewMenuModel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.common.service.PrimitiveData;

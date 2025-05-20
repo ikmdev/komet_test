@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 
 import java.util.List;
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.GROUP_NAME;
 
 /**
  * 

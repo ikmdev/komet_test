@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.search;
+package dev.ikm.komet_test.framework.search;
 
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;

@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel;
+package dev.ikm.komet_test.framework.panel;
 
-import dev.ikm.komet.framework.EditedConceptTracker;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.observable.*;
-import dev.ikm.komet.framework.performance.Measures;
-import dev.ikm.komet.framework.performance.Topic;
-import dev.ikm.komet.framework.performance.impl.ObservationRecord;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.framework.rulebase.ConsequenceAction;
-import dev.ikm.komet.framework.rulebase.ConsequenceMenu;
-import dev.ikm.komet.framework.rulebase.RuleService;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.EditedConceptTracker;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.observable.*;
+import dev.ikm.komet_test.framework.performance.Measures;
+import dev.ikm.komet_test.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.impl.ObservationRecord;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.framework.rulebase.ConsequenceAction;
+import dev.ikm.komet_test.framework.rulebase.ConsequenceMenu;
+import dev.ikm.komet_test.framework.rulebase.RuleService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.service.PrimitiveData;
@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
 import java.util.concurrent.Future;
 
-import static dev.ikm.komet.framework.StyleClasses.*;
+import static dev.ikm.komet_test.framework.StyleClasses.*;
 
 public abstract class ComponentVersionIsFinalPanel<OV extends ObservableVersion> {
 	private static final Logger LOG = LoggerFactory.getLogger(ComponentVersionIsFinalPanel.class);

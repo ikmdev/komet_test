@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.set;
+package dev.ikm.komet_test.set;
 
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
 
-import dev.ikm.komet.collection.CollectionNode;
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.preferences.Reconstructor;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.collection.CollectionNode;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.preferences.Reconstructor;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import javafx.scene.control.Label;
 

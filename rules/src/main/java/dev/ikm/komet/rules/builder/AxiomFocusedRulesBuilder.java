@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.builder;
+package dev.ikm.komet_test.rules.builder;
 
-import dev.ikm.komet.framework.panel.axiom.AxiomSubjectRecord;
-import dev.ikm.komet.framework.performance.impl.ObservationRecord;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.framework.rulebase.ConsequenceAction;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.rules.actions.axiom.RemoveAxiomAction;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomSubjectRecord;
+import dev.ikm.komet_test.framework.performance.impl.ObservationRecord;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.framework.rulebase.ConsequenceAction;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.rules.actions.axiom.RemoveAxiomAction;
 import dev.ikm.tinkar.common.sets.ConcurrentHashSet;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinate;
 import org.evrete.KnowledgeService;

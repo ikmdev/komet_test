@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details;
+package dev.ikm.komet_test.details;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.DetailNodeAbstract;
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.TopPanelFactory;
-import dev.ikm.komet.framework.panel.ComponentPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.DetailNodeAbstract;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.TopPanelFactory;
+import dev.ikm.komet_test.framework.panel.ComponentPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.terms.EntityFacade;
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.uncertain;
+package dev.ikm.komet_test.framework.uncertain;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -23,10 +23,10 @@ import javafx.beans.property.SetProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import org.eclipse.collections.api.set.ImmutableSet;
-import dev.ikm.komet.terms.KometTerm;
-import dev.ikm.komet.framework.view.SimpleEqualityBasedListProperty;
-import dev.ikm.komet.framework.view.SimpleEqualityBasedObjectProperty;
-import dev.ikm.komet.framework.view.SimpleEqualityBasedSetProperty;
+import dev.ikm.komet_test.terms.KometTerm;
+import dev.ikm.komet_test.framework.view.SimpleEqualityBasedListProperty;
+import dev.ikm.komet_test.framework.view.SimpleEqualityBasedObjectProperty;
+import dev.ikm.komet_test.framework.view.SimpleEqualityBasedSetProperty;
 import dev.ikm.tinkar.coordinate.stamp.StampPath;
 import dev.ikm.tinkar.coordinate.stamp.StampPathImmutable;
 import dev.ikm.tinkar.coordinate.stamp.StampPositionRecord;

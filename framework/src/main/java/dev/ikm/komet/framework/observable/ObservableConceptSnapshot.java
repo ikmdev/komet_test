@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
 import org.eclipse.collections.api.list.ImmutableList;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
@@ -23,7 +23,7 @@ import dev.ikm.tinkar.entity.ConceptVersionRecord;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-public class ObservableConceptSnapshot
+public final class ObservableConceptSnapshot
         extends ObservableEntitySnapshot<ObservableConcept, ObservableConceptVersion, ConceptVersionRecord> {
 
     public ObservableConceptSnapshot(ViewCalculator viewCalculator, ObservableConcept entity) {

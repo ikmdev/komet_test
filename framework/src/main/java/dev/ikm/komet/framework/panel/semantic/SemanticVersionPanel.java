@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.semantic;
+package dev.ikm.komet_test.framework.panel.semantic;
 
 import javafx.scene.Node;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservableField;
-import dev.ikm.komet.framework.observable.ObservableSemanticVersion;
-import dev.ikm.komet.framework.panel.ComponentVersionIsFinalPanel;
-import dev.ikm.komet.framework.propsheet.KometPropertySheet;
-import dev.ikm.komet.framework.propsheet.SheetItem;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservableField;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticVersion;
+import dev.ikm.komet_test.framework.panel.ComponentVersionIsFinalPanel;
+import dev.ikm.komet_test.framework.propsheet.KometPropertySheet;
+import dev.ikm.komet_test.framework.propsheet.SheetItem;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.entity.PatternEntityVersion;
 import org.slf4j.Logger;

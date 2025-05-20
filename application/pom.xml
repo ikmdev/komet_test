@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dev.ikm.komet.github.test</groupId>
+        <groupId>dev.ikm.komet_test</groupId>
         <artifactId>komet-parent</artifactId>
-        <version>1.81.0-SNAPSHOT</version>
+        <version>1.51.0-SNAPSHOT</version>
     </parent>
     <artifactId>application</artifactId>
     <dependencies>
@@ -15,6 +15,11 @@
         <dependency>
             <groupId>org.carlfx</groupId>
             <artifactId>cognitive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pixelduke</groupId>
+            <artifactId>fxcomponents</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -89,6 +94,43 @@
             <artifactId>data-ephemeral-provider</artifactId>
         </dependency>
         <dependency>
+            <groupId>${tinkar-core.groupId}</groupId>
+            <artifactId>changeset-writer-provider</artifactId>
+        </dependency>
+
+    <!-- Start JPro related dependencies -->
+        <dependency>
+            <groupId>one.jpro</groupId>
+            <artifactId>jpro-webapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform</groupId>
+            <artifactId>jpro-auth-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform</groupId>
+            <artifactId>jpro-utils</artifactId>
+        </dependency>
+        <!--        testing -->
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>testfx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>testfx-junit5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- End JPro related dependencies -->
+        <dependency>
+            <groupId>${tinkar-core.groupId}</groupId>
+            <artifactId>composer</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.controlsfx</groupId>
             <artifactId>controlsfx</artifactId>
         </dependency>
@@ -96,16 +138,27 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>cssfx</artifactId>
         </dependency>
         <!-- https://mvnrepository.com/artifact/com.dlsc.gemsfx/gemsfx -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.ikm.jpms</groupId>
+            <artifactId>jsr305</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>dev.ikm.komet_test</groupId>
+            <artifactId>sync</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -115,7 +168,7 @@
                     <groupId>org.openjfx</groupId>
                     <artifactId>javafx-maven-plugin</artifactId>
                     <configuration>
-                        <mainClass>dev.ikm.komet.application/dev.ikm.komet.app.App</mainClass>
+                        <mainClass>dev.ikm.komet_test.application/dev.ikm.komet_test.app.App</mainClass>
                         <stripDebug>false</stripDebug>
                         <compress>2</compress>
                         <bindServices>true</bindServices>
@@ -138,7 +191,7 @@
                         <!-- Default configuration for running -->
                         <id>default-cli</id>
                         <phase>package</phase>
-                        <!--                        <phase>none</phase>-->
+                        <!-- <phase>none</phase> -->
                         <goals>
                             <goal>jlink</goal>
                         </goals>
@@ -152,7 +205,9 @@
                                 <option>--add-opens</option>
                                 <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                 <option>--add-exports</option>
-                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator</option>
+                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator</option>
+                                <option>--add-exports</option>
+                                <option>javafx.base/com.sun.javafx.event=one.jpro.platform.file</option>
                                 <option>-Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer</option>
                             </options>
                         </configuration>
@@ -174,7 +229,7 @@
                                 <option>--add-opens</option>
                                 <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                 <option>--add-exports</option>
-                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator
+                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator
                                 </option>
                                 <option>
                                     -Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer
@@ -202,7 +257,9 @@
                                 <option>--add-opens</option>
                                 <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                 <option>--add-exports</option>
-                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator</option>
+                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator</option>
+                                <option>--add-exports</option>
+                                <option>javafx.base/com.sun.javafx.event=one.jpro.platform.file</option>
                                 <option>-Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer</option>
                                 <option>
                                     -agentpath:/Applications/JProfiler.app/Contents/Resources/app/bin/macos/libjprofilerti.jnilib=port=8849
@@ -298,17 +355,17 @@
                             <resourceDir>${jpackage.resourceDir}</resourceDir>
                             <type>${jpackage.type}</type>
                             <icon>${jpackage.icon}</icon>
-                            <licenseFile>${jpackage.licensePath}</licenseFile>
-                            <linuxRpmLicenseType>${jpackage.linuxRpmLicenseType}</linuxRpmLicenseType>
                             <vendor>IKM</vendor>
                             <runtimeImage>target/kometRuntimeImage</runtimeImage>
-                            <module>dev.ikm.komet.application/dev.ikm.komet.app.App</module>
+                            <module>dev.ikm.komet_test.application/dev.ikm.komet_test.app.App</module>
                             <javaOptions>
                                 <option>-Xmx8g</option>
                                 <option>--add-opens</option>
                                 <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                 <option>--add-exports</option>
-                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator</option>
+                                <option>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator</option>
+                                <option>--add-exports</option>
+                                <option>javafx.base/com.sun.javafx.event=one.jpro.platform.file</option>
                             </javaOptions>
                             <!-- Windows Options - ignored by other Operating Systems -->
                             <winMenu>true</winMenu>
@@ -352,8 +409,6 @@
                 <jpackage.type>RPM</jpackage.type>
                 <jpackage.icon>src/main/resources/icons/Komet.png</jpackage.icon>
                 <jpackage.resourceDir>installer_resources/resourceDir_unix</jpackage.resourceDir>
-                <jpackage.licensePath>../GPLv3.txt</jpackage.licensePath>
-                <jpackage.linuxRpmLicenseType>GPL</jpackage.linuxRpmLicenseType>
             </properties>
         </profile>
         <profile>
@@ -397,8 +452,10 @@
                                         <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                         <option>--add-exports</option>
                                         <option>
-                                            javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator
+                                            javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator
                                         </option>
+                                        <option>--add-exports</option>
+                                        <option>javafx.base/com.sun.javafx.event=one.jpro.platform.file</option>
                                         <option>
                                             -Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer
                                         </option>
@@ -441,12 +498,107 @@
                                         <option>javafx.graphics/javafx.scene=org.controlsfx.controls</option>
                                         <option>--add-exports</option>
                                         <option>
-                                            javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet.navigator
+                                            javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator
                                         </option>
+                                        <option>--add-exports</option>
+                                        <option>javafx.base/com.sun.javafx.event=one.jpro.platform.file</option>
                                         <option>
                                             -Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer
                                         </option>
                                     </options>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>jpro</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <pluginRepositories>
+                <pluginRepository>
+                    <id>jpro-repository</id>
+                    <url>https://sandec.jfrog.io/artifactory/repo</url>
+                </pluginRepository>
+            </pluginRepositories>
+            <repositories>
+                <repository>
+                    <id>jpro-repository</id>
+                    <url>https://sandec.jfrog.io/artifactory/repo</url>
+                </repository>
+            </repositories>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>one.jpro</groupId>
+                        <artifactId>jpro-maven-plugin</artifactId>
+                        <configuration>
+                            <mainClassName>dev.ikm.komet_test.app.WebApp</mainClassName>
+                            <useModuleSystem>true</useModuleSystem>
+                            <releaseName>komet</releaseName>
+                            <releasePlatforms>
+                                <!-- Sets the platforms to be included in the zip generated via jpro:release -->
+                                <releasePlatform>linux</releasePlatform> <!-- includes linux x64 builds -->
+                                <releasePlatform>linux-aarch64</releasePlatform> <!-- includes linux aarch64 builds -->
+                            </releasePlatforms>
+                            <JVMArgs>
+                                <JVMArg>-Xmx16g</JVMArg>
+                                <JVMArg>--add-opens</JVMArg>
+                                <JVMArg>javafx.graphics/javafx.scene=org.controlsfx.controls</JVMArg>
+                                <JVMArg>--add-exports</JVMArg>
+                                <JVMArg>javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator</JVMArg>
+                                <JVMArg>--add-exports</JVMArg>
+                                <JVMArg>javafx.base/com.sun.javafx.event=one.jpro.platform.file</JVMArg>
+                                <JVMArg>-Djava.util.concurrent.ForkJoinPool.common.exceptionHandler=dev.ikm.tinkar.common.alert.UncaughtExceptionAlertStreamer</JVMArg>
+                            </JVMArgs>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>release</goal>
+                                </goals>
+                                <phase>package</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>integrationTestData</id>
+            <activation>
+                <property>
+                    <name>runITestFX</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>copy-data</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>dev.ikm.tinkar.data</groupId>
+                                            <artifactId>tinkar-starter-data-reasoned</artifactId>
+                                            <classifier>pb</classifier>
+                                            <type>zip</type>
+                                            <overWrite>false</overWrite>
+                                            <outputDirectory>${project.build.directory}/data/Solor</outputDirectory>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <overWriteReleases>false</overWriteReleases>
+                                    <overWriteSnapshots>true</overWriteSnapshots>
                                 </configuration>
                             </execution>
                         </executions>

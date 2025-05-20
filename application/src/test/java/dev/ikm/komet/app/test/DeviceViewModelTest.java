@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.app.test;
+package dev.ikm.komet_test.app.test;
 
 
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.DeviceViewModel;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.framework.window.WindowSettings;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.KometPreferencesImpl;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.DeviceViewModel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.window.WindowSettings;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferencesImpl;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.common.id.PublicIds;
 import dev.ikm.tinkar.common.service.*;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.IOException;
 
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.DeviceViewModel.*;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.DeviceViewModel.*;
 
 public class DeviceViewModelTest {
 

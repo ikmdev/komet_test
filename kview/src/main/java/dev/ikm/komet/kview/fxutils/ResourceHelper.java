@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.fxutils;
+package dev.ikm.komet_test.kview.fxutils;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -128,5 +128,6 @@ public class ResourceHelper {
 
         String url5 = toAbsolutePath("../details/kview-details.fxml", ResourceHelper.class);
         LOG.info("Url 5 test. " + url5);
+
     }
 }

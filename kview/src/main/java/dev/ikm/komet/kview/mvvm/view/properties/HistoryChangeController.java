@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.kview.mvvm.model.ChangeCoordinate;
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.model.ChangeCoordinate;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.coordinate.stamp.change.ChangeChronology;
 import dev.ikm.tinkar.coordinate.stamp.change.VersionChangeRecord;
@@ -41,8 +41,8 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.*;
 
-import static dev.ikm.komet.kview.fxutils.CssHelper.defaultStyleSheet;
-import static dev.ikm.komet.kview.mvvm.view.properties.ChangeListItemController.COLORS_FOR_EXTENSIONS;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.defaultStyleSheet;
+import static dev.ikm.komet_test.kview.mvvm.view.properties.ChangeListItemController.COLORS_FOR_EXTENSIONS;
 
 /**
  * The user is shown a search and dropdown to filter between change list items (concept &amp; semantic versions).

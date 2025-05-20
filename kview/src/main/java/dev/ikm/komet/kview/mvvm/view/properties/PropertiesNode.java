@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.flow.FlowSubscriber;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.terms.ConceptFacade;
@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-import static dev.ikm.komet.kview.fxutils.CssHelper.defaultStyleSheet;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.defaultStyleSheet;
 
 public class PropertiesNode extends ExplorationNodeAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(PropertiesNode.class);

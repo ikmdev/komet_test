@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -26,9 +26,9 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Shape;
-import dev.ikm.komet.framework.concurrent.TaskWrapper;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.temp.FxGet;
+import dev.ikm.komet_test.framework.concurrent.TaskWrapper;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.temp.FxGet;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.coordinate.stamp.StampPathImmutable;
@@ -99,7 +99,7 @@ public class ViewMenuModel {
             this.coordinateMenu.getItems().clear();
             TinkExecutor.threadPool().execute(TaskWrapper.make(new ViewMenuTask(viewCalculator, this.viewProperties.nodeView()),
                     (List<MenuItem> result) -> {
-                        this.coordinateMenu.getItems().addAll(result);
+                        this.coordinateMenu.getItems().setAll(result);
                     }));
         });
     }

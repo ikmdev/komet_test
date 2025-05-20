@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.navigator.graph.GraphNavigatorNodeFactory;
-import dev.ikm.komet.navigator.pattern.PatternNavigatorFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.navigator.graph.GraphNavigatorNodeFactory;
+import dev.ikm.komet_test.navigator.pattern.PatternNavigatorFactory;
 
-module dev.ikm.komet.navigator {
+module dev.ikm.komet_test.navigator {
 
-    requires transitive dev.ikm.komet.framework;
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.navigator.graph;
-    opens dev.ikm.komet.navigator.pattern;
-    exports dev.ikm.komet.navigator.pattern;
-    exports dev.ikm.komet.navigator.graph;
+    opens dev.ikm.komet_test.navigator.graph;
+    opens dev.ikm.komet_test.navigator.pattern;
+    exports dev.ikm.komet_test.navigator.pattern;
+    exports dev.ikm.komet_test.navigator.graph;
 
     provides KometNodeFactory
             with GraphNavigatorNodeFactory,

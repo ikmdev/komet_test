@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
@@ -22,7 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.BorderPane;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 
 import java.net.URL;
 import java.util.ResourceBundle;

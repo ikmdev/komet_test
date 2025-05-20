@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.graph;
+package dev.ikm.komet_test.navigator.graph;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
- import dev.ikm.komet.navigator.graph.MultiParentGraphCell;
- import dev.ikm.komet.navigator.graph.MultiParentVertexImpl;
+ import dev.ikm.komet_test.navigator.graph.MultiParentGraphCell;
+ import dev.ikm.komet_test.navigator.graph.MultiParentVertexImpl;
  import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.WritableValue;
 import javafx.css.CssMetaData;

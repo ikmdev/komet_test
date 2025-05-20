@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -23,9 +23,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TreeItem;
 import javafx.stage.Stage;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.PreferencesService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.PreferencesService;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import org.slf4j.Logger;

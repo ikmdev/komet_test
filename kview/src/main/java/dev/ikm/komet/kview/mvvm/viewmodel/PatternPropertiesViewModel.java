@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.mvvm.viewmodel;
 
-import static dev.ikm.komet.kview.mvvm.viewmodel.PatternViewModel.PATTERN_TOPIC;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import org.carlfx.axonic.StateMachine;
+
 import java.util.UUID;
 
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.PatternFieldsViewModel.TOTAL_EXISTING_FIELDS;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.PatternViewModel.PATTERN_TOPIC;
+
 public class PatternPropertiesViewModel extends FormViewModel {
+
+    public static String STATE_MACHINE = "stateMachine";
 
 
     public PatternPropertiesViewModel() {
         super();
-        addProperty(PATTERN_TOPIC, (UUID) null);
+            addProperty(PATTERN_TOPIC, (UUID) null)
+                    .addProperty(STATE_MACHINE, (StateMachine) null)
+                    .addProperty(TOTAL_EXISTING_FIELDS, 0)
+        ;
+    }
+
+    public ViewProperties getViewProperties() {
+        return getPropertyValue(VIEW_PROPERTIES);
     }
 }

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.builder;
+package dev.ikm.komet_test.framework.builder;
 
 import io.soabase.recordbuilder.core.RecordBuilder;
 import dev.ikm.tinkar.terms.ConceptFacade;

@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions;
+package dev.ikm.komet_test.rules.actions;
 
 import javafx.event.ActionEvent;
 import org.controlsfx.control.action.Action;
-import dev.ikm.komet.framework.Dialogs;
-import dev.ikm.komet.framework.rulebase.GeneratedAction;
+import dev.ikm.komet_test.framework.Dialogs;
+import dev.ikm.komet_test.framework.rulebase.GeneratedAction;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinate;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinateRecord;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;

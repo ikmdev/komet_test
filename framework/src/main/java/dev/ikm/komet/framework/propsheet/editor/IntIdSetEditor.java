@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet.editor;
+package dev.ikm.komet_test.framework.propsheet.editor;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,7 +22,7 @@ import org.eclipse.collections.api.list.primitive.MutableIntList;
 import org.eclipse.collections.api.set.primitive.MutableIntSet;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.factory.primitive.IntSets;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.IntIds;
 import dev.ikm.tinkar.common.service.TinkExecutor;

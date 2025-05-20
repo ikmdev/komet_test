@@ -1,16 +1,17 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>dev.ikm.build</groupId>
         <artifactId>java-parent</artifactId>
-        <version>1.55.0</version>
+        <version>1.58.0</version>
         <relativePath/>
     </parent>
-    <groupId>dev.ikm.komet.github.test</groupId>
+    <groupId>dev.ikm.komet_test</groupId>
     <artifactId>komet-parent</artifactId>
     <name>KOMET</name>
-    <version>1.81.0-SNAPSHOT</version>
+    <version>1.51.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <inceptionYear>2015</inceptionYear>
     <licenses>
@@ -54,40 +55,78 @@
         <module>progress</module>
         <module>rules</module>
         <module>search</module>
+        <module>knowledge-layout</module>
         <module>kview</module>
+        <module>sync</module>
         <module>application</module>
     </modules>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tinkar-core.groupId>dev.ikm.tinkar</tinkar-core.groupId>
-        <tinkar-core.version>1.58.0</tinkar-core.version>
-        <owlapi.groupId>dev.ikm.owlapi</owlapi.groupId>
-        <owlapi.version>4.7.0</owlapi.version>
-        <ikm-evrete.groupId>org.evrete</ikm-evrete.groupId>
-        <ikm-evrete.version>4.0.2</ikm-evrete.version>
-        <tinkar-jpms-deps.groupId>dev.ikm.jpms</tinkar-jpms-deps.groupId>
-        <tinkar-jpms-deps.version>1.0.15</tinkar-jpms-deps.version>
-        <jpms-record-builder-core.version>36-r6</jpms-record-builder-core.version>
-        <jpms-roaringbitmap.version>0.9.31-r7</jpms-roaringbitmap.version>
-        <classgraph.version>4.8.115</classgraph.version>
-        <controlsfx.version>11.1.0</controlsfx.version>
-        <ikonli.version>12.2.0</ikonli.version>
-        <nsmenufx.version>3.1.0</nsmenufx.version>
-        <cognitive.version>1.1.0</cognitive.version>
-        <openjfx.version>21</openjfx.version>
-        <javafx.version>0.0.8</javafx.version>
-        <jpackage.version>1.6.0</jpackage.version>
-        <maven.compiler.version>3.13.0</maven.compiler.version>
-        <record-builder-processor.version>34</record-builder-processor.version>
-        <scenic-view.version>11.0.2</scenic-view.version>
-        <slf4j.version>2.0.13</slf4j.version>
+
+        <!-- Utilize for Binding Log4J to SLF4J -->
         <log4j.version>3.0.0-alpha1</log4j.version>
-        <!-- Utilize for Binding to SLF4J -->
-        <bind-to-slf4j.version>2.0.13</bind-to-slf4j.version>
-        <mockito.version>5.7.0</mockito.version>
-        <common-java5.version>3.0.0-M9</common-java5.version>
-        <maven.assembly-plugin.version>3.6.0</maven.assembly-plugin.version>
+        <slf4j.version>2.0.17</slf4j.version>
+        <bind-to-slf4j.version>2.0.17</bind-to-slf4j.version>
+
+        <!-- Tinkar Core Variables -->
+        <tinkar-core.groupId>dev.ikm.tinkar</tinkar-core.groupId>
+        <tinkar-composer.version>1.6.0</tinkar-composer.version>
+        <tinkar-core.version>1.103.0</tinkar-core.version>
+
+        <!-- IKM Evrete Variables -->
+        <ikm-evrete.groupId>org.evrete</ikm-evrete.groupId>
+        <ikm-evrete.version>4.0.3</ikm-evrete.version>
+
+        <!-- JPMS Jar Variables-->
+        <tinkar-jpms-deps.groupId>dev.ikm.jpms</tinkar-jpms-deps.groupId>
+        <jpms-record-builder-core.version>36-r7</jpms-record-builder-core.version>
+        <eclipse-collections.version>11.1.0-r13</eclipse-collections.version>
+        <eclipse-collections-api.version>11.1.0-r11</eclipse-collections-api.version>
+        <jsr305.version>3.0.2-r7</jsr305.version>
+
+        <!-- JPRO Variables -->
+        <jpro.version>2025.1.0</jpro.version>
+        <jpro-platform.version>0.5.6</jpro-platform.version>
+
+        <!-- TestFX Variables -->
+        <tinkar-starter-data-reasoned.version>1.0.0</tinkar-starter-data-reasoned.version>
+        <testfx.version>4.0.18-jpms</testfx.version>
+        <openjfx-monocle.version>21.0.2-jpms</openjfx-monocle.version>
+
+        <!-- Everything Else -->
+        <roaringbitmap.version>1.4.0</roaringbitmap.version>
+        <tinkar-jpms-deps.version>1.0.15</tinkar-jpms-deps.version>
+        <classgraph.version>4.8.179</classgraph.version>
+        <cognitive.version>1.5.1</cognitive.version>
+        <fxcomponents.version>1.6.2</fxcomponents.version>
+        <axonic.version>1.1.5</axonic.version>
+        <common-java5.version>3.5.2</common-java5.version>
+        <controlsfx.version>11.2.2</controlsfx.version>
+        <cssfx.version>11.5.1-jpms</cssfx.version>
+        <ikonli.version>12.3.1</ikonli.version>
+        <javafx-maven-plugin.version>0.0.8</javafx-maven-plugin.version>
+        <jpackage.version>1.6.6</jpackage.version>
+        <mockito.version>5.15.2</mockito.version>
+        <nsmenufx.version>3.1.0</nsmenufx.version>
+        <openjfx.version>23.0.1</openjfx.version>
+        <scenic-view.version>11.0.2</scenic-view.version>
+        <jgit.version>6.10.0.202406032230-r-r5</jgit.version>
+
+        <!-- TestFX / Monocle -->
+        <commonTestFXArgs>
+            -Dtestfx.headless=true
+            --add-opens=javafx.graphics/com.sun.glass.ui=org.testfx.core
+            --add-opens=javafx.graphics/com.sun.javafx.application=org.testfx.core
+            --add-exports=javafx.graphics/com.sun.javafx.application=org.testfx.core
+            --add-exports=javafx.graphics/com.sun.glass.ui=org.testfx.monocle
+            --add-exports=javafx.graphics/com.sun.javafx.util=org.testfx.monocle
+            --add-exports=javafx.base/com.sun.javafx.logging=org.testfx.monocle
+            --add-opens=javafx.graphics/javafx.scene=org.controlsfx.controls
+            --add-exports=javafx.controls/com.sun.javafx.scene.control.behavior=dev.ikm.komet_test.navigator
+            --enable-preview
+        </commonTestFXArgs>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <!--Module Dependencies -->
@@ -113,23 +152,8 @@
             </dependency>
             <dependency>
                 <groupId>${tinkar-core.groupId}</groupId>
-                <artifactId>reasoner-service</artifactId>
-                <version>${tinkar-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>dev.ikm.tinkar.fhir</groupId>
-                <artifactId>fhir-extension</artifactId>
-                <version>${tinkar-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${tinkar-core.groupId}</groupId>
-                <artifactId>reasoner-elk-owl</artifactId>
-                <version>${tinkar-core.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${tinkar-core.groupId}</groupId>
-                <artifactId>reasoner-elk-snomed</artifactId>
-                <version>${tinkar-core.version}</version>
+                <artifactId>composer</artifactId>
+                <version>${tinkar-composer.version}</version>
             </dependency>
             <dependency>
                 <groupId>${project.groupId}</groupId>
@@ -186,6 +210,17 @@
                 <artifactId>rules</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>knowledge-layout</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>sync</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
             <!-- Tinkar Core Dependencies -->
             <dependency>
                 <groupId>${tinkar-core.groupId}</groupId>
@@ -234,6 +269,11 @@
             </dependency>
             <dependency>
                 <groupId>${tinkar-core.groupId}</groupId>
+                <artifactId>changeset-writer-provider</artifactId>
+                <version>${tinkar-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${tinkar-core.groupId}</groupId>
                 <artifactId>terms</artifactId>
                 <version>${tinkar-core.version}</version>
             </dependency>
@@ -242,6 +282,32 @@
                 <artifactId>executor-provider</artifactId>
                 <version>${tinkar-core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${tinkar-core.groupId}</groupId>
+                <artifactId>reasoner-service</artifactId>
+                <version>${tinkar-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${tinkar-core.groupId}</groupId>
+                <artifactId>reasoner-elk-owl</artifactId>
+                <version>${tinkar-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${tinkar-core.groupId}</groupId>
+                <artifactId>reasoner-elk-snomed</artifactId>
+                <version>${tinkar-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${tinkar-core.groupId}</groupId>
+                <artifactId>reasoner-hybrid</artifactId>
+                <version>${tinkar-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>dev.ikm.tinkar.data</groupId>
+                <artifactId>tinkar-starter-data-reasoned</artifactId>
+                <version>${tinkar-starter-data-reasoned.version}</version>
+            </dependency>
+
             <!-- IKM Evrete Dependencies -->
             <dependency>
                 <groupId>${ikm-evrete.groupId}</groupId>
@@ -253,12 +319,35 @@
                 <artifactId>evrete-dsl-java</artifactId>
                 <version>${ikm-evrete.version}</version>
             </dependency>
+
+            <!-- JPMS Dependencies -->
             <dependency>
                 <groupId>${tinkar-jpms-deps.groupId}</groupId>
                 <artifactId>record-builder-core</artifactId>
                 <version>${jpms-record-builder-core.version}</version>
             </dependency>
+            <dependency>
+                <groupId>${tinkar-jpms-deps.groupId}</groupId>
+                <artifactId>eclipse-collections</artifactId>
+                <version>${eclipse-collections.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>${tinkar-jpms-deps.groupId}</groupId>
+                <artifactId>eclipse-collections-api</artifactId>
+                <version>${eclipse-collections-api.version}</version>
+            </dependency>
+            <dependency><!-- <groupId>com.google.code.findbugs</groupId>-->
+                <groupId>${tinkar-jpms-deps.groupId}</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
+            </dependency>
+
             <!-- External dependencies -->
+            <dependency>
+                <groupId>com.github.RoaringBitmap.RoaringBitmap</groupId>
+                <artifactId>roaringbitmap</artifactId>
+                <version>${roaringbitmap.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-controls</artifactId>
@@ -279,24 +368,49 @@
                 <artifactId>cognitive</artifactId>
                 <version>${cognitive.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
+            <dependency>
+                <groupId>com.pixelduke</groupId>
+                <artifactId>fxcomponents</artifactId>
+                <version>${fxcomponents.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-base</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-graphics</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.openjfx</groupId>
+                        <artifactId>javafx-controls</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.carlfx</groupId>
+                <artifactId>axonic</artifactId>
+                <version>${axonic.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-fxml</artifactId>
                 <version>${openjfx.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/com.dlsc.gemsfx/gemsfx -->
-            <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-web -->
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-web</artifactId>
                 <version>${openjfx.version}</version>
             </dependency>
-            <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
             <dependency>
                 <groupId>org.openjfx</groupId>
                 <artifactId>javafx-swing</artifactId>
                 <version>${openjfx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform.jpms</groupId>
+                <artifactId>cssfx</artifactId>
+                <version>${cssfx.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.github.classgraph</groupId>
@@ -304,9 +418,42 @@
                 <version>${classgraph.version}</version>
             </dependency>
             <dependency>
-                <groupId>${tinkar-jpms-deps.groupId}</groupId>
-                <artifactId>roaringbitmap</artifactId>
-                <version>${jpms-roaringbitmap.version}</version>
+                <groupId>one.jpro</groupId>
+                <artifactId>jpro-webapi</artifactId>
+                <version>${jpro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform</groupId>
+                <artifactId>jpro-auth-core</artifactId>
+                <version>${jpro-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform</groupId>
+                <artifactId>jpro-file</artifactId>
+                <version>${jpro-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform</groupId>
+                <artifactId>jpro-utils</artifactId>
+                <version>${jpro-platform.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform.jpms</groupId>
+                <artifactId>testfx-core</artifactId>
+                <version>${testfx.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform.jpms</groupId>
+                <artifactId>testfx-junit5</artifactId>
+                <version>${testfx.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>one.jpro.platform.jpms</groupId>
+                <artifactId>openjfx-monocle</artifactId>
+                <version>${openjfx-monocle.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.openjfx</groupId>
@@ -416,26 +563,7 @@
                 <artifactId>scenic-view</artifactId>
                 <version>${scenic-view.version}</version>
             </dependency>
-            <dependency>
-                <groupId>${owlapi.groupId}</groupId>
-                <artifactId>owlapi-api</artifactId>
-                <version>${owlapi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${owlapi.groupId}</groupId>
-                <artifactId>owlapi-impl</artifactId>
-                <version>${owlapi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${owlapi.groupId}</groupId>
-                <artifactId>owlapi-apibinding</artifactId>
-                <version>${owlapi.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>${owlapi.groupId}</groupId>
-                <artifactId>owlapi-parsers</artifactId>
-                <version>${owlapi.version}</version>
-            </dependency>
+
             <!--- Bind To SLF4J Dependencies (Start) -->
             <!-- Binding log4j to slf4j -->
             <dependency>
@@ -456,6 +584,11 @@
                 <version>${bind-to-slf4j.version}</version>
             </dependency>
             <!-- Bind To SLF4J Dependencies (End) -->
+            <dependency>
+                <groupId>dev.ikm.jpms</groupId>
+                <artifactId>jgit</artifactId>
+                <version>${jgit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <!-- Cross project dependencies -->
@@ -467,7 +600,6 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j2-impl</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -484,11 +616,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
-        </dependency>
-        <!-- Binding tools-logging to slf4j -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-jdk14</artifactId>
         </dependency>
         <!-- Bind To SLF4J Dependencies (End) -->
         <dependency>
@@ -507,13 +634,27 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <build>
         <pluginManagement>
             <plugins>
+
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven.assembly-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.openjfx</groupId>
+                    <artifactId>javafx-maven-plugin</artifactId>
+                    <version>${javafx-maven-plugin.version}</version>
                 </plugin>
                 <plugin>
                     <groupId>org.panteleyev</groupId>
@@ -521,9 +662,9 @@
                     <version>${jpackage.version}</version>
                 </plugin>
                 <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven.compiler.version}</version>
+                    <groupId>one.jpro</groupId>
+                    <artifactId>jpro-maven-plugin</artifactId>
+                    <version>${jpro.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -533,23 +674,112 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <source>21</source>
-                    <target>21</target>
+                    <source>23</source>
+                    <target>23</target>
+                    <release>23</release>
                     <compilerArgs>
                         <arg>-parameters</arg>
+                        <arg>--enable-preview</arg>
                     </compilerArgs>
                     <annotationProcessorPaths>
                         <annotationProcessorPath>
                             <groupId>io.soabase.record-builder</groupId>
                             <artifactId>record-builder-processor</artifactId>
-                            <version>${record-builder-processor.version}</version>
+                            <version>${record-builder-core.version}</version>
                         </annotationProcessorPath>
                     </annotationProcessorPaths>
                     <annotationProcessors>
-                        <annotationProcessor>io.soabase.recordbuilder.processor.RecordBuilderProcessor</annotationProcessor>
+                        <annotationProcessor>io.soabase.recordbuilder.processor.RecordBuilderProcessor
+                        </annotationProcessor>
                     </annotationProcessors>
                 </configuration>
             </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <id>integrationTestFX</id>
+            <activation>
+                <property>
+                    <name>runITestFX</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>testfx-integration-tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/*ITestFX.java</include>
+                                    </includes>
+                                    <argLine>
+                                        ${commonTestFXArgs}
+                                    </argLine>
+                                    <forkCount>1</forkCount>
+                                    <reuseForks>false</reuseForks>
+                                    <systemPropertyVariables>
+                                        <target.data.directory>${project.build.directory}/data</target.data.directory>
+                                    </systemPropertyVariables>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>verify</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>unitTestFX</id>
+            <activation>
+                <property>
+                    <name>runUTestFX</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>testfx-unit-tests</id>
+                                <phase>test</phase>
+                                <goals>
+                                    <goal>test</goal>
+                                </goals>
+                                <configuration>
+                                    <includes>
+                                        <include>**/*UTestFX.java</include>
+                                    </includes>
+                                    <argLine>
+                                        ${commonTestFXArgs}
+                                    </argLine>
+                                </configuration>
+                            </execution>
+                            <!-- Disable the default execution -->
+                            <execution>
+                                <id>default-test</id>
+                                <phase>none</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

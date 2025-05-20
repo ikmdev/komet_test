@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions.axiom;
+package dev.ikm.komet_test.rules.actions.axiom;
 
-import dev.ikm.komet.framework.panel.axiom.ConcreteDomainOperators;
+import dev.ikm.komet_test.framework.panel.axiom.ConcreteDomainOperators;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
 import javafx.application.Platform;
 import javafx.scene.control.Menu;

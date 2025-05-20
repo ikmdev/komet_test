@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.concept;
+package dev.ikm.komet_test.framework.panel.concept;
 
 import javafx.scene.Node;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservableConceptVersion;
-import dev.ikm.komet.framework.panel.ComponentVersionIsFinalPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservableConceptVersion;
+import dev.ikm.komet_test.framework.panel.ComponentVersionIsFinalPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 
 public class ConceptVersionPanel extends ComponentVersionIsFinalPanel<ObservableConceptVersion> {
     public ConceptVersionPanel(ObservableConceptVersion version, ViewProperties viewProperties) {

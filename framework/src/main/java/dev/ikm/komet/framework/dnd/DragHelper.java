@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.dnd;
+package dev.ikm.komet_test.framework.dnd;
 
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Region;
-import dev.ikm.komet.framework.Dialogs;
+import dev.ikm.komet_test.framework.Dialogs;
 import dev.ikm.tinkar.terms.EntityFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -13,18 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.pattern;
+package dev.ikm.komet_test.framework.panel.pattern;
 
 import javafx.scene.Node;
 import org.controlsfx.control.PropertySheet;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservableFieldDefinition;
-import dev.ikm.komet.framework.observable.ObservablePatternVersion;
-import dev.ikm.komet.framework.panel.ComponentVersionIsFinalPanel;
-import dev.ikm.komet.framework.propsheet.FieldDefinitionRecord;
-import dev.ikm.komet.framework.propsheet.KometPropertySheet;
-import dev.ikm.komet.framework.propsheet.SheetItem;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservableFieldDefinition;
+import dev.ikm.komet_test.framework.observable.ObservablePatternVersion;
+import dev.ikm.komet_test.framework.panel.ComponentVersionIsFinalPanel;
+import dev.ikm.komet_test.framework.propsheet.FieldDefinitionRecord;
+import dev.ikm.komet_test.framework.propsheet.KometPropertySheet;
+import dev.ikm.komet_test.framework.propsheet.SheetItem;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.util.text.NaturalOrder;
 
 public class PatternVersionPanel extends ComponentVersionIsFinalPanel<ObservablePatternVersion> {

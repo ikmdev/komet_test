@@ -13,11 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
-import javafx.beans.value.ObservableValue;
 import dev.ikm.tinkar.coordinate.view.ViewCoordinate;
 import dev.ikm.tinkar.coordinate.view.ViewCoordinateRecord;
+import javafx.beans.property.ListProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class ObservableViewWithOverride extends ObservableViewBase {
 
@@ -97,7 +100,22 @@ public class ObservableViewWithOverride extends ObservableViewBase {
     @Override
     protected ListPropertyWithOverride<ObservableLanguageCoordinateBase> makeLanguageCoordinateListProperty(ViewCoordinate viewRecord) {
         ObservableView observableView = (ObservableView) viewRecord;
-        return new ListPropertyWithOverride(observableView.languageCoordinates(), this);
+
+        // convert the ObservableLanguageCoordinateNoOverride to ObservableLanguageCoordinateWithOverride
+        // before putting into the ListPropertyWithOverride
+
+        ObservableList<ObservableLanguageCoordinateBase> languageCoordinateList = FXCollections.observableArrayList();
+
+        if (observableView.languageCoordinates() != null) {
+            observableView.languageCoordinates().forEach(languageCoord -> {
+                languageCoordinateList.add(new ObservableLanguageCoordinateWithOverride(languageCoord));
+            });
+        }
+
+        ListProperty<ObservableLanguageCoordinateBase> languageListProperty = new SimpleEqualityBasedListProperty<>(this,
+                "", languageCoordinateList);
+
+        return new ListPropertyWithOverride<>(languageListProperty, this);
     }
 
     @Override

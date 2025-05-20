@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.events;
+package dev.ikm.komet_test.framework.events;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -91,6 +91,20 @@ public class DefaultEvtBus implements EvtBus {
         List<Subscriber> subscribers = eventNameAndSubscribers.get(eventClass.getName());
         if (null != subscribers && !subscribers.isEmpty()) {
             subscribers.removeIf(subscriber::equals);
+        }
+    }
+
+    @Override
+    public <T extends Evt> void unsubscribe(Subscriber<T> subscriber) {
+        subscribersMap.forEach((k, v) -> v.remove(subscriber));
+    }
+
+    @Override
+    public void unsubscribe(Subscriber<?> ...subscriber) {
+        if (null != subscriber) {
+            for (Subscriber<?> s : subscriber) {
+                unsubscribe(s);
+            }
         }
     }
 

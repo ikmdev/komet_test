@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.events;
+package dev.ikm.komet_test.kview.events;
 
-import dev.ikm.komet.kview.mvvm.model.DescrName;
-import dev.ikm.komet.framework.events.Evt;
-import dev.ikm.komet.framework.events.EvtType;
+import dev.ikm.komet_test.kview.mvvm.model.DescrName;
+import dev.ikm.komet_test.framework.events.Evt;
+import dev.ikm.komet_test.framework.events.EvtType;
 
 public class UpdateSemanticEvent extends Evt {
 

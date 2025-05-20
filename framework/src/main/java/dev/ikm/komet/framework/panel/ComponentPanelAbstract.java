@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel;
+package dev.ikm.komet_test.framework.panel;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,12 +22,12 @@ import javafx.collections.ObservableSet;
 import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.observable.*;
-import dev.ikm.komet.framework.panel.concept.ConceptPanel;
-import dev.ikm.komet.framework.panel.pattern.PatternPanel;
-import dev.ikm.komet.framework.panel.semantic.SemanticPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.observable.*;
+import dev.ikm.komet_test.framework.panel.concept.ConceptPanel;
+import dev.ikm.komet_test.framework.panel.pattern.PatternPanel;
+import dev.ikm.komet_test.framework.panel.semantic.SemanticPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;

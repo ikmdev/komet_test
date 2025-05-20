@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -21,7 +21,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.controlsfx.control.PropertySheet;
-import dev.ikm.komet.framework.view.SimpleEqualityBasedListProperty;
+import dev.ikm.komet_test.framework.view.SimpleEqualityBasedListProperty;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
 import dev.ikm.tinkar.terms.ConceptFacade;
 import dev.ikm.tinkar.terms.EntityFacade;

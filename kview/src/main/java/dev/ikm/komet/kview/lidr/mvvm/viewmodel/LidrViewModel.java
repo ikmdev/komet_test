@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.lidr.mvvm.viewmodel;
 
-import dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel;
-import dev.ikm.komet.kview.mvvm.viewmodel.StampViewModel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.StampViewModel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinateRecord;
 import dev.ikm.tinkar.entity.SemanticEntity;
 import dev.ikm.tinkar.terms.EntityFacade;

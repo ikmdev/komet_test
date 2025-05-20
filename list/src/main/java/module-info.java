@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.list.ListNodeFactory;
-import dev.ikm.komet.set.SetNodeFactory;
-import dev.ikm.komet.table.TableNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.list.ListNodeFactory;
+import dev.ikm.komet_test.set.SetNodeFactory;
+import dev.ikm.komet_test.table.TableNodeFactory;
 
-module dev.ikm.komet.list {
+module dev.ikm.komet_test.list {
 
-    requires transitive dev.ikm.komet.framework;
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.list;
-    exports dev.ikm.komet.list;
+    opens dev.ikm.komet_test.list;
+    exports dev.ikm.komet_test.list;
 
-    opens dev.ikm.komet.set;
-    exports dev.ikm.komet.set;
+    opens dev.ikm.komet_test.set;
+    exports dev.ikm.komet_test.set;
 
-    opens dev.ikm.komet.table;
-    exports dev.ikm.komet.table;
+    opens dev.ikm.komet_test.table;
+    exports dev.ikm.komet_test.table;
 
     provides KometNodeFactory
             with ListNodeFactory, SetNodeFactory, TableNodeFactory;

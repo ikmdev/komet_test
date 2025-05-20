@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.context;
+package dev.ikm.komet_test.framework.context;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Control;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.terms.EntityFacade;
 
 /**

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.graph;
+package dev.ikm.komet_test.navigator.graph;
 
 //~--- JDK imports ------------------------------------------------------------
 
@@ -22,7 +22,7 @@ import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import org.eclipse.collections.api.collection.ImmutableCollection;
-import dev.ikm.komet.framework.view.ObservableView;
+import dev.ikm.komet_test.framework.view.ObservableView;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.IntIds;
 import dev.ikm.tinkar.common.id.PublicId;

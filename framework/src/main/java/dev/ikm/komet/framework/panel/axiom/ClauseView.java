@@ -13,26 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.axiom;
+package dev.ikm.komet_test.framework.panel.axiom;
 
-import dev.ikm.komet.framework.Dialogs;
-import dev.ikm.komet.framework.MenuItemWithText;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.controls.EntityLabel;
-import dev.ikm.komet.framework.dnd.DragImageMaker;
-import dev.ikm.komet.framework.dnd.KometClipboard;
-import dev.ikm.komet.framework.docbook.DocBook;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.observable.ObservableSemantic;
-import dev.ikm.komet.framework.observable.ObservableSemanticSnapshot;
-import dev.ikm.komet.framework.performance.Measures;
-import dev.ikm.komet.framework.performance.Topic;
-import dev.ikm.komet.framework.performance.impl.ObservationRecord;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.framework.rulebase.ConsequenceAction;
-import dev.ikm.komet.framework.rulebase.ConsequenceMenu;
-import dev.ikm.komet.framework.rulebase.RuleService;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.Dialogs;
+import dev.ikm.komet_test.framework.MenuItemWithText;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.controls.EntityLabel;
+import dev.ikm.komet_test.framework.dnd.DragImageMaker;
+import dev.ikm.komet_test.framework.dnd.KometClipboard;
+import dev.ikm.komet_test.framework.docbook.DocBook;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.observable.ObservableSemantic;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticSnapshot;
+import dev.ikm.komet_test.framework.performance.Measures;
+import dev.ikm.komet_test.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.impl.ObservationRecord;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.framework.rulebase.ConsequenceAction;
+import dev.ikm.komet_test.framework.rulebase.ConsequenceMenu;
+import dev.ikm.komet_test.framework.rulebase.RuleService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.common.util.text.NaturalOrder;
@@ -76,10 +77,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static dev.ikm.komet.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
-import static dev.ikm.komet.framework.panel.axiom.AxiomView.*;
-import static dev.ikm.komet.framework.panel.axiom.LogicalOperatorsForVertex.CONCEPT;
-import static dev.ikm.komet.framework.panel.axiom.LogicalOperatorsForVertex.FEATURE;
+import static dev.ikm.komet_test.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
+import static dev.ikm.komet_test.framework.panel.axiom.AxiomView.*;
+import static dev.ikm.komet_test.framework.panel.axiom.LogicalOperatorsForVertex.CONCEPT;
+import static dev.ikm.komet_test.framework.panel.axiom.LogicalOperatorsForVertex.FEATURE;
 import static dev.ikm.tinkar.coordinate.logic.PremiseType.STATED;
 import static dev.ikm.tinkar.terms.TinkarTerm.CONCEPT_REFERENCE;
 
@@ -143,9 +144,12 @@ public class ClauseView {
             }
             case NECESSARY_SET -> setupForNecessarySet();
             case SUFFICIENT_SET -> setupForSufficientSet();
+            case INCLUSION_SET -> setupForInclusionSet();
             case DEFINITION_ROOT -> setupForDefinitionRoot();
             case PROPERTY_SET -> setupForPropertySet();
+            // TODO: Retire property pattern implication when starter set stable.
             case PROPERTY_PATTERN_IMPLICATION -> setupForPropertyPatternImplication();
+            case PROPERTY_SEQUENCE_IMPLICATION -> setupForPropertyPatternImplication();
         }
 
         rootBorderPane.setPadding(new Insets(2, 0, 0, 0));
@@ -181,8 +185,40 @@ public class ClauseView {
     private void setupForPropertyPatternImplication() {
         // TODO get CSS and related gui setup.
         // TODO get style class for property set
-        // rootPane.getStyleClass().add(StyleClasses.DEF_SUFFICIENT_SET.toString());
-        throw new UnsupportedOperationException();
+        if (this.axiomView.premiseType == STATED) {
+            editable = true;
+        }
+        // TODO, when we move LogicalExpression to tinkar-core, then also add logical expression, and use the logical expression...
+        rootBorderPane.getStyleClass()
+                .add(StyleClasses.DEF_FEATURE.toString());
+        int column = 0;
+        openConceptButton.getStyleClass().setAll(StyleClasses.OPEN_CONCEPT_BUTTON.toString());
+        this.axiomView.addToGridPaneNoGrowTopAlign(rootGridPane, openConceptButton, column++);
+        openConceptButton.setOnMouseClicked(this::handleShowFeatureNodeClick);
+        StringBuilder builder = new StringBuilder();
+        builder.append("πσ: ");
+        Optional<IntIdList> optionalPropertyPattern = this.axiomVertex.property(TinkarTerm.PROPERTY_SEQUENCE);
+        optionalPropertyPattern.ifPresent(propertyPattern -> {
+            for (int propertyPatternNid : propertyPattern.intStream().toArray()) {
+                builder.append("[" + calculator().getPreferredDescriptionTextWithFallbackOrNid(propertyPatternNid) + "] ");
+            }
+        });
+        builder.append("⇒ ");
+
+        Optional<ConceptFacade> optionalImplication = this.axiomVertex.propertyAsConcept(TinkarTerm.PROPERTY_SEQUENCE_IMPLICATION);
+        if (!optionalImplication.isPresent()) {
+            // TODO: Retire property pattern implication when starter set stable.
+            optionalImplication = this.axiomVertex.propertyAsConcept(TinkarTerm.PROPERTY_PATTERN_IMPLICATION);
+        }
+
+        optionalImplication.ifPresent(implication -> {
+            builder.append("[" + calculator().getPreferredDescriptionTextWithFallbackOrNid(implication.nid()) + "] ");
+        });
+        titleLabel.setText(builder.toString());
+        this.axiomView.addToGridPaneGrow(rootGridPane, titleLabel, column++);
+        if (this.axiomView.premiseType == STATED) {
+            this.axiomView.addToGridPaneNoGrow(rootGridPane, editButton, column++);
+        }
     }
 
     private void setupForPropertySet() {
@@ -275,6 +311,20 @@ public class ClauseView {
             LOG.info("TODO should never be null, need better handling. 39");
         }
 
+    }
+
+    private void setupForInclusionSet() {
+        rootBorderPane.getStyleClass()
+                .add(StyleClasses.DEF_INCLUSION_SET.toString());
+        titleLabel.setText(axiomView.getEntityForAxiomsText(
+                calculator().getPreferredDescriptionTextWithFallbackOrNid(axiomVertex.getMeaningNid())));
+        titleLabel.setGraphic(Icon.TAXONOMY_DEFINED_SINGLE_PARENT.makeIcon());
+        int column = 0;
+        this.axiomView.addToGridPaneNoGrow(rootGridPane, expandButton, column++);
+        this.axiomView.addToGridPaneGrow(rootGridPane, titleLabel, column++);
+        if (this.axiomView.premiseType == STATED) {
+            this.axiomView.addToGridPaneNoGrow(rootGridPane, editButton, column++);
+        }
     }
 
     private void setupForSufficientSet() {
@@ -405,11 +455,11 @@ public class ClauseView {
         openConceptButton.setOnMouseClicked(this::handleShowFeatureNodeClick);
         StringBuilder builder = new StringBuilder();
         builder.append("⒡ ");
-        Optional<Concept> optionalTypeConcept = this.axiomVertex.propertyAsConcept(TinkarTerm.FEATURE_TYPE);
-        Optional<Concept> optionalConcreteDomainOperator = this.axiomVertex.propertyAsConcept(TinkarTerm.CONCRETE_DOMAIN_OPERATOR);
-        ConceptFacade typeConcept = (ConceptFacade) optionalTypeConcept.get();
-        ConceptFacade concreteDomainOperatorConcept = (ConceptFacade) optionalConcreteDomainOperator.get();
+        Optional<ConceptFacade> optionalTypeConcept = this.axiomVertex.propertyAsConcept(TinkarTerm.FEATURE_TYPE);
+        Optional<ConceptFacade> optionalConcreteDomainOperator = this.axiomVertex.propertyAsConcept(TinkarTerm.CONCRETE_DOMAIN_OPERATOR);
         if (optionalTypeConcept.isPresent()  && optionalConcreteDomainOperator.isPresent()) {
+            ConceptFacade typeConcept = optionalTypeConcept.get();
+            ConceptFacade concreteDomainOperatorConcept = optionalConcreteDomainOperator.get();
             builder.append(calculator().getPreferredDescriptionTextWithFallbackOrNid(typeConcept));
             ConcreteDomainOperators operator = ConcreteDomainOperators.fromConcept(concreteDomainOperatorConcept);
             switch (operator) {
@@ -750,6 +800,19 @@ public class ClauseView {
                     leftStroke = "stroke: #5ec200;";
                     leftWidth = 4;
                     nodeText = "Sufficient set";
+                    bottomInset = 4;
+                    preTextIconWidth = 20;
+                    builder.append("<use xlink:href=\"#circle\" x=\"");
+                    builder.append((xOffset + rootBounds.getMinX() + leftWidth + textOffset) * 33);
+                    builder.append("\" y=\"");
+                    builder.append((yOffset + rootBounds.getMinY() + textOffset + 1) * 33);
+                    builder.append("\" style=\"fill: white; stroke: #5ec200; stroke-width: 50.0;\"");
+                    builder.append(" transform=\" scale(.03) \"/>");
+                    break;
+                case INCLUSION_SET:
+                    leftStroke = "stroke: #5ec200;";
+                    leftWidth = 4;
+                    nodeText = "Inclusion set";
                     bottomInset = 4;
                     preTextIconWidth = 20;
                     builder.append("<use xlink:href=\"#circle\" x=\"");

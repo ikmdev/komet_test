@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance.impl;
+package dev.ikm.komet_test.framework.performance.impl;
 
-import dev.ikm.komet.framework.performance.Request;
-import dev.ikm.komet.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.Request;
+import dev.ikm.komet_test.framework.performance.Topic;
 
 public record RequestRecord(Topic topic, Object subject) implements Request {
     public static RequestRecord make(Topic topic, Object subject) {

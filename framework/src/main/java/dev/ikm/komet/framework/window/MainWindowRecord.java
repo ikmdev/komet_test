@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.window;
+package dev.ikm.komet_test.framework.window;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.BorderPane;

@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.lidr.mvvm.viewmodel;
 
-import dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper;
-import dev.ikm.komet.kview.mvvm.model.DescrName;
-import dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel;
-import dev.ikm.komet.framework.builder.ConceptEntityBuilder;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper;
+import dev.ikm.komet_test.kview.mvvm.model.DescrName;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel;
+import dev.ikm.komet_test.framework.builder.ConceptEntityBuilder;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.common.id.PublicIds;
 import dev.ikm.tinkar.common.service.TinkExecutor;
@@ -42,7 +42,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.QUALITATIVE_CONCEPT;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.QUALITATIVE_CONCEPT;
 
 public class ResultsViewModel extends FormViewModel {
 

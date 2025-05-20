@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.axiom;
+package dev.ikm.komet_test.framework.panel.axiom;
 
-import dev.ikm.komet.framework.observable.ObservableSemanticVersion;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticVersion;
 import javafx.event.Event;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -24,9 +24,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import org.controlsfx.property.editor.PropertyEditor;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.id.IntIds;
 import dev.ikm.tinkar.component.graph.DiTree;
@@ -42,7 +42,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TODO: work with LogicalExpression rather than DiTree<EntityVertex> when LogicalExpression moves to TinkarCore.
+ * TODO: work with LogicalExpression rather than {@code DiTree<EntityVertex>} when LogicalExpression moves to TinkarCore.
+ *
  * @author kec
  */
 public class AxiomView implements PropertyEditor<DiTree<EntityVertex>> {
@@ -198,7 +199,7 @@ public class AxiomView implements PropertyEditor<DiTree<EntityVertex>> {
             LOG.info("axiomTreeSemanticVersion is null... Fix handling");
             return "Version is not available... ";
         }
-     }
+    }
 
     public final void setPremiseTypePseudoClasses(Node node) {
         switch (premiseType) {

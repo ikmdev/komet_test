@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.semantic;
+package dev.ikm.komet_test.framework.panel.semantic;
 
 import dev.ikm.tinkar.coordinate.stamp.change.ChangeChronology;
 import javafx.beans.property.SimpleObjectProperty;
@@ -22,12 +22,12 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservableSemantic;
-import dev.ikm.komet.framework.observable.ObservableSemanticSnapshot;
-import dev.ikm.komet.framework.observable.ObservableSemanticVersion;
-import dev.ikm.komet.framework.panel.ComponentIsFinalPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservableSemantic;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticSnapshot;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticVersion;
+import dev.ikm.komet_test.framework.panel.ComponentIsFinalPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.entity.PatternEntityVersion;
 import dev.ikm.tinkar.entity.SemanticVersionRecord;

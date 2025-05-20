@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.mvvm.viewmodel;
 
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.tinkar.common.id.IntIdSet;
-import dev.ikm.tinkar.entity.*;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.AUTHOR;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.MODULE;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.PATH;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.STATUS;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.TIME;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.model.DataModelHelper;
+import dev.ikm.tinkar.entity.ConceptEntity;
 import dev.ikm.tinkar.terms.State;
 import dev.ikm.tinkar.terms.TinkarTerm;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -25,42 +30,36 @@ import org.carlfx.cognitive.validator.MessageType;
 import org.carlfx.cognitive.validator.ValidationMessage;
 import org.carlfx.cognitive.viewmodel.ViewModel;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class StampViewModel extends FormViewModel {
-    public final static String STATUS_PROPERTY = "status";
-    public final static String TIME_PROPERTY = "time";
-    public final static String AUTHOR_PROPERTY = "author";
-    public final static String MODULE_PROPERTY = "module";
-    public final static String PATH_PROPERTY = "path";
+
     public final static String MODULES_PROPERTY = "modules";
     public final static String PATHS_PROPERTY = "paths";
-    public final static String INCOMPLETE = "Incomplete";
+
     public StampViewModel() {
         super(); // Default to ViewMode
-        addProperty(STATUS_PROPERTY, State.ACTIVE)
-                .addProperty(AUTHOR_PROPERTY, TinkarTerm.USER)
-                .addProperty(TIME_PROPERTY, System.currentTimeMillis())
-                .addProperty(MODULE_PROPERTY, (ConceptEntity) null)
-                .addProperty(PATH_PROPERTY, (ConceptEntity) null)
+        addProperty(STATUS, State.ACTIVE)
+                .addProperty(AUTHOR, TinkarTerm.USER)
+                .addProperty(TIME, System.currentTimeMillis())
+                .addProperty(MODULE, (ConceptEntity) null)
+                .addProperty(PATH, (ConceptEntity) null)
                 .addProperty(MODULES_PROPERTY, Collections.emptyList(), true)
                 .addProperty(PATHS_PROPERTY, Collections.emptyList(), true);
 
-        addValidator(MODULE_PROPERTY, "Module", (ReadOnlyObjectProperty nidProp, ViewModel vm) -> {
+        addValidator(MODULE, "Module", (ReadOnlyObjectProperty nidProp, ViewModel vm) -> {
             if (nidProp.isNull().get()) {
-                return new ValidationMessage(MODULE_PROPERTY, MessageType.ERROR, "Stamp's ${%s} is required.".formatted(MODULE_PROPERTY));
+                return new ValidationMessage(MODULE, MessageType.ERROR, "Stamp's ${%s} is required.".formatted(MODULE));
             }
             return VALID;
         });
-        addValidator(PATH_PROPERTY, "Path", (ReadOnlyObjectProperty nidProp, ViewModel vm) -> {
+        addValidator(PATH, "Path", (ReadOnlyObjectProperty nidProp, ViewModel vm) -> {
             if (nidProp.isNull().get()) {
-                return new ValidationMessage(PATH_PROPERTY, MessageType.ERROR, "Stamp's ${%s} is required.".formatted(PATH_PROPERTY));
+                return new ValidationMessage(PATH, MessageType.ERROR, "Stamp's ${%s} is required.".formatted(PATH));
             }
             return VALID;
         });
-
     }
 
     @Override
@@ -70,33 +69,15 @@ public class StampViewModel extends FormViewModel {
 
     public List<ConceptEntity> findAllModules(ViewProperties viewProperties) {
         try {
-            Entity<? extends EntityVersion> moduleEntity = EntityService.get().getEntityFast(TinkarTerm.MODULE);
-            IntIdSet moduleDescendents = viewProperties.calculator().descendentsOf(moduleEntity.nid());
-
-            // get all descendant modules
-            List<ConceptEntity> allModules =
-                    moduleDescendents.intStream()
-                            .mapToObj(moduleNid -> (ConceptEntity) Entity.getFast(moduleNid))
-                            .toList();
-            return allModules;
+            return DataModelHelper.fetchDescendentsOfConcept(viewProperties, TinkarTerm.MODULE.publicId()).stream().toList();
         } catch (Throwable th) {
             addValidator(MODULES_PROPERTY, "Module Entities", (Void prop, ViewModel vm) -> new ValidationMessage(MessageType.ERROR, "PrimitiveData services are not up. Attempting to retrieve ${%s}. Must call start().".formatted(MODULES_PROPERTY), th));
             return List.of();
         }
     }
-    public List<ConceptEntity<ConceptEntityVersion>> findAllPaths(ViewProperties viewProperties) {
+    public List<ConceptEntity> findAllPaths(ViewProperties viewProperties) {
         try {
-            //List of Concepts that represent available Paths in the data
-            List<ConceptEntity<ConceptEntityVersion>> paths = new ArrayList<>();
-            //Get all Path semantics from the Paths Pattern
-            int[] pathSemanticNids = EntityService.get().semanticNidsOfPattern(TinkarTerm.PATHS_PATTERN.nid());
-            //For each Path semantic get the concept that the semantic is referencing
-            for (int pathSemanticNid : pathSemanticNids) {
-                SemanticEntity<SemanticEntityVersion> semanticEntity = Entity.getFast(pathSemanticNid);
-                int pathConceptNid = semanticEntity.referencedComponentNid();
-                paths.add(EntityService.get().getEntityFast(pathConceptNid));
-            }
-            return paths;
+            return DataModelHelper.fetchDescendentsOfConcept(viewProperties, TinkarTerm.PATH.publicId()).stream().toList();
         } catch (Throwable th) {
             addValidator(PATHS_PROPERTY, "Path Entities", (Void prop, ViewModel vm) -> new ValidationMessage(MessageType.ERROR, "PrimitiveData services are not up. Attempting to retrieve ${%s}. Must call start().".formatted(PATHS_PROPERTY), th));
             return List.of();

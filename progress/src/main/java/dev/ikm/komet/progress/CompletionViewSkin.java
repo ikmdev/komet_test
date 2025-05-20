@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.progress;
+package dev.ikm.komet_test.progress;
 
 
 import javafx.beans.binding.Bindings;
@@ -27,7 +27,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import org.controlsfx.control.TaskProgressView;
-import dev.ikm.komet.framework.concurrent.CompletedTask;
+import dev.ikm.komet_test.framework.concurrent.CompletedTask;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

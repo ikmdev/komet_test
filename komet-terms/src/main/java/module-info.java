@@ -13,8 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-module dev.ikm.komet.terms {
-    exports dev.ikm.komet.terms;
+module dev.ikm.komet_test.terms {
+    exports dev.ikm.komet_test.terms;
     requires dev.ikm.tinkar.terms;
 
 }

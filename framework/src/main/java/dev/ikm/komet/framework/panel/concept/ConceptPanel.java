@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.concept;
+package dev.ikm.komet_test.framework.panel.concept;
 
 
 import dev.ikm.tinkar.coordinate.stamp.change.ChangeChronology;
 import dev.ikm.tinkar.entity.EntityService;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableSet;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservableConcept;
-import dev.ikm.komet.framework.observable.ObservableConceptSnapshot;
-import dev.ikm.komet.framework.observable.ObservableConceptVersion;
-import dev.ikm.komet.framework.panel.ComponentIsFinalPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservableConcept;
+import dev.ikm.komet_test.framework.observable.ObservableConceptSnapshot;
+import dev.ikm.komet_test.framework.observable.ObservableConceptVersion;
+import dev.ikm.komet_test.framework.panel.ComponentIsFinalPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.entity.ConceptVersionRecord;
 import dev.ikm.tinkar.terms.EntityFacade;
 import javafx.scene.control.ContextMenu;

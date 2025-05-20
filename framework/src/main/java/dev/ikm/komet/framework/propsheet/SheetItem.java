@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet;
+package dev.ikm.komet_test.framework.propsheet;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -27,13 +27,13 @@ import org.controlsfx.property.editor.AbstractPropertyEditor;
 import org.controlsfx.property.editor.PropertyEditor;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.observable.ObservableField;
-import dev.ikm.komet.framework.panel.axiom.AxiomView;
-import dev.ikm.komet.framework.propsheet.editor.IntIdListEditor;
-import dev.ikm.komet.framework.propsheet.editor.IntIdSetEditor;
-import dev.ikm.komet.framework.propsheet.editor.PasswordEditor;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.observable.ObservableField;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomView;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdListEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdSetEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.PasswordEditor;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.component.graph.DiTree;

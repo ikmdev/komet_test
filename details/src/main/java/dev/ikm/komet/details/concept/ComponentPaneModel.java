@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
 import javafx.scene.Node;
 import org.eclipse.collections.api.map.primitive.MutableIntIntMap;
-import dev.ikm.komet.framework.observable.ObservableEntitySnapshot;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.observable.ObservableEntitySnapshot;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.terms.ConceptFacade;
 
 import java.util.HashMap;

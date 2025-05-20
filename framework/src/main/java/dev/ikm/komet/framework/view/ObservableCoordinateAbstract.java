@@ -13,14 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
+import dev.ikm.tinkar.coordinate.ImmutableCoordinate;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.Property;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import dev.ikm.tinkar.coordinate.ImmutableCoordinate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ import java.util.Objects;
  * 
  */
 public abstract class ObservableCoordinateAbstract<T extends ImmutableCoordinate> implements ObservableCoordinate<T> {
+    protected static final Logger LOG = LoggerFactory.getLogger(ObservableCoordinateAbstract.class);
     /**
      * Since immutable coordinates are singletons, using SimpleEqualityBasedObjectProperty is not necessary, and
      *  inefficient.
@@ -53,6 +56,8 @@ public abstract class ObservableCoordinateAbstract<T extends ImmutableCoordinate
     protected abstract void addListeners();
 
     protected void changeBaseCoordinate(ObservableValue<? extends T> observable, T oldValue, T newValue) {
+        // TODO look into another way to not have to physically remove then add the listeners
+        // the protected instance variable listening
         removeListeners();
         this.immutableCoordinate.setValue(baseCoordinateChangedListenersRemoved(observable, oldValue, newValue));
         addListeners();
@@ -72,8 +77,13 @@ public abstract class ObservableCoordinateAbstract<T extends ImmutableCoordinate
         T oldValue = getValue();
         if (!Objects.equals(oldValue, value)) {
             changeBaseCoordinate(this.immutableCoordinate, oldValue, value);
-            for (ChangeListener<? super T> listener: changeListenerList) {
-                listener.changed(this.immutableCoordinate, oldValue, value);
+
+            // copy the listener list to avoid the ConcurrentModificationException
+            var copiedListenerList = new ArrayList<ChangeListener<? super T>>(changeListenerList);
+
+            var iterator = copiedListenerList.iterator();
+            while (iterator.hasNext()) {
+                iterator.next().changed(immutableCoordinate, oldValue, value);
             }
         }
     }

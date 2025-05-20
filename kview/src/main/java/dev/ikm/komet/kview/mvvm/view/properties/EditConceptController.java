@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.kview.events.OpenPropertiesPanelEvent;
-import dev.ikm.komet.kview.events.ShowEditDescriptionPanelEvent;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.Subscriber;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.kview.events.OpenPropertiesPanelEvent;
+import dev.ikm.komet_test.kview.events.ShowEditDescriptionPanelEvent;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.Subscriber;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;

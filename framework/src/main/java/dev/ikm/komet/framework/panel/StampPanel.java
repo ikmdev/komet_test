@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel;
+package dev.ikm.komet_test.framework.panel;
 
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.util.time.DateTimeUtil;
 import dev.ikm.tinkar.entity.EntityVersion;
 import dev.ikm.tinkar.entity.StampEntity;

@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.details;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.details;
 
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.kview.lidr.mvvm.model.*;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper;
-import dev.ikm.komet.kview.mvvm.view.AbstractBasicController;
-import dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.*;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper;
+import dev.ikm.komet_test.kview.mvvm.view.AbstractBasicController;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel;
 import dev.ikm.tinkar.entity.ConceptEntity;
 import javafx.fxml.FXML;
 import javafx.scene.control.TitledPane;
@@ -40,12 +40,12 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import static dev.ikm.komet.kview.lidr.mvvm.view.details.ResultConformanceDetailsController.RESULT_CONFORMANCE_DETAIL_FXML;
-import static dev.ikm.komet.kview.lidr.mvvm.view.details.ResultConformanceDetailsController.RESULT_CONFORMANCE_RECORD;
-import static dev.ikm.komet.kview.lidr.mvvm.view.details.SpecimenDetailsController.SPECIMEN_DETAIL_FXML;
-import static dev.ikm.komet.kview.lidr.mvvm.view.details.SpecimenDetailsController.SPECIMEN_RECORD;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
+import static dev.ikm.komet_test.kview.lidr.mvvm.view.details.ResultConformanceDetailsController.RESULT_CONFORMANCE_DETAIL_FXML;
+import static dev.ikm.komet_test.kview.lidr.mvvm.view.details.ResultConformanceDetailsController.RESULT_CONFORMANCE_RECORD;
+import static dev.ikm.komet_test.kview.lidr.mvvm.view.details.SpecimenDetailsController.SPECIMEN_DETAIL_FXML;
+import static dev.ikm.komet_test.kview.lidr.mvvm.view.details.SpecimenDetailsController.SPECIMEN_RECORD;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
 
 public class LidrRecordDetailsController extends AbstractBasicController {
 

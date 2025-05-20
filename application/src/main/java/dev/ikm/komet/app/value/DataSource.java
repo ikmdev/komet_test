@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.app.value;
+package dev.ikm.komet_test.app.value;
 
 public enum DataSource {
     FILESYSTEM("File system"),

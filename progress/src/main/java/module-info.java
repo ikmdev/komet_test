@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.concurrent.TaskListsService;
-import dev.ikm.komet.progress.CompletionNodeFactory;
-import dev.ikm.komet.progress.ProgressNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.concurrent.TaskListsService;
+import dev.ikm.komet_test.progress.CompletionNodeFactory;
+import dev.ikm.komet_test.progress.ProgressNodeFactory;
 
-module dev.ikm.komet.progress {
-    exports dev.ikm.komet.progress;
-    requires dev.ikm.komet.framework;
+module dev.ikm.komet_test.progress {
+    exports dev.ikm.komet_test.progress;
+    requires dev.ikm.komet_test.framework;
     requires org.controlsfx.controls;
     requires org.kordamp.ikonli.core;
-    requires dev.ikm.komet.preferences;
+    requires dev.ikm.komet_test.preferences;
     requires org.kordamp.ikonli.javafx;
 
     provides KometNodeFactory

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
 import dev.ikm.tinkar.entity.StampEntityVersion;
@@ -26,8 +26,8 @@ import dev.ikm.tinkar.entity.transaction.Transaction;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-import static dev.ikm.komet.framework.PseudoClasses.UNCOMMITTED_PSEUDO_CLASS;
-import static dev.ikm.komet.framework.StyleClasses.STAMP_INDICATOR;
+import static dev.ikm.komet_test.framework.PseudoClasses.UNCOMMITTED_PSEUDO_CLASS;
+import static dev.ikm.komet_test.framework.StyleClasses.STAMP_INDICATOR;
 import static dev.ikm.tinkar.common.util.time.DateTimeUtil.FORMATTER;
 
 /**

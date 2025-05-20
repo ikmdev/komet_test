@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel;
+package dev.ikm.komet_test.framework.panel;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -23,11 +23,11 @@ import javafx.scene.Node;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
-import dev.ikm.komet.framework.observable.*;
-import dev.ikm.komet.framework.panel.concept.ConceptVersionPanel;
-import dev.ikm.komet.framework.panel.pattern.PatternVersionPanel;
-import dev.ikm.komet.framework.panel.semantic.SemanticVersionPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.observable.*;
+import dev.ikm.komet_test.framework.panel.concept.ConceptVersionPanel;
+import dev.ikm.komet_test.framework.panel.pattern.PatternVersionPanel;
+import dev.ikm.komet_test.framework.panel.semantic.SemanticVersionPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.entity.EntityVersion;
@@ -35,7 +35,7 @@ import dev.ikm.tinkar.terms.EntityFacade;
 
 import java.util.Optional;
 
-import static dev.ikm.komet.framework.StyleClasses.COMPONENT_COLLAPSIBLE_PANEL;
+import static dev.ikm.komet_test.framework.StyleClasses.COMPONENT_COLLAPSIBLE_PANEL;
 
 /**
  * @param <ES>

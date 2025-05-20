@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.progress;
+package dev.ikm.komet_test.progress;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
@@ -26,10 +26,10 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 import org.controlsfx.control.TaskProgressView;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.concurrent.TaskListsService;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.concurrent.TaskListsService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.terms.EntityFacade;
 import org.kordamp.ikonli.javafx.FontIcon;
 

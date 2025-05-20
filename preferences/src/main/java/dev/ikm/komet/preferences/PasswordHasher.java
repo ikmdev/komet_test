@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.preferences;
+package dev.ikm.komet_test.preferences;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

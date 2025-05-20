@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.details;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.details;
 
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.kview.lidr.mvvm.model.ResultConformanceRecord;
-import dev.ikm.komet.kview.mvvm.view.AbstractBasicController;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.ResultConformanceRecord;
+import dev.ikm.komet_test.kview.mvvm.view.AbstractBasicController;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.provider.search.Searcher;
 import javafx.fxml.FXML;
@@ -33,9 +33,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.UUID;
 
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.QUALITATIVE_CONCEPT;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper.findDescrNameText;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.QUALITATIVE_CONCEPT;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper.findDescrNameText;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
 
 public class ResultConformanceDetailsController extends AbstractBasicController {
 

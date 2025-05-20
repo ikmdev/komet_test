@@ -13,20 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.model;
+package dev.ikm.komet_test.kview.mvvm.model;
 
+import dev.ikm.tinkar.component.Stamp;
 import dev.ikm.tinkar.terms.EntityFacade;
 
 /**
  * object to capture data for a Pattern>Field
- * @param fieldOrder order in 1..n
+ *
  * @param displayName display name
- * @param dataType tinkar data type
- * @param purpose purpose concept
- * @param meaning meaning concept
- * @param comments user comments
+ * @param dataType    tinkar data type
+ * @param purpose     purpose concept
+ * @param meaning     meaning concept
+ * @param comments    user comments
+ * @param stamp       stamp
  */
-public record PatternField(int fieldOrder, String displayName, EntityFacade dataType,
-                          EntityFacade purpose, EntityFacade meaning, String comments) {
-
+public record PatternField(String displayName, EntityFacade dataType,
+                           EntityFacade purpose, EntityFacade meaning, String comments, Stamp stamp) {
 }

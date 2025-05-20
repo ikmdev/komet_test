@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions.axiom;
+package dev.ikm.komet_test.rules.actions.axiom;
 
-import dev.ikm.komet.framework.panel.axiom.AxiomSubjectRecord;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomSubjectRecord;
 import dev.ikm.tinkar.entity.graph.adaptor.axiom.LogicalAxiom;
 import dev.ikm.tinkar.entity.graph.adaptor.axiom.LogicalExpressionBuilder;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinate;

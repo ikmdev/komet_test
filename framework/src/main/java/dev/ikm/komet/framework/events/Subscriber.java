@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.events;
+package dev.ikm.komet_test.framework.events;
 
 
 public interface Subscriber<T extends Evt> {

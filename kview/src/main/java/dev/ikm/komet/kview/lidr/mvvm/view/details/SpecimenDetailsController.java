@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.details;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.details;
 
-import dev.ikm.komet.kview.lidr.mvvm.model.SpecimenRecord;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper;
-import dev.ikm.komet.kview.mvvm.view.AbstractBasicController;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.SpecimenRecord;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper;
+import dev.ikm.komet_test.kview.mvvm.view.AbstractBasicController;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
 import javafx.fxml.FXML;
 import javafx.scene.text.Text;
 import org.carlfx.cognitive.loader.InjectViewModel;
@@ -29,8 +29,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.UUID;
 
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper.findDescrNameText;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper.findDescrNameText;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
 
 public class SpecimenDetailsController extends AbstractBasicController {
 

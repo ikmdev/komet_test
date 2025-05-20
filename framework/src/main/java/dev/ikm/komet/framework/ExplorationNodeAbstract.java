@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.framework.window.WindowComponent;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.window.WindowComponent;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
@@ -50,7 +50,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.framework.KometNode.PreferenceKey.ACTIVITY_STREAM_OPTION_KEY;
+import static dev.ikm.komet_test.framework.KometNode.PreferenceKey.ACTIVITY_STREAM_OPTION_KEY;
 
 public abstract class ExplorationNodeAbstract implements KometNode, Subscriber<ImmutableList<EntityFacade>>, ViewCalculatorDelegate {
 

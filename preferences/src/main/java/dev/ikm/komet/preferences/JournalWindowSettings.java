@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.preferences;
+package dev.ikm.komet_test.preferences;
 
 public enum JournalWindowSettings {
     JOURNAL_DIR_NAME,
@@ -24,7 +24,7 @@ public enum JournalWindowSettings {
     JOURNAL_YPOS,
     JOURNAL_LAST_EDIT,
     JOURNAL_AUTHOR,
-    CONCEPT_NAMES,
-    CONCEPT_COUNT,
+    WINDOW_NAMES,
+    WINDOW_COUNT,
     CAN_DELETE
 }

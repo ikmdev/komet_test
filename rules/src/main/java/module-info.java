@@ -13,21 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.rules.evrete.EvreteRulesService;
-import dev.ikm.komet.framework.rulebase.RuleService;
+import dev.ikm.komet_test.rules.evrete.EvreteRulesService;
+import dev.ikm.komet_test.framework.rulebase.RuleService;
 
-open module dev.ikm.komet.rules {
-    requires transitive dev.ikm.komet.framework;
+open module dev.ikm.komet_test.rules {
+    requires transitive dev.ikm.komet_test.framework;
     requires org.evrete.core;
     requires org.slf4j;
     requires org.evrete.dsl.java;
     // TODO remove requires classification after moving LogicalExpressionAdaptorFactory to tinkar-core.
-    requires dev.ikm.komet.classification;
+    requires dev.ikm.komet_test.classification;
 
-    exports dev.ikm.komet.rules.evrete;
-    exports dev.ikm.komet.rules.annotated to dev.ikm.komet.rules.test;
+    exports dev.ikm.komet_test.rules.evrete;
+    exports dev.ikm.komet_test.rules.annotated to dev.ikm.komet_test.rules.test;
 
     provides RuleService with EvreteRulesService;
 
-    uses dev.ikm.komet.framework.events.EvtBus;
+    uses dev.ikm.komet_test.framework.events.EvtBus;
 }

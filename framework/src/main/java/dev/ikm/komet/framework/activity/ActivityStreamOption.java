@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.activity;
+package dev.ikm.komet_test.framework.activity;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.graphics.Icon;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.common.id.PublicIds;
 

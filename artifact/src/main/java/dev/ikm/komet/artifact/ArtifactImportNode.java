@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.artifact;
+package dev.ikm.komet_test.artifact;
 
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.terms.EntityFacade;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;

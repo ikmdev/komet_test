@@ -17,7 +17,7 @@
  * Sample Skeleton for 'SelectDataSource.fxml' Controller Class
  */
 
-package dev.ikm.komet.app;
+package dev.ikm.komet_test.app;
 
 
 import javafx.application.Platform;
@@ -35,10 +35,10 @@ import org.controlsfx.validation.ValidationMessage;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.propsheet.KometPropertyEditorFactory;
-import dev.ikm.komet.framework.propsheet.SheetItem;
-import dev.ikm.komet.progress.ProgressNodeFactory;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.propsheet.KometPropertyEditorFactory;
+import dev.ikm.komet_test.framework.propsheet.SheetItem;
+import dev.ikm.komet_test.progress.ProgressNodeFactory;
 import dev.ikm.tinkar.common.service.DataServiceController;
 import dev.ikm.tinkar.common.service.DataServiceProperty;
 import dev.ikm.tinkar.common.service.DataUriOption;
@@ -86,11 +86,6 @@ public class SelectDataSourceController {
     @FXML // fx:id="fileListView"
     private ListView<DataUriOption> fileListView; // Value injected by FXMLLoader
 
-    @FXML
-    void cancelButtonPressed(ActionEvent event) {
-        Platform.exit();
-    }
-
     // This method is called by the FXMLLoader when initialization is complete
     @FXML
     void initialize() {
@@ -109,8 +104,13 @@ public class SelectDataSourceController {
 
         propertySheet.setPropertyEditorFactory(new KometPropertyEditorFactory(null));
 
-        Platform.runLater(() ->
-                dataSourceChoiceBox.getSelectionModel().select(controllerOptions.get(1)));
+        // Set default data service
+        controllerOptions.stream()
+                .filter(dataServiceController -> "Open SpinedArrayStore".equals(dataServiceController.controllerName()))
+                .findFirst()
+                .ifPresentOrElse(dataSourceChoiceBox.getSelectionModel()::select,
+                        // If default data service is not found, select the first one on the choice box.
+                        dataSourceChoiceBox.getSelectionModel()::selectFirst);
     }
 
     void dataSourceChanged(ObservableValue<? extends DataServiceController<?>> observable,
@@ -186,12 +186,21 @@ public class SelectDataSourceController {
         progressTab.setGraphic(kometNode.getTitleNode());
         progressTabPane.getTabs().add(progressTab);
 
-        Platform.runLater(() -> App.state.set(AppState.SELECTED_DATA_SOURCE));
+        App.state.set(AppState.SELECTED_DATA_SOURCE);
+        // TODO: The following line will be removed in the future, when the WebApp class will be merged with the App class.
+        WebApp.state.set(AppState.SELECTED_DATA_SOURCE);
     }
 
     private void saveDataServiceProperties(DataServiceController<?> dataServiceController) {
         dataServicePropertyStringMap.forEach((dataServiceProperty, simpleStringProperty) -> {
             dataServiceController.setDataServiceProperty(dataServiceProperty, simpleStringProperty.getValue());
         });
+    }
+
+    /**
+     * Returns the cancel button.
+     */
+    public Button getCancelButton() {
+        return cancelButton;
     }
 }

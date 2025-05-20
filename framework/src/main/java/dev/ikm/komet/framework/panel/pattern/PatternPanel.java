@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.pattern;
+package dev.ikm.komet_test.framework.panel.pattern;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableSet;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.observable.ObservablePattern;
-import dev.ikm.komet.framework.observable.ObservablePatternSnapshot;
-import dev.ikm.komet.framework.observable.ObservablePatternVersion;
-import dev.ikm.komet.framework.panel.ComponentIsFinalPanel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.observable.ObservablePattern;
+import dev.ikm.komet_test.framework.observable.ObservablePatternSnapshot;
+import dev.ikm.komet_test.framework.observable.ObservablePatternVersion;
+import dev.ikm.komet_test.framework.panel.ComponentIsFinalPanel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.entity.PatternVersionRecord;
 import dev.ikm.tinkar.terms.EntityFacade;
 

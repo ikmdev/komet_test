@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.reasoner.ReasonerResultsNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.reasoner.ReasonerResultsNodeFactory;
 import dev.ikm.tinkar.reasoner.service.ReasonerService;
 
-module dev.ikm.komet.classification {
-	requires org.eclipse.collections;
-	requires org.eclipse.collections.api;
+module dev.ikm.komet_test.classification {
+	requires dev.ikm.jpms.eclipse.collections;
+	requires dev.ikm.jpms.eclipse.collections.api;
+	requires roaringbitmap;
 	requires org.jgrapht.core;
-	requires org.roaringbitmap;
 	requires org.slf4j;
 	
 	requires dev.ikm.tinkar.collection;
 	requires dev.ikm.tinkar.coordinate;
 	requires dev.ikm.tinkar.entity;
 
-	requires transitive dev.ikm.komet.framework;
+	requires transitive dev.ikm.komet_test.framework;
 
 	requires dev.ikm.tinkar.reasoner.service;
 
@@ -36,10 +36,11 @@ module dev.ikm.komet.classification {
 
 	requires dev.ikm.tinkar.reasoner.elkowl;
 	requires dev.ikm.tinkar.reasoner.elksnomed;
+	requires dev.ikm.tinkar.reasoner.hybrid;
 
-	exports dev.ikm.komet.reasoner;
+	exports dev.ikm.komet_test.reasoner;
 
-	opens dev.ikm.komet.reasoner;
+	opens dev.ikm.komet_test.reasoner;
 
 	provides KometNodeFactory with ReasonerResultsNodeFactory;
 

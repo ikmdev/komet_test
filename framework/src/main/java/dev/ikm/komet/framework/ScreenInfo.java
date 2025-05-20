@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 import javafx.application.Platform;
 import javafx.geometry.Point2D;

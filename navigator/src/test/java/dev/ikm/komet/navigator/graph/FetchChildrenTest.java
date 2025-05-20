@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.graph;
+package dev.ikm.komet_test.navigator.graph;
 
 import org.junit.jupiter.api.Test;
 

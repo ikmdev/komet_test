@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.actions.membership;
+package dev.ikm.komet_test.rules.actions.membership;
 
-import dev.ikm.komet.rules.actions.AbstractActionSuggested;
+import dev.ikm.komet_test.rules.actions.AbstractActionSuggested;
 import javafx.event.ActionEvent;
 import org.eclipse.collections.api.factory.Lists;
 import dev.ikm.tinkar.common.id.PublicId;

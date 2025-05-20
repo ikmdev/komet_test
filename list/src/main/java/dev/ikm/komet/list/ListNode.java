@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.list;
+package dev.ikm.komet_test.list;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import dev.ikm.komet.collection.CollectionNode;
-import dev.ikm.komet.collection.CollectionType;
-import dev.ikm.komet.framework.propsheet.editor.IntIdCollectionEditor;
-import dev.ikm.komet.framework.propsheet.editor.IntIdListEditor;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.collection.CollectionNode;
+import dev.ikm.komet_test.collection.CollectionType;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdCollectionEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdListEditor;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.id.IntIds;
 import org.slf4j.Logger;

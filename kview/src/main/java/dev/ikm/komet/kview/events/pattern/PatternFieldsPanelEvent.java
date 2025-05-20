@@ -13,17 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.events.pattern;
+package dev.ikm.komet_test.kview.events.pattern;
 
-import dev.ikm.komet.framework.events.Evt;
-import dev.ikm.komet.framework.events.EvtType;
-import dev.ikm.komet.kview.mvvm.model.PatternField;
+import dev.ikm.komet_test.framework.events.Evt;
+import dev.ikm.komet_test.framework.events.EvtType;
+import dev.ikm.komet_test.kview.mvvm.model.PatternField;
 
 public class PatternFieldsPanelEvent extends Evt {
 
     public static final EvtType<PatternFieldsPanelEvent> PATTERN_FIELDS = new EvtType<>(Evt.ANY, "PATTERN_FIELDS");
 
-    private PatternField patternField;
+    public static final EvtType<PatternFieldsPanelEvent> EDIT_FIELD = new EvtType<>(PATTERN_FIELDS, "EDIT_FIELD");
+
+    public static final EvtType<PatternFieldsPanelEvent> ADD_FIELD = new EvtType<>(PATTERN_FIELDS, "ADD_FIELD");
+
+    private final PatternField patternField;
+    private final PatternField previousPatternField;
+    private final int currentFieldOrder;
 
     /**
      * Constructs a prototypical Event.
@@ -32,16 +38,23 @@ public class PatternFieldsPanelEvent extends Evt {
      * @param eventType
      * @throws IllegalArgumentException if source is null
      */
-    public PatternFieldsPanelEvent(Object source, EvtType eventType, PatternField patternField) {
+    public PatternFieldsPanelEvent(Object source, EvtType eventType, PatternField patternField, PatternField previousPatternField, int currentFieldOrder) {
         super(source, eventType);
         this.patternField = patternField;
+        this.previousPatternField = previousPatternField;
+        this.currentFieldOrder = currentFieldOrder;
     }
 
     public PatternField getPatternField() {
         return patternField;
     }
 
-    public void setPatternField(PatternField patternField) {
-        this.patternField = patternField;
+    public PatternField getPreviousPatternField(){
+        return previousPatternField;
     }
+
+    public int getCurrentFieldOrder(){
+        return currentFieldOrder;
+    }
+
 }

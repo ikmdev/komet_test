@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dev.ikm.komet.github.test</groupId>
+        <groupId>dev.ikm.komet_test</groupId>
         <artifactId>komet-parent</artifactId>
-        <version>1.81.0-SNAPSHOT</version>
+        <version>1.51.0-SNAPSHOT</version>
     </parent>
     <artifactId>framework</artifactId>
     <dependencies>
@@ -25,12 +25,21 @@
             <groupId>${tinkar-core.groupId}</groupId>
             <artifactId>terms</artifactId>
         </dependency>
+
         <!-- JPMS wrapped dependencies -->
         <dependency>
             <groupId>${tinkar-jpms-deps.groupId}</groupId>
             <artifactId>record-builder-core</artifactId>
-            <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>${tinkar-jpms-deps.groupId}</groupId>
+            <artifactId>eclipse-collections</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>${tinkar-jpms-deps.groupId}</groupId>
+            <artifactId>eclipse-collections-api</artifactId>
+        </dependency>
+
         <!-- external dependencies -->
         <dependency>
             <groupId>org.carlfx</groupId>
@@ -49,16 +58,16 @@
             <artifactId>javafx-fxml</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${tinkar-core.groupId}</groupId>
             <artifactId>entity</artifactId>
         </dependency>
         <dependency>
             <groupId>${tinkar-core.groupId}</groupId>
             <artifactId>coordinate</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>dev.ikm.tinkar.fhir</groupId>
-            <artifactId>fhir-extension</artifactId>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
@@ -132,12 +141,11 @@
     </dependencies>
     <build>
         <plugins>
-            <!-- TODO https://ikmdev.atlassian.net/browse/IKM-1286 - Defect in javadoc plugin. -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <configuration>
-                    <skip>true</skip>
+                    <doclint>all,-missing</doclint>
                 </configuration>
             </plugin>
         </plugins>

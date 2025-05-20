@@ -13,69 +13,85 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.app;
+package dev.ikm.komet_test.app;
 
+import com.sun.management.OperatingSystemMXBean;
 import de.jangassen.MenuToolkit;
 import de.jangassen.model.AppearanceMode;
-import dev.ikm.komet.details.DetailsNodeFactory;
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.ScreenInfo;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.Subscriber;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.graphics.LoadFonts;
-import dev.ikm.komet.framework.preferences.KometPreferencesStage;
-import dev.ikm.komet.framework.preferences.PrefX;
-import dev.ikm.komet.framework.preferences.Reconstructor;
-import dev.ikm.komet.framework.progress.ProgressHelper;
-import dev.ikm.komet.framework.tabs.DetachableTab;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.framework.window.KometStageController;
-import dev.ikm.komet.framework.window.MainWindowRecord;
-import dev.ikm.komet.framework.window.WindowComponent;
-import dev.ikm.komet.framework.window.WindowSettings;
-import dev.ikm.komet.kview.events.CreateJournalEvent;
-import dev.ikm.komet.kview.events.JournalTileEvent;
-import dev.ikm.komet.kview.fxutils.CssHelper;
-import dev.ikm.komet.kview.fxutils.ResourceHelper;
-import dev.ikm.komet.kview.mvvm.view.export.ArtifactExportController2;
-import dev.ikm.komet.kview.mvvm.view.export.ExportDatasetController;
-import dev.ikm.komet.kview.mvvm.view.export.ExportDatasetViewFactory;
-import dev.ikm.komet.kview.mvvm.view.journal.JournalController;
-import dev.ikm.komet.kview.mvvm.view.journal.JournalViewFactory;
-import dev.ikm.komet.kview.mvvm.view.landingpage.LandingPageController;
-import dev.ikm.komet.kview.mvvm.view.landingpage.LandingPageViewFactory;
-import dev.ikm.komet.list.ListNodeFactory;
-import dev.ikm.komet.navigator.graph.GraphNavigatorNodeFactory;
-import dev.ikm.komet.navigator.pattern.PatternNavigatorFactory;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.KometPreferencesImpl;
-import dev.ikm.komet.preferences.Preferences;
-import dev.ikm.komet.progress.CompletionNodeFactory;
-import dev.ikm.komet.progress.ProgressNodeFactory;
-import dev.ikm.komet.search.SearchNodeFactory;
-import dev.ikm.komet.table.TableNodeFactory;
+import dev.ikm.komet_test.details.DetailsNodeFactory;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.ScreenInfo;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.Subscriber;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.graphics.LoadFonts;
+import dev.ikm.komet_test.framework.preferences.KometPreferencesStage;
+import dev.ikm.komet_test.framework.preferences.PrefX;
+import dev.ikm.komet_test.framework.preferences.Reconstructor;
+import dev.ikm.komet_test.framework.progress.ProgressHelper;
+import dev.ikm.komet_test.framework.tabs.DetachableTab;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.framework.window.KometStageController;
+import dev.ikm.komet_test.framework.window.MainWindowRecord;
+import dev.ikm.komet_test.framework.window.WindowComponent;
+import dev.ikm.komet_test.framework.window.WindowSettings;
+import dev.ikm.komet_test.kview.events.CreateJournalEvent;
+import dev.ikm.komet_test.kview.events.JournalTileEvent;
+import dev.ikm.komet_test.kview.mvvm.view.changeset.ExportController;
+import dev.ikm.komet_test.kview.mvvm.view.changeset.ImportController;
+import dev.ikm.komet_test.kview.mvvm.view.journal.JournalController;
+import dev.ikm.komet_test.kview.mvvm.view.landingpage.LandingPageController;
+import dev.ikm.komet_test.kview.mvvm.view.landingpage.LandingPageViewFactory;
+import dev.ikm.komet_test.list.ListNodeFactory;
+import dev.ikm.komet_test.navigator.graph.GraphNavigatorNodeFactory;
+import dev.ikm.komet_test.navigator.pattern.PatternNavigatorFactory;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferencesImpl;
+import dev.ikm.komet_test.preferences.Preferences;
+import dev.ikm.komet_test.progress.CompletionNodeFactory;
+import dev.ikm.komet_test.progress.ProgressNodeFactory;
+import dev.ikm.komet_test.search.SearchNodeFactory;
+import dev.ikm.komet_test.sync.AddChangesetsTask;
+import dev.ikm.komet_test.sync.InfoTask;
+import dev.ikm.komet_test.sync.InitializeTask;
+import dev.ikm.komet_test.sync.PullTask;
+import dev.ikm.komet_test.sync.PushTask;
+import dev.ikm.komet_test.table.TableNodeFactory;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.binary.Encodable;
+import dev.ikm.tinkar.common.service.PluggableService;
 import dev.ikm.tinkar.common.service.PrimitiveData;
+import dev.ikm.tinkar.common.service.ServiceKeys;
+import dev.ikm.tinkar.common.service.ServiceProperties;
 import dev.ikm.tinkar.common.service.TinkExecutor;
+import dev.ikm.tinkar.coordinate.Calculators;
+import dev.ikm.tinkar.entity.EntityCountSummary;
 import dev.ikm.tinkar.entity.load.LoadEntitiesFromProtobufFile;
+import dev.ikm.tinkar.reasoner.service.ClassifierResults;
+import dev.ikm.tinkar.reasoner.service.ReasonerService;
+import dev.ikm.tinkar.terms.TinkarTerm;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -84,36 +100,71 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import org.carlfx.cognitive.loader.Config;
 import org.carlfx.cognitive.loader.FXMLMvvmLoader;
 import org.carlfx.cognitive.loader.JFXNode;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
+import org.eclipse.jgit.api.Git;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.time.LocalDateTime;
+import java.lang.management.ManagementFactory;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
 import java.time.Year;
-import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.ServiceLoader;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.app.AppState.*;
-import static dev.ikm.komet.framework.KometNodeFactory.KOMET_NODES;
-import static dev.ikm.komet.framework.window.WindowSettings.Keys.*;
-import static dev.ikm.komet.kview.events.EventTopics.JOURNAL_TOPIC;
-import static dev.ikm.komet.kview.events.JournalTileEvent.UPDATE_JOURNAL_TILE;
-import static dev.ikm.komet.kview.fxutils.CssHelper.defaultStyleSheet;
-import static dev.ikm.komet.kview.fxutils.CssHelper.refreshPanes;
-import static dev.ikm.komet.preferences.JournalWindowPreferences.*;
-import static dev.ikm.komet.preferences.JournalWindowSettings.*;
+import static dev.ikm.komet_test.app.AppState.LOADING_DATA_SOURCE;
+import static dev.ikm.komet_test.app.AppState.SHUTDOWN;
+import static dev.ikm.komet_test.app.AppState.STARTING;
+import static dev.ikm.komet_test.app.util.CssFile.KOMET_CSS;
+import static dev.ikm.komet_test.app.util.CssFile.KVIEW_CSS;
+import static dev.ikm.komet_test.app.util.CssUtils.addStylesheets;
+import static dev.ikm.komet_test.framework.KometNode.PreferenceKey.CURRENT_JOURNAL_WINDOW_TOPIC;
+import static dev.ikm.komet_test.framework.KometNodeFactory.KOMET_NODES;
+import static dev.ikm.komet_test.framework.window.WindowSettings.Keys.CENTER_TAB_PREFERENCES;
+import static dev.ikm.komet_test.framework.window.WindowSettings.Keys.LEFT_TAB_PREFERENCES;
+import static dev.ikm.komet_test.framework.window.WindowSettings.Keys.RIGHT_TAB_PREFERENCES;
+import static dev.ikm.komet_test.kview.events.EventTopics.JOURNAL_TOPIC;
+import static dev.ikm.komet_test.kview.events.JournalTileEvent.UPDATE_JOURNAL_TILE;
+import static dev.ikm.komet_test.kview.fxutils.FXUtils.getFocusedWindow;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.JournalViewModel.WINDOW_VIEW;
+import static dev.ikm.komet_test.preferences.JournalWindowPreferences.JOURNALS;
+import static dev.ikm.komet_test.preferences.JournalWindowPreferences.JOURNAL_IDS;
+import static dev.ikm.komet_test.preferences.JournalWindowPreferences.DEFAULT_JOURNAL_HEIGHT;
+import static dev.ikm.komet_test.preferences.JournalWindowPreferences.DEFAULT_JOURNAL_WIDTH;
+import static dev.ikm.komet_test.preferences.JournalWindowPreferences.MAIN_KOMET_WINDOW;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.CAN_DELETE;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_DIR_NAME;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_HEIGHT;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_TITLE;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_WIDTH;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_XPOS;
+import static dev.ikm.komet_test.preferences.JournalWindowSettings.JOURNAL_YPOS;
+
 
 /**
  * JavaFX App
@@ -123,14 +174,16 @@ public class App extends Application {
     private static final String OS_NAME_MAC = "mac";
 
     private static final Logger LOG = LoggerFactory.getLogger(App.class);
-    public static final String CSS_LOCATION = "dev/ikm/komet/framework/graphics/komet.css";
     public static final SimpleObjectProperty<AppState> state = new SimpleObjectProperty<>(STARTING);
     private static Stage primaryStage;
 
     private static Stage classicKometStage;
-    private static Module graphicsModule;
     private static long windowCount = 1;
     private static KometPreferencesStage kometPreferencesStage;
+
+    // variables specific to resource overlay
+    private Stage overlayStage;
+    private Timeline resourceUsageTimeline;
 
     /**
      * An entry point to launch the newer UI panels.
@@ -141,7 +194,7 @@ public class App extends Application {
      * This is a list of new windows that have been launched. During shutdown, the application close each stage gracefully.
      */
     private static Stage landingPageWindow;
-    private List<JournalController> journalControllersList = new ArrayList<>();
+    private final List<JournalController> journalControllersList = new ArrayList<>();
 
     private EvtBus kViewEventBus;
 
@@ -258,41 +311,27 @@ public class App extends Application {
 //        logDirectory.mkdirs();
         LOG.info("Starting Komet");
         LoadFonts.load();
-        graphicsModule = ModuleLayer.boot()
-                .findModule("dev.ikm.komet.framework")
-                // Optional<Module> at this point
-                .orElseThrow();
 
         // get the instance of the event bus
         kViewEventBus = EvtBusFactory.getInstance(EvtBus.class);
         Subscriber<CreateJournalEvent> detailsSubscriber = evt -> {
-
-            String journalName = evt.getWindowSettingsObjectMap().getValue(JOURNAL_TITLE);
+            final PrefX journalWindowSettingsObjectMap = evt.getWindowSettingsObjectMap();
+            final UUID journalTopic = journalWindowSettingsObjectMap.getValue(JOURNAL_TOPIC);
             // Inspects the existing journal windows to see if it is already open
             // So that we do not open duplicate journal windows
             journalControllersList.stream()
-                    .filter(journalController -> journalController.getTitle().equals(journalName))
+                    .filter(journalController ->
+                            journalController.getJournalTopic().equals(journalTopic))
                     .findFirst()
                     .ifPresentOrElse(
-                            journalController -> journalController.windowToFront(), /* Window already launched now make window to the front (so user sees window) */
-                            () -> launchJournalViewWindow(evt.getWindowSettingsObjectMap()) /* launch new Journal view window */
+                            JournalController::windowToFront, /* Window already launched now make window to the front (so user sees window) */
+                            () -> launchJournalViewWindow(journalWindowSettingsObjectMap) /* launch new Journal view window */
                     );
         };
         // subscribe to the topic
         kViewEventBus.subscribe(JOURNAL_TOPIC, CreateJournalEvent.class, detailsSubscriber);
     }
 
-    private MenuItem createExportChangesetMenuItem() {
-        MenuItem exportMenuItem = new MenuItem("_Export Changesets...");
-        exportMenuItem.setOnAction(event -> {
-            Stage stage = new Stage();
-            JFXNode<Pane, ArtifactExportController2> jfxNode = FXMLMvvmLoader.make(
-                    ArtifactExportController2.class.getResource("artifact-export2.fxml"));
-            stage.setScene(new Scene(jfxNode.node()));
-            stage.show();
-        });
-        return exportMenuItem;
-    }
     @Override
     public void start(Stage stage) {
 
@@ -318,15 +357,14 @@ public class App extends Application {
             Menu fileMenu = new Menu("File");
 
             MenuItem importDatasetMenuItem = new MenuItem("Import Dataset");
-            importDatasetMenuItem.setOnAction(actionEvent -> doImportDataSet(primaryStage));
+            importDatasetMenuItem.setOnAction(actionEvent -> openImport());
 
             // Exporting data
-            Menu exportMenu = new Menu("Export Dataset");
-            MenuItem fhirMenuItem = new MenuItem("FHIR");
-            fhirMenuItem.setOnAction(actionEvent -> openDatasetPage());
-            exportMenu.getItems().addAll(createExportChangesetMenuItem(), fhirMenuItem);
+            MenuItem exportDatasetMenuItem = new MenuItem("Export Dataset");
+            exportDatasetMenuItem.setOnAction(actionEvent -> openExport());
+            fileMenu.getItems().add(exportDatasetMenuItem);
 
-            fileMenu.getItems().addAll(importDatasetMenuItem, exportMenu, new SeparatorMenuItem(), tk.createCloseWindowMenuItem());
+            fileMenu.getItems().addAll(importDatasetMenuItem, exportDatasetMenuItem, new SeparatorMenuItem(), tk.createCloseWindowMenuItem());
 
             // Edit
             Menu editMenu = new Menu("Edit");
@@ -335,37 +373,39 @@ public class App extends Application {
 
             // View
             Menu viewMenu = new Menu("View");
-            MenuItem classicKometPage = new MenuItem("Classic Komet");
-            KeyCombination classicKometPageKeyCombo = new KeyCodeCombination(KeyCode.K, KeyCombination.SHORTCUT_DOWN);
-            classicKometPage.setOnAction(actionEvent -> {
-                try {
-                    launchClassicKomet();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                } catch (BackingStoreException e) {
-                    throw new RuntimeException(e);
-                }
-            });
-            classicKometPage.setAccelerator(classicKometPageKeyCombo);
-            viewMenu.getItems().add(classicKometPage);
+            MenuItem classicKometMenuItem = createClassicKometMenuItem();
+            MenuItem resourceUsageMenuItem = createResourceUsageItem();
+            viewMenu.getItems().addAll(classicKometMenuItem, resourceUsageMenuItem);
 
             // Window Menu
             Menu windowMenu = new Menu("Window");
             windowMenu.getItems().addAll(tk.createMinimizeMenuItem(), tk.createZoomMenuItem(), tk.createCycleWindowsItem(),
                     new SeparatorMenuItem(), tk.createBringAllToFrontItem());
 
+            // Exchange Menu
+            Menu exchangeMenu = new Menu("Exchange");
+
+            MenuItem infoMenuItem = new MenuItem("Info");
+            infoMenuItem.setOnAction(actionEvent -> infoAction());
+            MenuItem pullMenuItem = new MenuItem("Pull");
+            pullMenuItem.setOnAction(actionEvent -> syncAction(false));
+            MenuItem pushMenuItem = new MenuItem("Sync");
+            pushMenuItem.setOnAction(actionEvent -> syncAction(true));
+
+            exchangeMenu.getItems().addAll(infoMenuItem, pullMenuItem, pushMenuItem);
+
             // Help Menu
             Menu helpMenu = new Menu("Help");
             helpMenu.getItems().addAll(new MenuItem("Getting started"));
 
             MenuBar bar = new MenuBar();
-            bar.getMenus().addAll(kometAppMenu, fileMenu, editMenu, viewMenu, windowMenu, helpMenu);
+            bar.getMenus().addAll(kometAppMenu, fileMenu, editMenu, viewMenu, windowMenu, exchangeMenu, helpMenu);
             tk.setAppearanceMode(AppearanceMode.AUTO);
             tk.setDockIconMenu(createDockMenu());
             tk.autoAddWindowMenuItems(windowMenu);
 
 
-            if(System.getProperty("os.name")!=null && System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
+            if (System.getProperty("os.name") != null && System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
                 tk.setGlobalMenuBar(bar);
             }
 
@@ -374,12 +414,10 @@ public class App extends Application {
             FXMLLoader sourceLoader = new FXMLLoader(getClass().getResource("SelectDataSource.fxml"));
             BorderPane sourceRoot = sourceLoader.load();
             SelectDataSourceController selectDataSourceController = sourceLoader.getController();
-            Scene sourceScene = new Scene(sourceRoot, 600, 400);
+            selectDataSourceController.getCancelButton().setOnAction(actionEvent -> Platform.exit());
+            Scene sourceScene = new Scene(sourceRoot);
+            addStylesheets(sourceScene, KOMET_CSS, KVIEW_CSS);
 
-
-            sourceScene.getStylesheets()
-
-                    .add(graphicsModule.getClassLoader().getResource(CSS_LOCATION).toString());
             stage.setScene(sourceScene);
             stage.setTitle("KOMET Startup");
 
@@ -404,24 +442,9 @@ public class App extends Application {
             stage.show();
             state.set(AppState.SELECT_DATA_SOURCE);
             state.addListener(this::appStateChangeListener);
-
         } catch (IOException e) {
             LOG.error(e.getLocalizedMessage(), e);
             Platform.exit();
-        }
-    }
-
-    private void doImportDataSet(Stage stage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Zip Files", "*.zip"),
-                new FileChooser.ExtensionFilter("All Files", "*.*"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        // selectedFile is null if the user clicks cancel
-        if (selectedFile != null) {
-            LoadEntitiesFromProtobufFile loadEntities = new LoadEntitiesFromProtobufFile(selectedFile);
-            ProgressHelper.progress(loadEntities, "Cancel Import");
         }
     }
 
@@ -443,18 +466,11 @@ public class App extends Application {
             FXMLLoader landingPageLoader = LandingPageViewFactory.createFXMLLoader();
             BorderPane landingPageBorderPane = landingPageLoader.load();
             // if NOT on Mac OS
-            if(System.getProperty("os.name")!=null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
+            if (System.getProperty("os.name") != null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
                 createMenuOptions(landingPageBorderPane);
             }
             LandingPageController landingPageController = landingPageLoader.getController();
             Scene sourceScene = new Scene(landingPageBorderPane, 1200, 800);
-
-            // Add Komet.css and kview css
-            sourceScene.getStylesheets().addAll(
-                    graphicsModule.getClassLoader().getResource(CSS_LOCATION).toString(), CssHelper.defaultStyleSheet());
-
-            // Attach a listener to provide a CSS refresher ability for each Journal window. Right double click settings button (gear)
-            attachCSSRefresher(landingPageController.getSettingsToggleButton(), landingPageBorderPane);
 
             kViewStage.setScene(sourceScene);
             kViewStage.setTitle("Landing Page");
@@ -484,66 +500,68 @@ public class App extends Application {
     /**
      * When a user selects the menu option View/New Journal a new Stage Window is launched.
      * This method will load a navigation panel to be a publisher and windows will be connected (subscribed) to the activity stream.
+     *
      * @param journalWindowSettings if present will give the size and positioning of the journal window
      */
     private void launchJournalViewWindow(PrefX journalWindowSettings) {
-        KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
-        KometPreferences windowPreferences = appPreferences.node(MAIN_KOMET_WINDOW);
+        Objects.requireNonNull(journalWindowSettings, "journalWindowSettings cannot be null");
+        final KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
+        final KometPreferences windowPreferences = appPreferences.node(MAIN_KOMET_WINDOW);
+        final WindowSettings windowSettings = new WindowSettings(windowPreferences);
+        final UUID journalTopic = journalWindowSettings.getValue(JOURNAL_TOPIC);
+        Objects.requireNonNull(journalTopic, "journalTopic cannot be null");
 
-        WindowSettings windowSettings = new WindowSettings(windowPreferences);
-
+        // Ask service loader for a journal window factory.
         Stage journalStageWindow = new Stage();
-        FXMLLoader journalLoader = JournalViewFactory.createFXMLLoader();
-        JournalController journalController;
-        try {
-            BorderPane journalBorderPane = journalLoader.load();
-            journalController = journalLoader.getController();
-            Scene sourceScene = new Scene(journalBorderPane, 1200, 800);
+        Config journalConfig = new Config(JournalController.class.getResource("journal.fxml"))
+                .updateViewModel("journalViewModel", journalViewModel -> {
+                    journalViewModel.setPropertyValue(CURRENT_JOURNAL_WINDOW_TOPIC, journalTopic);
+                    journalViewModel.setPropertyValue(WINDOW_VIEW, windowSettings.getView());
+                });
+        JFXNode<BorderPane, JournalController> journalJFXNode = FXMLMvvmLoader.make(journalConfig);
+        BorderPane journalBorderPane = journalJFXNode.node();
+        JournalController journalController = journalJFXNode.controller();
+        Scene sourceScene = new Scene(journalBorderPane, DEFAULT_JOURNAL_WIDTH, DEFAULT_JOURNAL_HEIGHT);
+        addStylesheets(sourceScene, KOMET_CSS, KVIEW_CSS);
 
-            // Add Komet.css and kview css
-            sourceScene.getStylesheets().addAll(
-                    graphicsModule.getClassLoader().getResource(CSS_LOCATION).toString(), CssHelper.defaultStyleSheet());
-
-            // Attach a listener to provide a CSS refresher ability for each Journal window. Right double click settings button (gear)
-            attachCSSRefresher(journalController.getSettingsToggleButton(), journalController.getJournalBorderPane());
-
-            journalStageWindow.setScene(sourceScene);
-
-            // if NOT on Mac OS
-            if(System.getProperty("os.name")!=null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
-                generateMsWindowsMenu(journalBorderPane, journalStageWindow);
-            }
-
-            String journalName;
-            if (journalWindowSettings != null) {
-                // load journal specific window settings
-                journalName = journalWindowSettings.getValue(JOURNAL_TITLE);
-                journalStageWindow.setTitle(journalName);
-                if (journalWindowSettings.getValue(JOURNAL_HEIGHT) != null) {
-                    journalStageWindow.setHeight(journalWindowSettings.getValue(JOURNAL_HEIGHT));
-                    journalStageWindow.setWidth(journalWindowSettings.getValue(JOURNAL_WIDTH));
-                    journalStageWindow.setX(journalWindowSettings.getValue(JOURNAL_XPOS));
-                    journalStageWindow.setY(journalWindowSettings.getValue(JOURNAL_YPOS));
-                    journalController.recreateConceptWindows(journalWindowSettings);
-                }else{
-                    journalStageWindow.setMaximized(true);
-                }
-            }
-
-            journalStageWindow.setOnCloseRequest(windowEvent -> {
-                    saveJournalWindowsToPreferences();
-                    // call shutdown method on the view
-                    journalController.shutdown();
-                    journalControllersList.remove(journalController);
-                    // enable Delete menu option
-                    journalWindowSettings.setValue(CAN_DELETE, true);
-                    kViewEventBus.publish(JOURNAL_TOPIC, new JournalTileEvent(this, UPDATE_JOURNAL_TILE, journalWindowSettings));
-            });
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        journalStageWindow.setScene(sourceScene);
+        // if NOT on Mac OS
+        if (System.getProperty("os.name") != null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
+            generateMsWindowsMenu(journalBorderPane, journalStageWindow);
         }
 
-        journalController.setWindowView(windowSettings.getView());
+        // load journal specific window settings
+        final String journalName = journalWindowSettings.getValue(JOURNAL_TITLE);
+        journalStageWindow.setTitle(journalName);
+
+        // Get the UUID-based directory name from preferences
+        String journalDirName = journalWindowSettings.getValue(JOURNAL_DIR_NAME);
+
+        // For new journals (no UUID yet), generate one using the controller's UUID
+        if (journalDirName == null) {
+            journalDirName = journalController.getJournalDirName();
+            journalWindowSettings.setValue(JOURNAL_DIR_NAME, journalDirName);
+        }
+
+        if (journalWindowSettings.getValue(JOURNAL_HEIGHT) != null) {
+            journalStageWindow.setHeight(journalWindowSettings.getValue(JOURNAL_HEIGHT));
+            journalStageWindow.setWidth(journalWindowSettings.getValue(JOURNAL_WIDTH));
+            journalStageWindow.setX(journalWindowSettings.getValue(JOURNAL_XPOS));
+            journalStageWindow.setY(journalWindowSettings.getValue(JOURNAL_YPOS));
+            journalController.restoreWindowsAsync(journalWindowSettings);
+        } else {
+            journalStageWindow.setMaximized(true);
+        }
+
+        journalStageWindow.setOnHidden(windowEvent -> {
+            saveJournalWindowsToPreferences();
+            // call shutdown method on the view
+            journalController.shutdown();
+            journalControllersList.remove(journalController);
+            // enable Delete menu option
+            journalWindowSettings.setValue(CAN_DELETE, true);
+            kViewEventBus.publish(JOURNAL_TOPIC, new JournalTileEvent(this, UPDATE_JOURNAL_TILE, journalWindowSettings));
+        });
 
         // Launch windows window pane inside journal view
         journalStageWindow.setOnShown(windowEvent -> {
@@ -555,7 +573,10 @@ public class App extends Application {
                     journalWindowSettings.getValue(JOURNAL_TITLE),
                     navigatorNodeFactory,
                     searchNodeFactory);
+            // load additional panels
+            journalController.loadNextGenReasonerPanel();
             journalController.loadNextGenSearchPanel();
+            journalController.loadConceptNavigatorPanel();
         });
         // disable the delete menu option for a Journal Card.
         journalWindowSettings.setValue(CAN_DELETE, false);
@@ -564,48 +585,55 @@ public class App extends Application {
         journalStageWindow.show();
     }
 
+    /**
+     * Saves the current state of the journals and its windows to the application's preferences system.
+     * <p>
+     * This method persists all journal-related data, including:
+     * <ul>
+     *   <li>All open window states (via {@link JournalController#saveWindows(KometPreferences)})</li>
+     *   <li>Journal metadata (topic UUID, title, directory name)</li>
+     *   <li>Window geometry (width, height, x/y position)</li>
+     *   <li>Author information</li>
+     *   <li>Last edit timestamp</li>
+     * </ul>
+     * <p>
+     * The preferences are stored in a hierarchical structure:
+     * <pre>
+     * Root Configuration Preferences
+     *   └── journals
+     *       └── [journal_shortened-UUID]
+     *           ├── Journal metadata (UUID, title, dimensions, position, etc.)
+     *           └── Window states
+     * </pre>
+     */
     private void saveJournalWindowsToPreferences() {
-        KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
-        KometPreferences journalPreferences = appPreferences.node(JOURNAL_WINDOW);
+        final KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
+        final KometPreferences journalsPreferences = appPreferences.node(JOURNALS);
 
         // Non launched journal windows should be preserved.
-        List<String> journalSubWindowFoldersFromPref = journalPreferences.getList(JOURNAL_NAMES);
+        List<String> journalSubWindowFoldersFromPref = journalsPreferences.getList(JOURNAL_IDS);
 
         // launched (journal Controllers List) will overwrite existing window preferences.
         List<String> journalSubWindowFolders = new ArrayList<>(journalControllersList.size());
-        for(JournalController controller : journalControllersList) {
-            String journalSubWindowPrefFolder = controller.generateJournalDirNameBasedOnTitle();
+        for (JournalController controller : journalControllersList) {
+            String journalSubWindowPrefFolder = controller.getJournalDirName();
             journalSubWindowFolders.add(journalSubWindowPrefFolder);
 
-            KometPreferences journalSubWindowPreferences = appPreferences.node(JOURNAL_WINDOW +
+            final KometPreferences journalSubWindowPreferences = appPreferences.node(JOURNALS +
                     File.separator + journalSubWindowPrefFolder);
-            controller.saveConceptWindowPreferences(journalSubWindowPreferences);
-            journalSubWindowPreferences.put(JOURNAL_TITLE, controller.getTitle());
-            journalSubWindowPreferences.putDouble(JOURNAL_HEIGHT, controller.getHeight());
-            journalSubWindowPreferences.putDouble(JOURNAL_WIDTH, controller.getWidth());
-            journalSubWindowPreferences.putDouble(JOURNAL_XPOS, controller.getX());
-            journalSubWindowPreferences.putDouble(JOURNAL_YPOS, controller.getY());
-            journalSubWindowPreferences.put(JOURNAL_AUTHOR, LandingPageController.DEMO_AUTHOR);
-            journalSubWindowPreferences.putLong(JOURNAL_LAST_EDIT, (LocalDateTime.now())
-                    .atZone(ZoneId.systemDefault()).toEpochSecond());
-            try {
-                journalSubWindowPreferences.flush();
-            } catch (BackingStoreException e) {
-                throw new RuntimeException(e);
-            }
-
+            controller.saveWindows(journalSubWindowPreferences);
         }
 
         // Make sure windows that are not summoned will not be deleted (not added to JOURNAL_NAMES)
-        for (String x : journalSubWindowFolders){
+        for (String x : journalSubWindowFolders) {
             if (!journalSubWindowFoldersFromPref.contains(x)) {
                 journalSubWindowFoldersFromPref.add(x);
             }
         }
-        journalPreferences.putList(JOURNAL_NAMES, journalSubWindowFoldersFromPref);
+        journalsPreferences.putList(JOURNAL_IDS, journalSubWindowFoldersFromPref);
 
         try {
-            journalPreferences.flush();
+            journalsPreferences.flush();
             appPreferences.flush();
             appPreferences.sync();
         } catch (BackingStoreException e) {
@@ -613,70 +641,12 @@ public class App extends Application {
         }
     }
 
-
-    /**
-     * This attaches a listener for the right mouse double click to refresh CSS stylesheet files.
-     * @param node The node the user will right mouse button double click
-     * @param root The root Parent node to refresh CSS stylesheets.
-     */
-    private void attachCSSRefresher(Node node, Parent root) {
-        // CSS refresher 'easter egg'. Right Click settings button to refresh Css Styling
-        node.addEventHandler(MouseEvent.MOUSE_PRESSED, mouseEvent -> {
-            if (mouseEvent.getClickCount() == 2 && mouseEvent.isSecondaryButtonDown()) {
-                handleRefreshUserCss(root);
-            }
-        });
-    }
-
-    /**
-     * Will refresh a parent root node and all children that have CSS stylesheets.
-     * Komet.css and kview-opt2.css files are updated dynamically.
-     * @param root Parent node to be traversed to refresh all stylesheets.
-     */
-    private void handleRefreshUserCss(Parent root) {
-
-        try {
-            // "Feature" to make css editing/testing easy in the dev environment. Komet css
-            String currentDir = System.getProperty("user.dir").replace("/application", "/framework/src/main/resources");
-            String kometCssSourcePath = currentDir + ResourceHelper.toAbsolutePath("komet.css", Icon.class);
-            File kometCssSourceFile = new File(kometCssSourcePath);
-
-            // kView CSS file
-            String kViewCssPath = defaultStyleSheet().replace("target/classes", "src/main/resources");
-            File kViewCssFile = new File(kViewCssPath.replace("file:", ""));
-
-            LOG.info("File exists? %s komet css path = %s".formatted(kometCssSourceFile.exists(), kometCssSourceFile));
-            LOG.info("File exists? %s kview css path = %s".formatted(kViewCssFile.exists(), kViewCssFile));
-
-            // ensure both exist on the development environment path
-            if (kometCssSourceFile.exists() && kViewCssFile.exists()) {
-                Scene scene = root.getScene();
-
-                // Apply Komet css
-                scene.getStylesheets().clear();
-                scene.getStylesheets().add(kometCssSourceFile.toURI().toURL().toString());
-
-                // Recursively refresh any children using the kView css files.
-                refreshPanes(root, kViewCssPath);
-
-                LOG.info("       Updated komet.css: " + kometCssSourceFile.getAbsolutePath());
-                LOG.info("Updated kview css file: " + kViewCssFile.getAbsolutePath());
-            } else {
-                LOG.info("File not found for komet.css: " + kometCssSourceFile.getAbsolutePath());
-            }
-        } catch (IOException e) {
-            // TODO: Raise an alert
-            e.printStackTrace();
-        }
-
-    }
-
     @Override
     public void stop() {
         LOG.info("Stopping application\n\n###############\n\n");
 
         // close all journal windows
-        journalControllersList.forEach(journalController -> journalController.close());
+        Lists.immutable.ofAll(this.journalControllersList).forEach(JournalController::close);
     }
 
     private MenuItem createMenuItem(String title) {
@@ -764,11 +734,10 @@ public class App extends Application {
 
         //Loading/setting the Komet screen
         Scene kometScene = new Scene(kometRoot, 1800, 1024);
-        kometScene.getStylesheets()
-                .add(graphicsModule.getClassLoader().getResource(CSS_LOCATION).toString());
+        addStylesheets(kometScene, KOMET_CSS);
 
         // if NOT on Mac OS
-        if(System.getProperty("os.name")!=null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
+        if (System.getProperty("os.name") != null && !System.getProperty("os.name").toLowerCase().startsWith(OS_NAME_MAC)) {
             generateMsWindowsMenu(kometRoot, classicKometStage);
         }
 
@@ -788,13 +757,16 @@ public class App extends Application {
         } else {
             // Restore nodes from preferences.
             windowPreferences.get(LEFT_TAB_PREFERENCES).ifPresent(leftTabPreferencesName -> {
-                restoreTab(windowPreferences, leftTabPreferencesName, controller.windowView(), node -> controller.leftBorderPaneSetCenter(node));
+                restoreTab(windowPreferences, leftTabPreferencesName, controller.windowView(),
+                        controller::leftBorderPaneSetCenter);
             });
             windowPreferences.get(CENTER_TAB_PREFERENCES).ifPresent(centerTabPreferencesName -> {
-                restoreTab(windowPreferences, centerTabPreferencesName, controller.windowView(), node -> controller.centerBorderPaneSetCenter(node));
+                restoreTab(windowPreferences, centerTabPreferencesName, controller.windowView(),
+                        controller::centerBorderPaneSetCenter);
             });
             windowPreferences.get(RIGHT_TAB_PREFERENCES).ifPresent(rightTabPreferencesName -> {
-                restoreTab(windowPreferences, rightTabPreferencesName, controller.windowView(), node -> controller.rightBorderPaneSetCenter(node));
+                restoreTab(windowPreferences, rightTabPreferencesName, controller.windowView(),
+                        controller::rightBorderPaneSetCenter);
             });
         }
         //Setting X and Y coordinates for location of the Komet stage
@@ -812,28 +784,161 @@ public class App extends Application {
             createJournalViewMenuItem.setDisable(false);
             KeyCombination newJournalKeyCombo = new KeyCodeCombination(KeyCode.J, KeyCombination.SHORTCUT_DOWN);
             createJournalViewMenuItem.setAccelerator(newJournalKeyCombo);
-            KometPreferences journalPreferences = appPreferences.node(JOURNAL_WINDOW);
+            KometPreferences journalPreferences = appPreferences.node(JOURNALS);
         }
     }
 
-    public void openDatasetPage(){
+    private void openImport() {
         KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
         KometPreferences windowPreferences = appPreferences.node(MAIN_KOMET_WINDOW);
-
         WindowSettings windowSettings = new WindowSettings(windowPreferences);
-        Stage datasetStage = new Stage();
-        FXMLLoader datasetPageLoader = ExportDatasetViewFactory.createFXMLLoaderForExportDataset();
-        try {
-            Pane datasetBorderPane = datasetPageLoader.load();
-            ExportDatasetController datasetPageController = datasetPageLoader.getController();
-            datasetPageController.setViewProperties(windowSettings.getView().makeOverridableViewProperties());
-            Scene sourceScene = new Scene(datasetBorderPane, 550, 700);
-            datasetStage.setScene(sourceScene);
-            datasetStage.setTitle("Export Dataset");
-            datasetStage.show();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        Stage importStage = new Stage(StageStyle.TRANSPARENT);
+        importStage.initOwner(getFocusedWindow());
+        //set up ImportViewModel
+        Config importConfig = new Config(ImportController.class.getResource("import.fxml"))
+                .updateViewModel("importViewModel", importViewModel ->
+                        importViewModel.setPropertyValue(VIEW_PROPERTIES,
+                                windowSettings.getView().makeOverridableViewProperties()));
+        JFXNode<Pane, ImportController> importJFXNode = FXMLMvvmLoader.make(importConfig);
+
+        Pane importPane = importJFXNode.node();
+        Scene importScene = new Scene(importPane, Color.TRANSPARENT);
+        importStage.setScene(importScene);
+        importStage.show();
+    }
+
+    private void openExport() {
+        KometPreferences appPreferences = KometPreferencesImpl.getConfigurationRootPreferences();
+        KometPreferences windowPreferences = appPreferences.node(MAIN_KOMET_WINDOW);
+        WindowSettings windowSettings = new WindowSettings(windowPreferences);
+        Stage exportStage = new Stage(StageStyle.TRANSPARENT);
+        exportStage.initOwner(getFocusedWindow());
+        //set up ExportViewModel
+        Config exportConfig = new Config(ExportController.class.getResource("export.fxml"))
+                .updateViewModel("exportViewModel", (exportViewModel) ->
+                        exportViewModel.setPropertyValue(VIEW_PROPERTIES,
+                                windowSettings.getView().makeOverridableViewProperties()));
+        JFXNode<Pane, ExportController> exportJFXNode = FXMLMvvmLoader.make(exportConfig);
+
+        Pane exportPane = exportJFXNode.node();
+        Scene exportScene = new Scene(exportPane, Color.TRANSPARENT);
+        exportStage.setScene(exportScene);
+        exportStage.show();
+    }
+
+    private void gitProcess(Consumer<Git> gitProcess) {
+        Optional<File> optionalDataStoreRoot = ServiceProperties.get(ServiceKeys.DATA_STORE_ROOT);
+        if (optionalDataStoreRoot.isEmpty()) {
+            throw new IllegalStateException("ServiceKeys.DATA_STORE_ROOT not provided.");
         }
+        File changeSetFolder = new File(optionalDataStoreRoot.get(), "changeSets");
+        if (!changeSetFolder.exists()) {
+            throw new IllegalStateException("Changeset Writer Service not ready.");
+        }
+        gitConnect(changeSetFolder).whenComplete((git, _) -> {
+            gitProcess.accept(git);
+        });
+    }
+
+    private CompletableFuture<Git> gitConnect(File changeSetFolder) {
+        try {
+            Git git = Git.open(changeSetFolder);
+            return CompletableFuture.supplyAsync(() -> git, TinkExecutor.ioThreadPool());
+        } catch (IOException e) {
+            return CompletableFuture.supplyAsync(() -> {
+                try {
+                    TinkExecutor.ioThreadPool().submit(new InitializeTask(changeSetFolder.toPath())).get();
+                    return Git.open(changeSetFolder);
+                } catch (InterruptedException | ExecutionException | IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }, TinkExecutor.ioThreadPool());
+        }
+    }
+
+    private void infoAction() {
+        gitProcess((git) -> {
+            Task task = new InfoTask(git);
+            Platform.runLater(task);
+        });
+    }
+
+    private void syncAction(boolean push) {
+        gitProcess((git) -> {
+            File changeSetFolder = git.getRepository().getDirectory().getParentFile();
+            //Pull
+            ProgressHelper.progress(new PullTask(changeSetFolder.toPath()))
+                    .whenComplete((_,_) -> {
+                        loadChangesets(changeSetFolder);
+                        runReasoner();
+                        if (push) {
+                            ProgressHelper.progress(new AddChangesetsTask(changeSetFolder.toPath()))
+                                    .whenComplete((_,_) -> ProgressHelper.progress(new PushTask(changeSetFolder.toPath())));
+                        }
+                    });
+        });
+    }
+
+    private List<EntityCountSummary> loadChangesets(File changeSetFolder) {
+        File[] pbFiles = changeSetFolder.listFiles((dir, name) -> name.endsWith("ike-cs.zip"));
+        List<EntityCountSummary> loadResults = new ArrayList<>();
+        if (pbFiles == null) {
+            return loadResults;
+        }
+        Arrays.stream(pbFiles)
+                .filter(file -> {
+                    try (FileSystem fs = FileSystems.newFileSystem(file.toPath())) {
+                        // Filter out unfinished exports and non-export zips
+                        return Files.exists(fs.getPath("META-INF", "MANIFEST.MF"));
+                    } catch (IOException e) {
+                        return false;
+                    }
+                })
+                .forEach((protoFile) -> {
+                    try {
+                        EntityCountSummary ecs = TinkExecutor.ioThreadPool().submit(new LoadEntitiesFromProtobufFile(protoFile)).get();
+                        loadResults.add(ecs);
+                    } catch (InterruptedException | ExecutionException e) {
+                        LOG.info("Error:" + e);
+                    }
+                });
+        return loadResults;
+    }
+
+    private List<ClassifierResults> runReasoner() {
+        String reasonerType = "ElkSnomedReasoner";
+        List<ReasonerService> rss = PluggableService.load(ReasonerService.class).stream()
+                .map(ServiceLoader.Provider::get)
+                .filter(reasoner -> reasoner.getName().contains(reasonerType))
+                .sorted(Comparator.comparing(ReasonerService::getName)).toList();
+        LOG.info("Number of reasoners " + rss.size());
+        List<ClassifierResults> resultList = new ArrayList<>();
+        for (ReasonerService rs : rss) {
+            LOG.info("Reasoner service: " + rs);
+            rs.init(Calculators.View.Default(), TinkarTerm.EL_PLUS_PLUS_STATED_AXIOMS_PATTERN, TinkarTerm.EL_PLUS_PLUS_INFERRED_AXIOMS_PATTERN);
+            rs.setProgressUpdater(null);
+            try {
+                // Extract
+                rs.extractData();
+                // Load
+                rs.loadData();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            // Compute
+            rs.computeInferences();
+            // Build NNF
+            rs.buildNecessaryNormalForm();
+            // Write inferred results
+            ClassifierResults results = rs.writeInferredResults();
+
+            LOG.info("After Size of ConceptSet: " + rs.getReasonerConceptSet().size());
+            LOG.info("ClassifierResults: inferred changes size " + results.getConceptsWithInferredChanges().size());
+            LOG.info("ClassifierResults: navigation changes size " + results.getConceptsWithNavigationChanges().size());
+            LOG.info("ClassifierResults: classificationconcept size " + results.getClassificationConceptSet().size());
+            resultList.add(results);
+        }
+        return resultList;
     }
 
     private void generateMsWindowsMenu(BorderPane kometRoot, Stage stage) {
@@ -845,15 +950,13 @@ public class App extends Application {
         fileMenu.getItems().add(about);
 
         MenuItem importMenuItem = new MenuItem("Import Dataset");
-        importMenuItem.setOnAction(actionEvent -> doImportDataSet(stage));
+        importMenuItem.setOnAction(actionEvent -> openImport());
+        fileMenu.getItems().add(importMenuItem);
 
         // Exporting data
-        Menu exportMenu = new Menu("Export Dataset");
-        MenuItem fhirMenuItem = new MenuItem("FHIR");
-        fhirMenuItem.setOnAction(actionEvent -> openDatasetPage());
-        exportMenu.getItems().addAll(createExportChangesetMenuItem(), fhirMenuItem);
-
-        fileMenu.getItems().addAll(importMenuItem, exportMenu);
+        MenuItem exportDatasetMenuItem = new MenuItem("Export Dataset");
+        exportDatasetMenuItem.setOnAction(actionEvent -> openExport());
+        fileMenu.getItems().add(exportDatasetMenuItem);
 
         MenuItem menuItemQuit = new MenuItem("Quit");
         KeyCombination quitKeyCombo = new KeyCodeCombination(KeyCode.Q, KeyCombination.CONTROL_DOWN);
@@ -872,8 +975,8 @@ public class App extends Application {
         MenuItem minimizeWindow = new MenuItem("Minimize");
         KeyCombination minimizeKeyCombo = new KeyCodeCombination(KeyCode.M, KeyCombination.CONTROL_DOWN);
         minimizeWindow.setOnAction(event -> {
-          Stage obj = (Stage) kometRoot.getScene().getWindow();
-          obj.setIconified(true);
+            Stage obj = (Stage) kometRoot.getScene().getWindow();
+            obj.setIconified(true);
         });
         minimizeWindow.setAccelerator(minimizeKeyCombo);
         windowMenu.getItems().add(minimizeWindow);
@@ -901,7 +1004,6 @@ public class App extends Application {
 
 
     private void quit() {
-        //TODO: that this call will likely be moved into the landing page functionality
         saveJournalWindowsToPreferences();
         PrimitiveData.stop();
         Preferences.stop();
@@ -925,7 +1027,12 @@ public class App extends Application {
         });
     }
 
-    public void createMenuOptions(BorderPane landingPageRoot) {
+    /**
+     * Create the menu options for the landing page.
+     *
+     * @param landingPageRoot The root pane of the landing page.
+     */
+    public void createMenuOptions(final BorderPane landingPageRoot) {
         MenuBar menuBar = new MenuBar();
 
         Menu fileMenu = new Menu("File");
@@ -941,7 +1048,9 @@ public class App extends Application {
 
         Menu viewMenu = new Menu("View");
         MenuItem classicKometMenuItem = createClassicKometMenuItem();
-        viewMenu.getItems().add(classicKometMenuItem);
+        MenuItem resourceUsageMenuItem = createResourceUsageItem();
+        viewMenu.getItems().addAll(classicKometMenuItem, resourceUsageMenuItem);
+
 
         Menu windowMenu = new Menu("Window");
         MenuItem minimizeWindow = new MenuItem("Minimize");
@@ -959,6 +1068,11 @@ public class App extends Application {
         Platform.runLater(() -> landingPageRoot.setTop(menuBar));
     }
 
+    /**
+     * Create the menu item for launching the classic Komet.
+     *
+     * @return The menu item for launching the classic Komet.
+     */
     private MenuItem createClassicKometMenuItem() {
         MenuItem classicKometMenuItem = new MenuItem("Classic Komet");
         KeyCombination classicKometKeyCombo = new KeyCodeCombination(KeyCode.K, KeyCombination.CONTROL_DOWN);
@@ -973,6 +1087,86 @@ public class App extends Application {
         });
         classicKometMenuItem.setAccelerator(classicKometKeyCombo);
         return classicKometMenuItem;
+    }
+
+    /**
+     * Create a Resource Usage overlay to display metrics
+     *
+     * @return The menu item for launching the resource usage overlay.
+     */
+    private MenuItem createResourceUsageItem() {
+        MenuItem resourceUsageItem = new MenuItem("Resource Usage");
+        KeyCombination classicKometKeyCombo = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
+        resourceUsageItem.setOnAction(actionEvent -> {
+            if (overlayStage != null && overlayStage.isShowing()) {
+                overlayStage.hide();
+            } else {
+                showResourceUsageOverlay();
+            }
+        });
+        resourceUsageItem.setAccelerator(classicKometKeyCombo);
+        return resourceUsageItem;
+    }
+
+    /**
+     * Show the resource usage overlay.
+     */
+    private void showResourceUsageOverlay() {
+        overlayStage = new Stage();
+        overlayStage.initOwner(getFocusedWindow());
+        overlayStage.initModality(Modality.APPLICATION_MODAL);
+        overlayStage.initStyle(StageStyle.TRANSPARENT);
+
+        VBox overlayContent = new VBox();
+        overlayContent.setAlignment(Pos.CENTER);
+        overlayContent.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-padding: 20;");
+
+        Label cpuUsageLabel = new Label();
+        Label memoryUsageLabel = new Label();
+        cpuUsageLabel.setTextFill(Color.WHITE);
+        memoryUsageLabel.setTextFill(Color.WHITE);
+        overlayContent.getChildren().addAll(cpuUsageLabel, memoryUsageLabel);
+
+        Scene overlayScene = new Scene(overlayContent, 300, 200, Color.TRANSPARENT);
+        overlayStage.setScene(overlayScene);
+
+        // Set custom close request handler
+        overlayStage.setOnCloseRequest(event -> {
+            if (resourceUsageTimeline != null) {
+                resourceUsageTimeline.stop(); // Stop the timeline
+            }
+            overlayStage.hide(); // Hide the stage
+        });
+        overlayStage.show();
+
+        // Create and start the timeline to update resource usage
+        resourceUsageTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            updateResourceUsage(cpuUsageLabel, memoryUsageLabel);
+        }));
+        resourceUsageTimeline.setCycleCount(Timeline.INDEFINITE);
+        resourceUsageTimeline.play();
+    }
+
+    /**
+     * Update the resource usage labels with CPU and memory usage.
+     *
+     * @param cpuUsageLabel the label to be used for the CPU usage
+     * @param memoryUsageLabel the label to be used for the memory usage
+     */
+    private void updateResourceUsage(final Label cpuUsageLabel, final Label memoryUsageLabel) {
+        java.lang.management.OperatingSystemMXBean osBean = ManagementFactory.getOperatingSystemMXBean();
+        double cpuLoad = -1;
+        if (osBean instanceof OperatingSystemMXBean sunOsBean) {
+            cpuLoad = sunOsBean.getCpuLoad() * 100;
+
+            long totalMemory = Runtime.getRuntime().totalMemory();
+            long freeMemory = Runtime.getRuntime().freeMemory();
+            long usedMemory = totalMemory - freeMemory;
+
+            cpuUsageLabel.setText("CPU Usage: %.2f%%".formatted(cpuLoad));
+            memoryUsageLabel.setText("Memory Usage: %d MB / %d MB".formatted(
+                    usedMemory / (1024 * 1024), totalMemory / (1024 * 1024)));
+        }
     }
 
     public enum AppKeys {

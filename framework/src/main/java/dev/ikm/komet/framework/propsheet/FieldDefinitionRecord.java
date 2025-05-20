@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet;
+package dev.ikm.komet_test.framework.propsheet;
 
 import javafx.beans.property.SimpleObjectProperty;
 import dev.ikm.tinkar.entity.PatternEntityVersion;

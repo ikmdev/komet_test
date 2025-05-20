@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.events;
+package dev.ikm.komet_test.kview.events;
 
 public enum EventTopics {
-    JOURNAL_TOPIC
-
+    JOURNAL_TOPIC,
+    USER_TOPIC,
+    SAVE_PATTERN_TOPIC,
 }

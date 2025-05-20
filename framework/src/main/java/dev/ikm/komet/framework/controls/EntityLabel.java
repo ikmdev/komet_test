@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.controls;
+package dev.ikm.komet_test.framework.controls;
 
-import dev.ikm.komet.framework.observable.ObservableEntity;
-import dev.ikm.komet.framework.observable.ObservableEntitySnapshot;
-import dev.ikm.komet.framework.observable.ObservableSemantic;
-import dev.ikm.komet.framework.observable.ObservableSemanticSnapshot;
+import dev.ikm.komet_test.framework.observable.ObservableEntity;
+import dev.ikm.komet_test.framework.observable.ObservableEntitySnapshot;
+import dev.ikm.komet_test.framework.observable.ObservableSemantic;
+import dev.ikm.komet_test.framework.observable.ObservableSemanticSnapshot;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
@@ -26,13 +26,13 @@ import javafx.scene.control.Menu;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import org.controlsfx.control.PopOver;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.dnd.DragImageMaker;
-import dev.ikm.komet.framework.dnd.KometClipboard;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.menu.MenuSupplierForFocusedEntity;
-import dev.ikm.komet.framework.panel.axiom.AxiomView;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.dnd.DragImageMaker;
+import dev.ikm.komet_test.framework.dnd.KometClipboard;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.menu.MenuSupplierForFocusedEntity;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomView;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.coordinate.logic.PremiseType;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.entity.Entity;

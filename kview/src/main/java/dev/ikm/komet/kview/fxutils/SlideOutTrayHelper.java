@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.fxutils;
+package dev.ikm.komet_test.kview.fxutils;
 
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
@@ -28,7 +28,7 @@ import javafx.util.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static dev.ikm.komet.kview.fxutils.ViewportHelper.clipChildren;
+import static dev.ikm.komet_test.kview.fxutils.ViewportHelper.clipChildren;
 
 /**
  * Slide out tray helper is a utility class to create JavaFX slide out tray capability.

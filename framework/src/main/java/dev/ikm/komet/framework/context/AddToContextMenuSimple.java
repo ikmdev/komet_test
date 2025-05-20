@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.context;
+package dev.ikm.komet_test.framework.context;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,11 +28,11 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import org.controlsfx.control.PopOver;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.search.SearchControllerAndNode;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.search.SearchControllerAndNode;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.events;
+package dev.ikm.komet_test.kview.lidr.events;
 
-import dev.ikm.komet.kview.lidr.mvvm.model.LidrRecord;
-import dev.ikm.komet.framework.events.Evt;
-import dev.ikm.komet.framework.events.EvtType;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.LidrRecord;
+import dev.ikm.komet_test.framework.events.Evt;
+import dev.ikm.komet_test.framework.events.EvtType;
 
 public class AddResultInterpretationEvent extends Evt {
 

@@ -13,16 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.preferences;
+package dev.ikm.komet_test.preferences;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.prefs.BackingStoreException;
-import java.util.prefs.NodeChangeListener;
-import java.util.prefs.PreferenceChangeListener;
+import java.util.prefs.*;
 import java.util.prefs.Preferences;
 
 /**
@@ -37,7 +35,6 @@ public class PreferencesWrapper implements KometPreferences {
     public PreferencesWrapper(Preferences delegate) {
         this.delegate = delegate;
     }
-
     @Override
     public void put(String key, String value) {
         delegate.put(key, value);

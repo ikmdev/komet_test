@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance;
+package dev.ikm.komet_test.framework.performance;
 
-import dev.ikm.komet.framework.performance.impl.AbsentMeasure;
-import dev.ikm.komet.framework.performance.impl.MeasureRecord;
-import dev.ikm.komet.framework.performance.impl.PresentMeasure;
+import dev.ikm.komet_test.framework.performance.impl.AbsentMeasure;
+import dev.ikm.komet_test.framework.performance.impl.MeasureRecord;
+import dev.ikm.komet_test.framework.performance.impl.PresentMeasure;
 import dev.ikm.tinkar.terms.ConceptFacade;
 
 /**

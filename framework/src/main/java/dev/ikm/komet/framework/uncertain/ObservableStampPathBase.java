@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.uncertain;
+package dev.ikm.komet_test.framework.uncertain;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -24,7 +24,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.SetChangeListener;
 import org.eclipse.collections.api.factory.Sets;
 import org.eclipse.collections.api.set.ImmutableSet;
-import dev.ikm.komet.framework.view.ObservableCoordinateAbstract;
+import dev.ikm.komet_test.framework.view.ObservableCoordinateAbstract;
 import dev.ikm.tinkar.coordinate.stamp.StampPath;
 import dev.ikm.tinkar.coordinate.stamp.StampPathImmutable;
 import dev.ikm.tinkar.coordinate.stamp.StampPositionRecord;

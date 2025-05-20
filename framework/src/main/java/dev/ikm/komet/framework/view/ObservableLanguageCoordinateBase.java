@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -127,6 +127,7 @@ public abstract class ObservableLanguageCoordinateBase extends ObservableCoordin
                 IntIds.list.of(c.getList().stream().mapToInt(value -> value.nid()).toArray()),
                 dialectPatternPreferenceNidList(),
                 modulePreferenceNidListForLanguage()));
+        LOG.info("\n\nLanguage coordinate after: " + this.getValue());
     }
 
     private void dialectPatternPreferenceListChanged(ListChangeListener.Change<? extends PatternFacade> c) {

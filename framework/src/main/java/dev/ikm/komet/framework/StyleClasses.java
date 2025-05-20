@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 
 /**
@@ -45,7 +45,7 @@ public enum StyleClasses {
     PROP_SHEET_PROPERTY_NAME,
 
     DEF_ROOT, DEF_ROLE, DEF_ROLE_GROUP, DEF_CONCEPT, DEF_EMBEDDED_CONCEPT, DEF_FEATURE,
-    DEF_SUFFICIENT_SET, DEF_NECESSARY_SET, DEF_LITERAL,
+    DEF_SUFFICIENT_SET, DEF_NECESSARY_SET, DEF_INCLUSION_SET, DEF_LITERAL,
 
     OPEN_CONCEPT_BUTTON,
 

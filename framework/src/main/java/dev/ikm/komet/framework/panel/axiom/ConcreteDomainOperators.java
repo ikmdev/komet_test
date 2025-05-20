@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.axiom;
+package dev.ikm.komet_test.framework.panel.axiom;
 
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.terms.ConceptFacade;

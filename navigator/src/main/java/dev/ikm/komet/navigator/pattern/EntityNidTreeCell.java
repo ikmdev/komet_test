@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.navigator.pattern;
+package dev.ikm.komet_test.navigator.pattern;
 
 import dev.ikm.tinkar.common.util.time.DateTimeUtil;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
@@ -34,11 +34,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.TilePane;
 import javafx.scene.transform.NonInvertibleTransformException;
-import dev.ikm.komet.framework.dnd.DragDetectedCellEventHandler;
-import dev.ikm.komet.framework.dnd.DragDoneEventHandler;
-import dev.ikm.komet.framework.dnd.DraggableWithImage;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.dnd.DragDetectedCellEventHandler;
+import dev.ikm.komet_test.framework.dnd.DragDoneEventHandler;
+import dev.ikm.komet_test.framework.dnd.DraggableWithImage;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.entity.PatternEntity;
 import org.eclipse.collections.api.list.ImmutableList;

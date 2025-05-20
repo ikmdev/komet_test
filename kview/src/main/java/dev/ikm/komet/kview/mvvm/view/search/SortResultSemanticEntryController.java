@@ -13,12 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.search;
+package dev.ikm.komet_test.kview.mvvm.view.search;
 
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.kview.events.MakeConceptWindowEvent;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.kview.events.MakeConceptWindowEvent;
+import dev.ikm.komet_test.kview.events.ShowNavigationalPanelEvent;
 import dev.ikm.tinkar.entity.ConceptEntity;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import static dev.ikm.komet.kview.events.EventTopics.JOURNAL_TOPIC;
+import static dev.ikm.komet_test.kview.events.EventTopics.JOURNAL_TOPIC;
 
 public class SortResultSemanticEntryController  {
 
@@ -89,7 +90,8 @@ public class SortResultSemanticEntryController  {
             // double left click creates the concept window
             if (mouseEvent.getButton().equals(MouseButton.PRIMARY)){
                 if (mouseEvent.getClickCount() == 2) {
-                    eventBus.publish(JOURNAL_TOPIC, new MakeConceptWindowEvent(this, MakeConceptWindowEvent.OPEN_CONCEPT_FROM_SEMANTIC, conceptEntity, windowView));
+                    eventBus.publish(JOURNAL_TOPIC, new MakeConceptWindowEvent(this,
+                            MakeConceptWindowEvent.OPEN_CONCEPT_FROM_SEMANTIC, conceptEntity));
                 }
             }
             // right click shows the context menu
@@ -102,12 +104,14 @@ public class SortResultSemanticEntryController  {
     @FXML
     private void populateConcept(ActionEvent actionEvent) {
         actionEvent.consume();
-        eventBus.publish(JOURNAL_TOPIC, new MakeConceptWindowEvent(this, MakeConceptWindowEvent.OPEN_CONCEPT_FROM_CONCEPT, conceptEntity, windowView));
+        eventBus.publish(JOURNAL_TOPIC, new MakeConceptWindowEvent(this,
+                MakeConceptWindowEvent.OPEN_CONCEPT_FROM_CONCEPT, conceptEntity));
     }
 
     @FXML
     private  void openInConceptNavigator(ActionEvent actionEvent) {
         actionEvent.consume();
+        eventBus.publish(JOURNAL_TOPIC, new ShowNavigationalPanelEvent(this, ShowNavigationalPanelEvent.SHOW_CONCEPT_NAVIGATIONAL_FROM_SEMANTIC, conceptEntity));
     }
 
     public boolean isRetired() {

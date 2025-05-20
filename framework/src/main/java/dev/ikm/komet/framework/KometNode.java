@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyProperty;
@@ -21,11 +21,11 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.framework.window.WindowComponent;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.window.WindowComponent;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.preferences.PreferencesService;
-import dev.ikm.komet.preferences.PreferencesServiceFactory;
+import dev.ikm.komet_test.preferences.PreferencesService;
+import dev.ikm.komet_test.preferences.PreferencesServiceFactory;
 
-module dev.ikm.komet.preferences {
-    exports dev.ikm.komet.preferences;
+module dev.ikm.komet_test.preferences {
+    exports dev.ikm.komet_test.preferences;
     requires org.slf4j;
     requires java.prefs;
     requires dev.ikm.tinkar.entity;

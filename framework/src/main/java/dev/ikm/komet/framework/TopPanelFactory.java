@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -29,15 +29,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.context.AddToContextMenu;
-import dev.ikm.komet.framework.context.AddToContextMenuSimple;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.view.ViewMenuModel;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.context.AddToContextMenu;
+import dev.ikm.komet_test.framework.context.AddToContextMenuSimple;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.view.ViewMenuModel;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculatorWithCache;
 import dev.ikm.tinkar.terms.EntityFacade;

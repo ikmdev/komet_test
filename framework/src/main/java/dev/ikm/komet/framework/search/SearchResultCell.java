@@ -13,20 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.search;
+package dev.ikm.komet_test.framework.search;
 
 import javafx.scene.control.TreeCell;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.dnd.DragDetectedCellEventHandler;
-import dev.ikm.komet.framework.dnd.DragDoneEventHandler;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.dnd.DragDetectedCellEventHandler;
+import dev.ikm.komet_test.framework.dnd.DragDoneEventHandler;
 import dev.ikm.tinkar.coordinate.stamp.calculator.LatestVersionSearchResult;
 
-import static dev.ikm.komet.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
-import static dev.ikm.komet.framework.StyleClasses.*;
+import static dev.ikm.komet_test.framework.PseudoClasses.INACTIVE_PSEUDO_CLASS;
+import static dev.ikm.komet_test.framework.StyleClasses.*;
 
 public class SearchResultCell extends TreeCell<Object> {
 

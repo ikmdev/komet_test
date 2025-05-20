@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.data.persistence;
+package dev.ikm.komet_test.kview.data.persistence;
 
-import dev.ikm.komet.kview.data.schema.STAMPDetail;
+import dev.ikm.komet_test.kview.data.schema.STAMPDetail;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.entity.*;
 

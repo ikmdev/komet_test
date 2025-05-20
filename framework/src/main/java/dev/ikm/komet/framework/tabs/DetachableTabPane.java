@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.tabs;
+package dev.ikm.komet_test.framework.tabs;
 
 
-import dev.ikm.komet.framework.ScreenInfo;
+import dev.ikm.komet_test.framework.ScreenInfo;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import javafx.application.Platform;

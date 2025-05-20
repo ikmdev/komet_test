@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.lidr.mvvm.viewmodel;
 
-import dev.ikm.komet.kview.data.schema.STAMPDetail;
-import dev.ikm.komet.kview.data.schema.SemanticDetail;
-import dev.ikm.komet.kview.data.persistence.ConceptWriter;
-import dev.ikm.komet.kview.data.persistence.STAMPWriter;
-import dev.ikm.komet.kview.data.persistence.SemanticWriter;
-import dev.ikm.komet.kview.lidr.mvvm.model.LidrRecord;
-import dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper;
+import dev.ikm.komet_test.kview.data.schema.STAMPDetail;
+import dev.ikm.komet_test.kview.data.schema.SemanticDetail;
+import dev.ikm.komet_test.kview.data.persistence.ConceptWriter;
+import dev.ikm.komet_test.kview.data.persistence.STAMPWriter;
+import dev.ikm.komet_test.kview.data.persistence.SemanticWriter;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.LidrRecord;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.IntIds;
 import dev.ikm.tinkar.common.id.PublicId;
@@ -48,9 +48,10 @@ import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.*;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ResultsViewModel.*;
-import static dev.ikm.komet.kview.mvvm.viewmodel.StampViewModel.*;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.*;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ResultsViewModel.*;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.StampViewModel.*;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.*;
 
 
 public class ViewModelHelper {
@@ -63,7 +64,7 @@ public class ViewModelHelper {
     public static final String ROLE_GROUP_PUBLICID_STRING   = "[" + TinkarTerm.ROLE_GROUP.publicId().asUuidArray()[0] + "]";
     public static final String LOINC_PROPERTY_UUID          = "[066462e2-f926-35d5-884a-4e276dad4c2c]";
     public static final String LOINC_SCALE_UUID             = "[087afdd2-23cd-34c3-93a4-09088dfd480c]";
-    public static final String LOINC_ACNC_UUID              = "[7de8ef7f-6287-396e-88fb-d675937923e2]";
+    public static final String LOINC_ACNC_UUID              = "[86939da1-1f1f-3d56-93f0-15f03439b338]";
     public static final String LOINC_QN_UUID                = "[6b8c30c5-63d7-3614-a675-2b5d03c541f4]";
 
 
@@ -119,15 +120,15 @@ public class ViewModelHelper {
             }
             LOG.error("Error(s) with validation message(s)\n" + sb);
         }
-        State status = stampViewModel.getValue(STATUS_PROPERTY);
-        PublicId statusPublicId = status != null ? status.publicId() : TinkarTerm.ACTIVE_STATE.publicId();
-        Concept author = stampViewModel.getValue(AUTHOR_PROPERTY);
+        State state = stampViewModel.getValue(STATUS);
+        PublicId statusPublicId = state != null ? state.publicId() : TinkarTerm.ACTIVE_STATE.publicId();
+        Concept author = stampViewModel.getValue(AUTHOR);
         PublicId authorPublicId = author != null ? author.publicId() : TinkarTerm.USER.publicId();
-        Long time = stampViewModel.getValue(TIME_PROPERTY);
+        Long time = stampViewModel.getValue(TIME);
         long epochMillis = time == null ? System.currentTimeMillis() : time; // This may change due to when the actual record is written.
-        Concept module = stampViewModel.getValue(MODULE_PROPERTY);
+        Concept module = stampViewModel.getValue(MODULE);
         PublicId modulePublicId = module != null ? module.publicId() : TinkarTerm.DEVELOPMENT_MODULE.publicId();
-        Concept path = stampViewModel.getValue(PATH_PROPERTY);
+        Concept path = stampViewModel.getValue(PATH);
         PublicId pathPublicId = path != null ? path.publicId() : TinkarTerm.DEVELOPMENT_PATH.publicId();
 
         return new STAMPDetail(statusPublicId, epochMillis, authorPublicId, modulePublicId, pathPublicId);

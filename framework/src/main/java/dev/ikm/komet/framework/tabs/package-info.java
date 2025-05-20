@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.tabs;
+package dev.ikm.komet_test.framework.tabs;
 
 /**
  * TODO move package to it's own module secondary to license. It's based on LGPL code rather than Apache 2 code.

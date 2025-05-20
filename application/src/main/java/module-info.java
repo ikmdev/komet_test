@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.concurrent.TaskListsService;
-import dev.ikm.komet.framework.events.DefaultEvtBus;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.concurrent.TaskListsService;
+import dev.ikm.komet_test.framework.events.DefaultEvtBus;
 import dev.ikm.tinkar.common.service.DataServiceController;
 import dev.ikm.tinkar.common.service.DefaultDescriptionForNidService;
 import dev.ikm.tinkar.common.service.PublicIdService;
+import dev.ikm.tinkar.entity.ChangeSetWriterService;
 import dev.ikm.tinkar.entity.EntityService;
 import dev.ikm.tinkar.entity.StampService;
 
-module dev.ikm.komet.application {
+module dev.ikm.komet_test.application {
 
-    exports dev.ikm.komet.app to javafx.graphics;
-    opens dev.ikm.komet.app to javafx.fxml;
+    exports dev.ikm.komet_test.app;
+    exports dev.ikm.komet_test.app.util;
+    opens dev.ikm.komet_test.app to javafx.fxml;
 
     // TODO Not happy that I have to specify these here... Can't dynamically add modules?
     requires dev.ikm.tinkar.provider.spinedarray;
@@ -34,29 +36,43 @@ module dev.ikm.komet.application {
     requires dev.ikm.tinkar.provider.ephemeral;
     // End not happy...
 
+    // JPro related modules
+    requires jpro.webapi;
+    requires one.jpro.platform.auth.core;
+    requires one.jpro.platform.file;
+    requires one.jpro.platform.utils;
+    opens jpro.html;
+
     requires javafx.controls;
     requires javafx.fxml;
     requires nsmenufx;
+    requires fr.brouillard.oss.cssfx;
     requires org.carlfx.cognitive;
+
     requires org.controlsfx.controls;
-    requires dev.ikm.komet.classification;
-    requires dev.ikm.komet.details;
-    requires dev.ikm.komet.builder;
-    requires dev.ikm.komet.kview;
-    requires dev.ikm.komet.artifact;
-    requires dev.ikm.komet.executor;
-    requires dev.ikm.komet.list;
-    requires dev.ikm.komet.navigator;
-    requires dev.ikm.komet.preferences;
-    requires dev.ikm.komet.progress;
-    requires dev.ikm.komet.search;
+    requires dev.ikm.tinkar.provider.changeset;
+    requires dev.ikm.komet_test.classification;
+    requires dev.ikm.komet_test.details;
+    requires dev.ikm.komet_test.builder;
+    requires dev.ikm.komet_test.kview;
+    requires dev.ikm.komet_test.artifact;
+    requires dev.ikm.komet_test.executor;
+    requires dev.ikm.komet_test.list;
+    requires dev.ikm.komet_test.navigator;
+    requires dev.ikm.komet_test.preferences;
+    requires dev.ikm.komet_test.progress;
+    requires dev.ikm.komet_test.search;
     requires dev.ikm.tinkar.common;
     requires dev.ikm.tinkar.entity;
     requires dev.ikm.tinkar.provider.entity;
     requires dev.ikm.tinkar.terms;
+    requires dev.ikm.komet_test.sync;
     requires org.kordamp.ikonli.javafx;
     requires jdk.jdwp.agent;
-    requires transitive dev.ikm.komet.rules;
+    requires transitive dev.ikm.komet_test.rules;
+    requires jdk.management;
+    requires dev.ikm.tinkar.reasoner.service;
+    requires org.eclipse.jgit;
 
     uses DataServiceController;
     uses DefaultDescriptionForNidService;
@@ -66,6 +82,7 @@ module dev.ikm.komet.application {
     uses StampService;
     uses TaskListsService;
     uses DefaultEvtBus;
+    uses ChangeSetWriterService;
 
     // For ScenicView...
     //requires org.scenicview.scenicview;

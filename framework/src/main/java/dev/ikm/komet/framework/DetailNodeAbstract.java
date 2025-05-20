@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework;
+package dev.ikm.komet_test.framework;
 
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.flow.FlowSubscriber;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.terms.EntityFacade;
 
-import static dev.ikm.komet.framework.DetailNodeAbstract.DetailNodeKey.REQUEST_FOCUS_ON_ACTIVITY;
+import static dev.ikm.komet_test.framework.DetailNodeAbstract.DetailNodeKey.REQUEST_FOCUS_ON_ACTIVITY;
 
 public abstract class DetailNodeAbstract extends ExplorationNodeAbstract {
 

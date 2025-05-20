@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'Noto Sans';
+    font-weight: normal;
+    src: url('noto-sans.regular.ttf');
+}
+
+@font-face {
+    font-family: 'Noto Sans Medium';
+    font-weight: 500;
+    src: url('noto-sans.medium.ttf');
+}
+
+@font-face {
+    font-family: 'Noto Sans SemiBold';
+    font-weight: 600;
+    src: url('noto-sans.semibold.ttf');
+}
+
+@font-face {
+    font-family: 'Noto Sans Bold';
+    font-weight: 700;
+    src: url('noto-sans.bold.ttf');
+}
+
 .root {
     -fx-kview-titled-pane-text-color: #4581deff;
     -fx-kview-titled-pane-background-color: #dbe9ffff;
@@ -34,6 +58,7 @@
     -Grey-1: #FBFBFC;
     -Grey-White: #FFF;
     -Natural-Grey-Main: #5E5E5E;
+    -Natural-Grey-Dark: #4A4A4A;
 
     -Accent-color-yellow: #F3BE00;
     -Accent-color-orange: #FDAD15;
@@ -75,23 +100,51 @@
 .properties-tab-container,
 .timeline-toolbar-container {
     -fx-background-color: -Grey-3;
-    -fx-padding: 0 4 4 4;
+}
+
+.concept-window .main-center-container {
+    -fx-background-color: white;
+    -fx-background-radius: 4;
+    -fx-background-insets: 0 5 5 5;
+    -fx-padding: 5;
+}
+
+.main-right-container .properties-tab-outer-container {
+    -fx-padding: 0 5px 5px 0;
 }
 
 .concept-detail-pane {
-    -fx-padding: 0 4 4 4;
     -fx-border-insets: 0;
-    -fx-background-color: -Grey-3;
-    -fx-background-radius: 10 10 10 10;
-    -fx-border-radius: 10 10 10 10;
-}
-
-.concept-detail-pane .content-description-insets {
-    -fx-padding: 8 12 16 12;
+    -fx-background-color: -Secondary-06;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
 }
 
 .concept-detail-banner-background {
-    -fx-background-color: -Grey-White;
+    -fx-background-color: white;
+    -fx-background-radius: 4px 4px 0 0;
+}
+
+.concept-details-definitions {
+    -fx-background-color: transparent;
+    -fx-background-radius: 8 8 0 0;
+    -fx-height: 104;
+    -fx-min-height: -fx-height;
+    -fx-pref-height: -fx-height;
+    -fx-max-height: -fx-height;
+}
+
+.stamp-text {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 11px;
+    -fx-fill: -Grey-11;
+}
+
+.stamp-label {
+    -fx-font-family: "Noto Sans Medium";
+    -fx-font-weight: 500;
+    -fx-font-size: 12px;
+    -fx-text-fill: -Grey-11;
 }
 
 .identicon-frame {
@@ -101,11 +154,10 @@
 
 .copyable-label, .copyable-label:focused {
     -fx-border-color: transparent;
-    -fx-background-color: transparent ;
-    -fx-background-insets: 0px ;
-    -fx-padding: 4 0 4 0;
-
+    -fx-background-color: transparent;
+    -fx-padding: 0;
 }
+
 .text-area.copyable-text, .text-area.copyable-text:focused {
     -fx-border-color: transparent;
     -fx-background-color: white ;
@@ -118,9 +170,14 @@
     -fx-background-color: white ;
     -fx-background-radius: 2;
 }
+
 .concept-title {
-    -fx-text-fill: -fx-kview-titled-pane-text-color;
-    -fx-fill: -fx-kview-titled-pane-text-color;
+    -fx-text-fill: -Grey-12;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 17px;
+    -fx-alignment: top-left;
+    -fx-max-width: infinity;
+    -fx-max-height: infinity;
 }
 
 .titled-pane {
@@ -159,6 +216,38 @@
     -fx-border-insets: -1 0 0 0;
 }
 
+.concept-window .main-center-container .concept-section > .titled-pane .content {
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+}
+
+.concept-window .main-center-container .concept-section > .titled-pane .title {
+    -fx-font-family: "Noto Sans SemiBold";
+    -fx-font-size: 12;
+    -fx-background-radius: 0;
+    -fx-background-insets: 0, 1 0 0 0;
+    -fx-background-color: -Grey-10, -Grey-2;
+    -fx-padding: 6 12 6 12;
+}
+
+.concept-window .main-center-container .concept-section > .titled-pane .split-pane {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.concept-section > .separator:vertical {
+    -fx-height: 20;
+    -fx-min-height: -fx-height;
+    -fx-pref-height: -fx-height;
+    -fx-max-height: -fx-height;
+}
+
+.concept-section > .separator:vertical > .line {
+    -fx-border-color: transparent -Grey-5 transparent transparent;
+    -fx-border-width: 1;
+    -fx-border-insets: 0 1 0 0;
+}
+
 /* a add pencil button for add/edit */
 .button.add-pencil-button {
     -fx-padding: 4;
@@ -178,7 +267,15 @@
 }
 
 .button.add-pencil-button:hover {
+    -fx-background-color: #93BEFF4D;
+}
+
+.button.add-pencil-button:pressed {
     -fx-background-color: -Primary-04;
+}
+
+.button.add-pencil-button:disabled {
+    -fx-fill: -Grey-10;
 }
 
 .button.date-time-calendar-button {
@@ -237,10 +334,10 @@
 
 /* other names (aka description semantics) in the concept window */
 .descr-semantic {
-    /*-fx-wrap-text: true;*/
-    -fx-text-fill: #585757ff;
-    -fx-fill: #585757ff;
-    -fx-alignment: top-left;
+    -fx-font-family: "Noto Sans Medium";
+    -fx-font-size: 11;
+    -fx-text-fill: -Grey-8;
+    -fx-fill: -Grey-8;
 }
 
 .descr-semantic-container {
@@ -257,8 +354,19 @@
 }
 
 .descr-concept-name {
-    /*-fx-wrap-text: true;*/
-    -fx-alignment: top-left;
+    -fx-font-family: "Noto Sans SemiBold";
+    -fx-font-size: 12;
+}
+
+.descr-concept-icon {
+    -fx-icon-size: 14;
+    -fx-min-width: -fx-icon-size;
+    -fx-min-height: -fx-icon-size;
+    -fx-pref-width: -fx-icon-size;
+    -fx-pref-height: -fx-icon-size;
+    -fx-max-width: -fx-icon-size;
+    -fx-max-height: -fx-icon-size;
+    -fx-fill: -Grey-8;
 }
 
 .pencil-button.button {
@@ -293,31 +401,53 @@
 }
 
 .axiom-inferred-gear-btn {
-    -fx-pref-width: 15;
-    -fx-pref-height: 14;
-    -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-background-radius: 2;
-}
-.axiom-stated-chat-bubble-btn {
-    -fx-pref-width: 16;
-    -fx-pref-height: 15;
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 2;
 
+    -fx-size: 24;
+    -fx-min-width: -fx-size;
+    -fx-min-height: -fx-size;
+    -fx-pref-width: -fx-size;
+    -fx-pref-height: -fx-size;
+    -fx-max-width: -fx-size;
+    -fx-max-height: -fx-size;
 }
+
+.axiom-stated-chat-bubble-btn {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2;
+
+    -fx-size: 24;
+    -fx-min-width: -fx-size;
+    -fx-min-height: -fx-size;
+    -fx-pref-width: -fx-size;
+    -fx-pref-height: -fx-size;
+    -fx-max-width: -fx-size;
+    -fx-max-height: -fx-size;
+}
+
+.axiom-section {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 10 12;
+}
+
+/* common container pane used on bump outs needing scroll pane */
+.sub-container {
+    -fx-background-color: -Grey-3;
+}
+
+.sub-container .scroll-pane,
 .lidr-sub-container .scroll-pane,
-.analyte-group-container .scroll-pane,
-.scroll-pane.axiom-container {
+.analyte-group-container .scroll-pane {
     -fx-background-color: transparent;
     -fx-border-insets: 1;
     -fx-background-radius: 0 0 10 10;
 }
-
+.sub-container .scroll-pane > .viewport,
 .lidr-sub-container .scroll-pane > .viewport,
-.analyte-group-container .scroll-pane > .viewport,
-.scroll-pane.axiom-container > .viewport {
+.analyte-group-container .scroll-pane > .viewport {
     -fx-background-color: transparent;
     -fx-background-radius: 0 0 10 10;
 }
@@ -336,17 +466,13 @@
 .properties-tabs {
     -fx-border-insets: 0;
     -fx-background-color: -Grey-3;
-    -fx-background-radius: 10 10 0 0;
-    -fx-border-radius: 10 10 0 0;
-    -fx-border-style: solid;
-    -fx-border-width: 0.083333em;
-    -fx-border-color: -Grey-8;
+    -fx-background-radius: 4 4 0 0;
 }
 
 .properties-tab.toggle-button {
     -fx-pref-width: 84;
-    -fx-pref-height: 40;
-    -fx-max-height: 40;
+    -fx-pref-height: 45;
+    -fx-max-height: 45;
     -fx-label-padding: 0px 4px;
     -fx-position-shape: true;
     -fx-scale-shape: false;
@@ -397,12 +523,12 @@
 
 .properties-tab-container-content {
     -fx-background-color: -Grey-4;
-    -fx-border-insets: -1 0 0 0;
-    -fx-background-radius: 0 0 10 10;
-    -fx-border-radius: 0 0 10 10;
-    -fx-border-style: solid;
-    -fx-border-width: 0.083333em;
-    -fx-border-color: -Grey-8;
+    -fx-background-radius: 0 0 4 4;
+
+    -fx-border-color: -Grey-7;
+    -fx-border-width: 1px 0 0 0;
+
+    -fx-padding: 0;
 }
 
 .toggle-button.left-pill, .toggle-button.center-pill, .toggle-button.right-pill {
@@ -545,7 +671,7 @@
     -default-button-height: 56px;
     -default-button-width: -1;
 
-    -fx-alignment: top-center;
+    -fx-alignment: center-left;
     -fx-background-insets: 0;
     /*-fx-background-color: #F3F5F8FF;*/
     -fx-background-color: -Grey-11;
@@ -568,7 +694,7 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 0px, 0px, 0px, 0px;
-    -fx-padding: 16 12;
+    -fx-padding: 16 19 16 12;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -589,15 +715,43 @@
     -fx-content-display: left;
     -fx-graphic-text-gap: 8;
     -fx-min-width: -default-button-width;
-    -fx-pref-width: 144;
-    -fx-max-width: 144;
+    width: 152;
+    -fx-pref-width: width;
+    -fx-max-width: width;
 }
 
-/* all sidebar button regions are transparent */
+.side-bar .toggle-button .icon-container {
+    -fx-alignment: center-left;
+    -fx-spacing: 7px;
+}
+
+.side-bar .toggle-button .icon-container .icon-image-container {
+    -fx-min-width: 26px;
+    -fx-pref-width: 26px;
+}
+
+.side-bar .toggle-button .icon-container .label {
+    -fx-text-fill: white;
+}
+
+.side-bar .toggle-button:selected .icon-container .label {
+    -fx-text-fill: #111;
+}
+
 .side-bar .button .icon,
-.side-bar .toggle-button .icon
-{
+.side-bar .toggle-button .icon {
     -fx-background-color: -icon-paint;
+}
+
+.side-bar .toggle-button .icon,
+.side-bar .toggle-button .container-icon {
+    width: 20;
+    -fx-min-width: width;
+    -fx-pref-width: width;
+    -fx-max-width: width;
+
+    -fx-alignment: center;
+    -fx-position-shape: true;
 }
 
 
@@ -611,13 +765,23 @@ selected(active) - dark black
 /* Hover over tab button */
 .side-bar.show-text .toggle-button:selected,
 .side-bar.show-text .button:selected,
+.side-bar .toggle-button:selected,
+.side-bar .button:selected {
+    -fx-background-color: -Primary-05;
+}
+
+.side-bar.show-text .toggle-button:selected:hover,
+.side-bar.show-text .button:selected:hover,
+.side-bar .toggle-button:selected:hover,
+.side-bar .button:selected:hover{
+    -fx-background-color: derive(-Primary-05, 20%);
+}
+
 .side-bar.show-text .toggle-button:hover,
 .side-bar.show-text .button:hover,
-.side-bar .toggle-button:selected,
-.side-bar .button:selected,
 .side-bar .toggle-button:hover,
 .side-bar .button:hover {
-    -fx-background-color: -Primary-05;
+    -fx-background-color: rgba(100, 100, 100, 0.25);
 }
 
 /* Default */
@@ -649,12 +813,15 @@ selected(active) - dark black
 /* An Home svg (region) */
 .home {
     -width-size: 20;
-    -height-size: 17;
+    -height-size: 18;
     -fx-min-height: -height-size;
     -fx-min-width: -width-size;
     -fx-max-height: -height-size;
     -fx-max-width: -width-size;
     -fx-shape: "M10 3.19L15 7.69V15.5H13V9.5H7V15.5H5V7.69L10 3.19ZM10 0.5L0 9.5H3V17.5H9V11.5H11V17.5H17V9.5H20L10 0.5Z";
+
+    /* This icon shape is not correcly positioned so we need to correct that below */
+    -fx-translate-y: -1;
 }
 
 /* An Search svg (region) */
@@ -1004,11 +1171,6 @@ selected(active) - dark black
     -fx-max-width: 2000;
 }
 
-.desktop-area {
-    /*-fx-background-image: url("journal/grid-2x2-segment.png");*/
-    -fx-background-color: #828d9fff;
-}
-
 .chapter-block-bar-stack {
     -icon-paint: -Grey-10;
     -default-height: 48px;
@@ -1113,6 +1275,9 @@ selected(active) - dark black
     -fx-fill: -Grey-2;
 }
 .favorite-concept {
+    -fx-fill: -Grey-2;
+}
+.button .reasoner {
     -fx-fill: -Grey-2;
 }
 
@@ -1284,26 +1449,31 @@ Timeline (time travel) components
 */
 .timeline-header-bar {
     -icon-paint: -Grey-10;
-    -default-width: 300px;
-    -default-height: 100px;
+
     -fx-spacing: 4;
     -fx-alignment: center-left;
     -fx-background-insets: 0;
     -fx-background-color: #e0e8f1ff;
-    /*-fx-background-color: red;*/
-    -fx-border-insets: 0 0 -1 0;
-    -fx-border-style: solid;
-    -fx-border-width: 1;
-    -fx-border-color: transparent transparent transparent transparent;
+    -fx-background-radius: 4px 4px 0 0;
 
+    height: 45px;
 
-    /*-fx-min-height: -default-height;*/
-    /*-fx-pref-height: -default-height;*/
-    /*-fx-max-height: -default-height;*/
+    -fx-min-height: height;
+    -fx-pref-height: height;
+    -fx-max-height: height;
 
     -fx-min-width: 200;
     -fx-pref-width: -1;
     -fx-max-width: 5000;
+}
+
+.timeline-scrollpane {
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.timeline-outer-container {
+    -fx-padding: 0 4px 4px 0;
 }
 
 .timeline-header-bar .timeline-text.label {
@@ -1415,8 +1585,14 @@ Timeline (time travel) components
 
 .timeline-content,
 .timeline-scrollpane > .viewport {
-    -fx-background-radius: 0 0 10 10;
+    -fx-background-radius: 0 0 4px 4px;
 }
+
+.timeline-content.outer-container {
+    -fx-border-color: -Grey-7;
+    -fx-border-width: 1px 0 0 0;
+}
+
 .timeline-row-container {
     -fx-spacing: 20;
 }
@@ -1822,7 +1998,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-background-color: -Natural-Grey-Main;
     -fx-background-radius: 4 4 0 0;
     -fx-border-radius: 4 4 0 0;
-    -fx-padding: 2 16 0 16;
+    -fx-padding: 4 16 2 16;
 }
 .lidr-tab-icon {
     -fx-background-color: -Grey-White;
@@ -1839,11 +2015,11 @@ Timeline Year line segment (will overlay change circles)
 }
 
 .lidr-detail-pane {
-    -fx-padding: 0 4 4 4;
+    -fx-padding: 0 0 4 0;
     -fx-border-insets: 0;
     -fx-background-color: -Grey-3;
-    -fx-background-radius: 0 0 10 10;
-    -fx-border-radius: 0 0 10 10;
+    -fx-background-radius: 0 0 4 4;
+    -fx-border-radius: 0 0 4 4;
 }
 
 /* Result(s) added accordions */
@@ -1890,7 +2066,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-background-color: -Grey-3;
 }
 
-.lidr-device-title-label {    
+.lidr-device-title-label {
     -fx-text-alignment: center;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 13px;
@@ -1899,7 +2075,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-font-weight: 500;
 }
 
-.lidr-device-label {    
+.lidr-device-label {
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -1911,9 +2087,9 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-radius: 4;
     -fx-border-width: 1px;
     -fx-border-color: -Grey-5;
-    -fx-pref-width: 340.0;    
+    -fx-pref-width: 340.0;
     -fx-pref-height: 24.0;
-    -fx-alignment: center; 
+    -fx-alignment: center;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -1974,7 +2150,7 @@ Timeline Year line segment (will overlay change circles)
 .lidr-device-drag-and-drop-hbox {
     -width-size: 274px;
     -height-size: 32px;
-    -fx-pref-width: -width-size;    
+    -fx-pref-width: -width-size;
     -fx-pref-height: -height-size;
     -fx-max-height: -height-size;
     -fx-background-color: -Grey-2;
@@ -2030,14 +2206,14 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-radius: 4 4 4 4;
     -fx-border-color: -Secondary-05;
     -fx-border-width: 1px;
-    -fx-background-color: -Grey-2;    
+    -fx-background-color: -Grey-2;
     -fx-text-fill: -Secondary-05;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
     -fx-font-weight: 600;
     /* there is no letter-spacing in javafx... possibly work around this */
-    
+
 }
 
 .lidr-done-button {
@@ -2055,7 +2231,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-background-color: -Grey-7;
 }
 
-.lidr-separator {    
+.lidr-separator {
     -fx-text-fill: -Grey-7;
     -fx-background-color: -Grey-7;
     -fx-border-color: -Grey-7;
@@ -2067,7 +2243,7 @@ Timeline Year line segment (will overlay change circles)
 .lidr-text-field {
     -fx-pref-height: 32px;
     -fx-pref-width: 416px;
-    -fx-text-fill: -Grey-8;    
+    -fx-text-fill: -Grey-8;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -2080,7 +2256,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-radius: 4;
     -fx-border-width: 1px;
     -fx-border-color: -Grey-5;
-    -fx-background-color: -Grey-1;     
+    -fx-background-color: -Grey-1;
 }
 
 .lidr-combo-box .list-cell {
@@ -2088,10 +2264,10 @@ Timeline Year line segment (will overlay change circles)
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;   
+    -fx-font-weight: 500;
 }
 
-.lidr-combo-box.combo-box-base > .arrow-button > .arrow {    
+.lidr-combo-box.combo-box-base > .arrow-button > .arrow {
     -fx-background-color: -Secondary-05;
     -fx-shape: "M7.41 8.29508L6 9.70508L12 15.7051L18 9.70508L16.59 8.29508L12 12.8751L7.41 8.29508Z";
 }
@@ -2100,7 +2276,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-pref-height: 32px;
     -fx-border-radius: 4;
     -fx-background-color: -Secondary-05;
-    -fx-text-fill: white;    
+    -fx-text-fill: white;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -2192,16 +2368,34 @@ Timeline Year line segment (will overlay change circles)
  *********************************************************************************/
 
 /*********************************************************************************
+ * Concept / Pattern Navigator                                                   *
+ *********************************************************************************/
+
+.concept-pattern-container {
+    -fx-spacing: 10px;
+}
+
+.concept-pattern-header {
+    -fx-border-color: #3f3f3f;
+    -fx-border-width: 0 0 1px 0;
+    -fx-padding: 12 0 10 0;
+}
+
+/*********************************************************************************
  * Start of Pattern UI elements                                                  *
  *********************************************************************************/
+
+.grey3-background {
+    -fx-background-color: -Grey-3;
+}
 
 .search-device-text-input {
     -fx-border-radius: 4;
     -fx-border-width: 1px;
     -fx-border-color: -Grey-5;
-    -fx-pref-width: 340.0;    
+    -fx-pref-width: 340.0;
     -fx-pref-height: 24.0;
-    -fx-alignment: center; 
+    -fx-alignment: center;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -2210,8 +2404,8 @@ Timeline Year line segment (will overlay change circles)
 }
 
 .search-button-region {
-    -width-size: 20;
-    -height-size: 20;
+    -width-size: 16;
+    -height-size: 16;
     -fx-fill: none;
     -fx-background-color: white;
     -fx-min-height: -height-size;
@@ -2315,6 +2509,55 @@ Timeline Year line segment (will overlay change circles)
     -fx-shape: "M15.8337 5.34199L14.6587 4.16699L10.0003 8.82533L5.34199 4.16699L4.16699 5.34199L8.82533 10.0003L4.16699 14.6587L5.34199 15.8337L10.0003 11.1753L14.6587 15.8337L15.8337 14.6587L11.1753 10.0003L15.8337 5.34199Z";
 }
 
+.white-container-border6 {
+    -fx-background-color: -Grey-White;
+    -fx-background-radius: 8;
+    -fx-border-radius: 6;
+    -fx-border-insets: 12;
+    -fx-border-color: -Grey-6;
+    -fx-background-insets: 12;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8, 0, 0, 4);
+}
+
+.drop-dataset-container {
+    -fx-background-color: white, -Grey-2;
+    -fx-background-radius: 6;
+    -fx-background-insets: 0, 4;
+    -fx-border-width: 4;
+    -fx-border-radius: 6;
+    -fx-border-style: segments(6, 12) phase -12 line-join round line-cap round;
+    -fx-border-color: -Secondary-05;
+    -fx-text-fill: -Grey-8;
+}
+
+.drop-dataset-container:files-drag-over {
+    -fx-background-color: white, -Grey-4;
+}
+
+.drop-dataset-container .progress-indicator {
+    -fx-min-width: 64;
+    -fx-min-height: 64;
+    -fx-progress-color: -Secondary-05;
+}
+
+.tag-container {
+    -fx-background-color: -Grey-1;
+    -fx-background-radius: 4;
+}
+
+.file-circle-plus-icon {
+    -fx-background-color: -Secondary-05;
+    -fx-shape: "M0 64C0 28.7 28.7 0 64 0L224 0l0 128c0 17.7 14.3 32 32 32l128 0 0 38.6C310.1 219.5 256 287.4 256 368c0 59.1 29.1 111.3 73.7 143.3c-3.2 .5-6.4 .7-9.7 .7L64 512c-35.3 0-64-28.7-64-64L0 64zm384 64l-128 0L256 0 384 128zm48 96a144 144 0 1 1 0 288 144 144 0 1 1 0-288zm16 80c0-8.8-7.2-16-16-16s-16 7.2-16 16l0 48-48 0c-8.8 0-16 7.2-16 16s7.2 16 16 16l48 0 0 48c0 8.8 7.2 16 16 16s16-7.2 16-16l0-48 48 0c8.8 0 16-7.2 16-16s-7.2-16-16-16l-48 0 0-48z";
+}
+
+.grey9-14pt-normal {
+    -fx-text-fill: -Grey-9;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+}
+
 .grey12-12pt-bold {
     -fx-text-fill: -Grey-12;
     -fx-font-family: "Noto Sans";
@@ -2323,11 +2566,156 @@ Timeline Year line segment (will overlay change circles)
     -fx-font-weight: bold;
 }
 
+.grey12-18pt-normal {
+    -fx-text-fill: -Grey-12;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 18px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+}
+
+.grey-button-black-text {
+    -fx-border-radius: 4;
+    -fx-text-fill: #4B4B4B;
+    -fx-background-color: #D2D2D2;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: normal;
+}
+
+.text-field-black {
+    -fx-text-fill: black;
+    -fx-border-radius: 5;
+}
+
+.white-container-border6 {
+    -fx-background-color: white;
+    -fx-border-radius: 6;
+    -fx-border-color: -Grey-6;
+}
+
+.white-combo-grey-arrow {
+    -fx-border-radius: 4;
+    -fx-background-color: -Grey-1;
+    -fx-text-fill: black;
+    -fx-border-color: -Grey-6;
+}
+
 .transparent-scroll.scroll-pane,
 .transparent-scroll.scroll-pane > .viewport {
     -fx-background-color: transparent;
 }
 
+.button-blue5-text-grey1-bg {
+    -fx-border-radius: 4;
+    -fx-background-color: -Grey-1;
+    -fx-border-color: -Secondary-05;
+    -fx-text-fill: -Secondary-05;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-font-family: "Noto Sans";
+    -fx-alignment: center;
+    -fx-content-display: center;
+}
+
+/* date selection combo box used by export */
+.blue-arrow-combo-box-grey11.combo-box-base {
+    -fx-text-fill: -Grey-11;
+    -fx-background-color: -Grey-1;
+    -fx-border-color: -Grey-5;
+    -fx-border-radius: 4;
+
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+
+    -fx-min-width: -width-size;
+    -fx-pref-width: -width-size;
+    -fx-max-width: -width-size;
+}
+
+.blue-arrow-combo-box-grey11.combo-box-base > .arrow-button > .arrow {
+    -fx-background-color: -Secondary-05;
+    -fx-shape: "M7.41 8.29508L6 9.70508L12 15.7051L18 9.70508L16.59 8.29508L12 12.8751L7.41 8.29508Z";
+}
+
+/* The background of the combo box's popup container */
+.blue-arrow-combo-box-grey11 .combo-box-popup > .list-view {
+    -fx-padding: 8px 0px;
+
+    /* border styling (outline stroke) */
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-border-color: -Grey-10;
+    -fx-border-style: solid;
+
+    /* background styling (fill) */
+    -fx-background-insets: 0;
+    -fx-background-radius: 8;
+    -fx-background-color: -Grey-10;
+
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
+
+/* Default color of ListCell when populated and not selected*/
+.blue-arrow-combo-box-grey11 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell,
+.blue-arrow-combo-box-grey11 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell:filled {
+    -fx-padding: 10 8;
+    -fx-text-fill: white;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-background-insets: 0;
+    -fx-background-color: -Grey-10;
+    -fx-content-display: text-only;
+}
+
+/* Default color of ListCell when populated and not selected when there is a mouse hover */
+.blue-arrow-combo-box-grey11 .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell:filled:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -Grey-9;
+    -fx-text-fill: white;
+    -fx-content-display: text-only;
+}
+
+/* ComboBox's ListView's ListCell is selected show the text only (allows Scene Builder to display without a check mark) */
+.blue-arrow-combo-box-grey11 .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell:filled:selected,
+.blue-arrow-combo-box-grey11 .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell:filled:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -Grey-9;
+    -fx-background-insets: 0;
+    -fx-text-fill: white;
+    -fx-content-display: text-only;
+}
+
+/* ComboBox's ListView's ListCell is selected show the graphic only when listcell has a class of .check-mark-selected
+   See ComboBoxHelper.setupComboBoxWithIcon(ComboBox cb, String iconStyleClass)
+*/
+.blue-arrow-combo-box-grey11 .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell.check-mark-selected:filled:selected,
+.blue-arrow-combo-box-grey11 .combo-box-popup  > .list-view > .virtual-flow > .clipped-container > .sheet > .cell.indexed-cell.list-cell.check-mark-selected:filled:selected:hover {
+    -fx-background: -fx-accent;
+    -fx-background-color: -Grey-9;
+    -fx-background-insets: 0 1;
+    -fx-text-fill: white;
+    -fx-content-display: graphic-only;
+}
+
+/* green checkmark to the right on selected items in a ComboBox control */
+.check-mark {
+    -width-size: 25px;
+    -height-size: 20px;
+    -fx-min-width: -width-size;
+    -fx-pref-width: -width-size;
+    -fx-max-width: -width-size;
+    -fx-min-height: -height-size;
+    -fx-pref-height: -height-size;
+    -fx-max-height: -height-size;
+    -fx-background-color: -Primary-04;
+    -fx-shape: "M7.49989 13.4749L4.02489 9.99987L2.84155 11.1749L7.49989 15.8332L17.4999 5.8332L16.3249 4.6582L7.49989 13.4749Z";
+}
 
 /* end making these for the dragged concept reusable fxml */
 
@@ -2344,16 +2732,62 @@ Timeline Year line segment (will overlay change circles)
     -fx-max-height: -height-size;
     -fx-max-width: -width-size;
     -fx-background-color: -Secondary-05;
-    -fx-shape: "M20 13H13V20H11V13H4V11H11V4H13V11H20V13Z";    
+    -fx-shape: "M20 13H13V20H11V13H4V11H11V4H13V11H20V13Z";
+}
+
+.komet-text-field {
+    -fx-background-color: -Grey-1;
+    -fx-background-insets: 0;
+
+    -fx-border-width: 0;
+
+    -fx-color: -Grey-8;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+
+    -fx-prompt-text-fill: #111;
 }
 
 .blue-arrow-combo-box {
     -fx-background-color: -Grey-1;
     -fx-color: -Grey-8;
+
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
+}
+
+.blue-arrow-combo-box .list-cell {
+    -fx-text-fill: #111;
+}
+
+.blue-arrow-combo-box .text-input {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+
+    -fx-prompt-text-fill: #111;
+}
+
+.blue-arrow-combo-box:editable > .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.blue-arrow-combo-box:editable > .arrow-button:hover {
+    -fx-background-color: #f0f0f0;
+    -fx-background-radius: 4px;
+    -fx-background-insets: 0;
+}
+
+.komet-text-area {
+    -fx-background-color: -Grey-1;
+    -fx-background-insets: 0;
+
+    -fx-border-width: 0;
+
+    -fx-color: -Grey-8;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
 }
 
 .blue-arrow-combo-box.combo-box-base > .arrow-button > .arrow {
@@ -2368,12 +2802,14 @@ Timeline Year line segment (will overlay change circles)
 
 .comments-textflow {
     -fx-border-radius: 4;
-    -fx-min-height: 40;
+    -fx-min-height: 118;
     -fx-background-color: -Grey-1;
+    -fx-background-radius: 4;
+    -fx-border-color: -Grey-5;
 }
 
 .comment-placeholder-text {
-    -fx-fill: -Grey-8;    
+    -fx-fill: -Grey-8;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -2389,6 +2825,33 @@ Timeline Year line segment (will overlay change circles)
 
 .grey4-background {
     -fx-background-color: -Grey-4;
+}
+
+.grey-blue-button:disabled {
+    -fx-background-color: -Grey-7;
+    -fx-text-fill: -Grey-2;
+    -fx-opacity: 1.0;
+}
+
+.grey-blue-button {
+    -fx-font-family: "Noto Sans";
+    -fx-font-weight: 600;
+    -fx-font-size: 14px;
+    -fx-border-radius: 4;
+    -fx-background-color: -Secondary-05;
+    -fx-text-fill: -Grey-White;
+    -fx-alignment: center;
+    -fx-content-display: center;
+}
+
+.white-blue-button {
+    -fx-font-family: "Noto Sans Bold";
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-border-radius: 4;
+    -fx-border-color: -Secondary-05;
+    -fx-background-color: -Grey-White;
+    -fx-text-fill: -Secondary-05;
 }
 
 /*********************************************************************************
@@ -2416,20 +2879,29 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-radius: 4;
     -fx-border-width: 1px;
     -fx-border-color: -Grey-8;
+
     -fx-pref-width: 340.0;
     -fx-pref-height: 24.0;
-    -fx-alignment: center;
+
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
+
     -fx-text-fill: white;
+    -fx-prompt-text-fill: #bbb;
+
     -fx-alignment: center-left;
 
     -fx-background-color: -Grey-8;
-    -fx-background-image: url("images/close_24px.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: right center;
+}
+
+.search-text-field > .right-button > .right-button-graphic {
+    -fx-background-color: #ddd;
+}
+
+.search-text-field > .right-button:hover > .right-button-graphic {
+    -fx-background-color: white;
 }
 
 .search-sort-button {
@@ -2442,7 +2914,6 @@ Timeline Year line segment (will overlay change circles)
     -fx-text-fill: white;
 }
 
-
 .search-entry-hbox {
     -fx-border-radius: 2px;
     -fx-background-radius: 2px;
@@ -2453,18 +2924,32 @@ Timeline Year line segment (will overlay change circles)
     -fx-font-family: "Noto Sans";
     -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 600;
-    -fx-fill: -Secondary-06;
+    -fx-font-weight: bold;
+    -fx-line-height: 16px;
+    -fx-letter-spacing: 0.2px;
+    -fx-fill: -Natural-Grey-Dark;
+
 }
 
 .search-entry-expanded {
-    -fx-border-radius: 4px;
+    -fx-border-radius: 1px;
     -fx-border-color: -Secondary-05;
 }
 
 .search-entry-title-pane {
     -fx-border-radius: 4px;
-    -fx-border-color: -Secondary-05;    
+}
+
+.titled-pane.search-entry-title-pane > .title {
+    -fx-background-radius: 4px;
+}
+
+.search-entry-title-pane {
+    -fx-border-color: -Secondary-05;
+}
+
+.search-entry-title-pane > .content {
+    -fx-border-width: 0;
 }
 
 .titled-pane.search-entry-title-pane > .title > .text {
@@ -2522,7 +3007,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-shape: "M12 17C14.7614 17 17 14.7614 17 12C17 9.23858 14.7614 7 12 7C9.23858 7 7 9.23858 7 12C7 14.7614 9.23858 17 12 17Z";
 }
 
-.search-retired-label {    
+.search-retired-label {
     -fx-background-radius: 2;
     -fx-background-color: -Medium-opaque-red;
 
@@ -2534,7 +3019,7 @@ Timeline Year line segment (will overlay change circles)
     -fx-padding: 6 3 6 3;
 }
 
-.search-context-menu-container.context-menu {    
+.search-context-menu-container.context-menu {
     -fx-background-radius: 4;
     -fx-background-color: -Grey-11;
     -fx-text-fill: white;
@@ -2548,8 +3033,6 @@ Timeline Year line segment (will overlay change circles)
     -fx-text-fill: white;
     -fx-fill: white;
 }
-
-
 
 .search-context-menu-item.menu-item {
     -fx-background-color: -Grey-11;
@@ -2611,12 +3094,6 @@ Timeline Year line segment (will overlay change circles)
     -fx-shape: "M10.0002 3.33325L8.82516 4.50825L13.4752 9.16658H3.3335V10.8333H13.4752L8.82516 15.4916L10.0002 16.6666L16.6668 9.99992L10.0002 3.33325Z";
 }
 
-.copy-icon {
-    -fx-scale-shape: false;
-    -fx-background-color: white;   
-    -fx-shape: "M1.6665 15.1645L1.6665 9.36525C1.66649 8.96838 1.66649 8.62428 1.68968 8.34039C1.71421 8.04011 1.76854 7.73908 1.91648 7.44873C2.13637 7.01718 2.48722 6.66633 2.91877 6.44644C3.20912 6.2985 3.51015 6.24417 3.81043 6.21964C4.09431 6.19645 4.4384 6.19645 4.83526 6.19646L6.19639 6.19646L6.19639 4.83534C6.19638 4.43846 6.19637 4.0944 6.21956 3.81051C6.24409 3.51023 6.29842 3.2092 6.44636 2.91885C6.66625 2.4873 7.01711 2.13644 7.44865 1.91656C7.739 1.76862 8.04003 1.71429 8.34031 1.68976C8.62423 1.66656 8.96834 1.66657 9.36528 1.66658L15.1643 1.66658C15.5612 1.66657 15.9053 1.66656 16.1892 1.68976C16.4895 1.71429 16.7906 1.76862 17.0809 1.91656C17.5125 2.13644 17.8633 2.4873 18.0832 2.91885C18.2311 3.2092 18.2855 3.51023 18.31 3.81051C18.3332 4.09443 18.3332 4.43854 18.3332 4.83547L18.3332 10.6345C18.3332 11.0314 18.3332 11.3755 18.31 11.6594C18.2855 11.9597 18.2311 12.2608 18.0832 12.5511C17.8633 12.9826 17.5125 13.3335 17.0809 13.5534C16.7906 13.7013 16.4895 13.7557 16.1892 13.7802C15.9054 13.8034 15.5613 13.8034 15.1644 13.8034L13.8033 13.8034L13.8033 15.1645C13.8033 15.5614 13.8033 15.9055 13.7801 16.1893C13.7556 16.4896 13.7013 16.7906 13.5533 17.081C13.3334 17.5125 12.9826 17.8634 12.551 18.0833C12.2607 18.2312 11.9596 18.2855 11.6594 18.3101C11.3755 18.3333 11.0314 18.3333 10.6345 18.3333L4.83527 18.3333C4.4384 18.3333 4.09432 18.3333 3.81043 18.3101C3.51015 18.2855 3.20912 18.2312 2.91877 18.0833C2.48723 17.8634 2.13637 17.5125 1.91648 17.081C1.76854 16.7906 1.71421 16.4896 1.68968 16.1893C1.66649 15.9054 1.66649 15.5613 1.6665 15.1645ZM3.25154 16.0617C3.23418 15.8493 3.23357 15.5696 3.23357 15.1338L3.23357 9.39593C3.23357 8.9601 3.23418 8.68046 3.25154 8.468C3.26816 8.26457 3.29614 8.19275 3.31274 8.16016C3.38239 8.02348 3.49352 7.91235 3.6302 7.8427C3.66279 7.8261 3.73462 7.79811 3.93804 7.78149C4.1505 7.76414 4.43014 7.76352 4.86597 7.76352L6.19639 7.76352L6.19639 10.6346C6.19638 11.0314 6.19637 11.3756 6.21956 11.6594C6.2441 11.9597 6.29842 12.2608 6.44636 12.5511C6.66625 12.9826 7.01711 13.3335 7.44865 13.5534C7.739 13.7013 8.04003 13.7557 8.34031 13.7802C8.6242 13.8034 8.96831 13.8034 9.36518 13.8034L12.2362 13.8034L12.2362 15.1338C12.2362 15.5696 12.2356 15.8493 12.2183 16.0617C12.2016 16.2651 12.1737 16.337 12.1571 16.3696C12.0874 16.5062 11.9763 16.6174 11.8396 16.687C11.807 16.7036 11.7352 16.7316 11.5318 16.7482C11.3193 16.7656 11.0397 16.7662 10.6038 16.7662L4.86597 16.7662C4.43014 16.7662 4.1505 16.7656 3.93804 16.7482C3.73462 16.7316 3.66279 16.7036 3.6302 16.687C3.49352 16.6174 3.38239 16.5062 3.31274 16.3696C3.29614 16.337 3.26816 16.2651 3.25154 16.0617ZM7.78142 11.5318C7.76406 11.3194 7.76345 11.0397 7.76345 10.6039L7.76345 4.86605C7.76345 4.43022 7.76406 4.15058 7.78142 3.93812C7.79804 3.73469 7.82602 3.66287 7.84262 3.63028C7.91227 3.4936 8.0234 3.38247 8.16009 3.31282C8.19267 3.29622 8.2645 3.26823 8.46792 3.25161C8.68039 3.23426 8.96003 3.23365 9.39585 3.23365L15.1337 3.23364C15.5695 3.23364 15.8492 3.23426 16.0616 3.25161C16.2651 3.26823 16.3369 3.29622 16.3695 3.31282C16.5062 3.38247 16.6173 3.4936 16.6869 3.63028C16.7035 3.66287 16.7315 3.73469 16.7481 3.93812C16.7655 4.15058 16.7661 4.43022 16.7661 4.86605L16.7661 10.6039C16.7661 11.0397 16.7655 11.3194 16.7481 11.5318C16.7315 11.7353 16.7035 11.8071 16.6869 11.8397C16.6173 11.9764 16.5062 12.0875 16.3695 12.1571C16.3369 12.1737 16.2651 12.2017 16.0616 12.2183C15.8492 12.2357 15.5695 12.2363 15.1337 12.2363L9.39586 12.2363C8.96003 12.2363 8.68039 12.2357 8.46792 12.2183C8.2645 12.2017 8.19267 12.1737 8.16009 12.1571C8.0234 12.0875 7.91227 11.9764 7.84262 11.8397C7.82602 11.8071 7.79804 11.7353 7.78142 11.5318Z M9.43837 6.99586L9.43837 8.56292L11.4092 8.56292L11.4092 10.5614L12.9763 10.5614L12.9763 8.56292L15.0024 8.56292L15.0024 6.99586L12.9763 6.99586L12.9763 4.99741L11.4092 4.99741L11.4092 6.99586L9.43837 6.99586Z";
-}
-
 .favorites-icon {
     -fx-scale-shape: false;
     -fx-background-color: white;
@@ -2624,8 +3101,8 @@ Timeline Year line segment (will overlay change circles)
 }
 
 .search-context-menu-container .separator:horizontal .line {
-    -fx-border-color: -Grey-9; 
-    -fx-border-width: 0.5px;   
+    -fx-border-color: -Grey-9;
+    -fx-border-width: 0.5px;
     -fx-border-insets: 0 6 0 6;
 }
 
@@ -2634,20 +3111,20 @@ Timeline Year line segment (will overlay change circles)
     -fx-min-width: 212px;
 }
 
-.search-drop-region {
-    -height: 840px;
-    -width: 672px;
-    -fx-min-height: -height;
-    -fx-pref-height: -height;
-    -fx-min-width: -width;
-    -fx-pref-width: -width;
-    -fx-border-radius: 8;
-    -fx-background-radius: 8;
-    -fx-stroke: -Primary-04;
-    -fx-border-color: -Primary-04;
+.draggable-node:snapshot {
+    -fx-border-color: -Primary-05;
+    -fx-border-radius: 0;
     -fx-border-width: 4;
-    -fx-border-style: dashed;
-    -fx-background-color: rgba(255, 255, 255, 0.50);    
+}
+
+/* Styles title text inside the content of TitlePane. eg: DESCRIPTION , Fully Qualified Name.*/
+.pattern-title {
+    -fx-text-alignment: center;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-fill: -Grey-8;
+    -fx-font-weight: 600;
 }
 
 .pattern-titled-pane {
@@ -2655,12 +3132,16 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-color: -Grey-10;
 }
 
+.pattern-titled-pane > .content {
+    -fx-background-color: white;
+}
+
 .pattern-vertical-separator {
     -fx-color-fill: -Grey-5;
 }
 
 .pattern-titled-pane > .title {
-    -fx-background-color: -Grey-2;    
+    -fx-background-color: -Grey-2;
     -fx-pref-height: 32;
     -fx-padding: 8 4 4 4;
 }
@@ -2676,12 +3157,80 @@ Timeline Year line segment (will overlay change circles)
     -fx-pref-height: -height-size;
     -fx-max-height: -height-size;
     -fx-shape: "M7.41 8.29508L6 9.70508L12 15.7051L18 9.70508L16.59 8.29508L12 12.8751L7.41 8.29508Z";
-    -fx-background-color: -Secondary-05;    
+    -fx-background-color: -Secondary-05;
+}
+
+.add-scrollbar-patterns{
+    -fx-background-color: -Grey-10;
 }
 
 /********************************************************************************
- * End of Journal > Search Concept UI elements                                  *
+ * Pattern Browser                                                              *
  ********************************************************************************/
+
+.pattern-instance-hbox {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+
+    -fx-background-color: white;
+    -fx-background-radius: 3px;
+    -fx-border-radius: 3px;
+
+    -fx-effect: dropshadow(gaussian , rgba(0,0,0,0.2) , 4, 0.0 , 0 , 2 );
+
+    height: 35;
+    -fx-pref-height: height;
+    -fx-max-height: height;
+
+    -fx-padding: 5 6 5 10;
+    -fx-alignment: center_left;
+
+    -fx-fill-height: false;
+}
+
+.pattern-instance-hbox:hover {
+    -fx-background-color: #f6f6f6;
+}
+
+.pattern-instance-hbox > .label {
+    -fx-graphic-text-gap: 9px;
+}
+
+.list-cell:selected .pattern-instance-hbox .label {
+    -fx-text-fill: blue;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+}
+
+.pattern-instance-hbox .pattern-instance {
+    -fx-min-width: 270px;
+    -fx-pref-width: 270px;
+    -fx-max-width: 270px;
+
+    -fx-padding: 0 10 0 0;
+
+}
+.pattern-instance-hbox .pattern-instance-hover-icon {
+     visibility: hidden;
+}
+
+.pattern-instance-hbox:hover .pattern-instance-hover-icon {
+    visibility: visible;
+}
+
+.pattern-instance-hover-icon {
+     -fx-min-width: 13px;
+     -fx-max-width: 13px;
+     -fx-max-height: 20px;
+     -fx-min-height: 20px;
+     -fx-background-color: #9A9DA0;
+
+     -fx-scale-shape: false;
+
+     -fx-shape: "M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M0 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M0 16a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 16a2 2 0 1 0 4 0a2 2 0 1 0 -4 0";
+}
 
 
 /********************************************************************************
@@ -2734,6 +3283,17 @@ Timeline Year line segment (will overlay change circles)
     -fx-border-radius: 4;
     -fx-border-width: 1;
     -fx-border-color: -Secondary-06;
+}
+
+
+.close-properties-panel-05-button {
+    -fx-background-color: white;
+    -fx-text-fill: -Secondary-05;
+    -fx-pref-width: 320px;
+    -fx-pref-height: 32px;
+    -fx-border-radius: 4;
+    -fx-border-width: 1;
+    -fx-border-color: -Secondary-05;
 }
 
 .edit-concept-cancel-button-container {
@@ -2810,7 +3370,7 @@ Timeline Year line segment (will overlay change circles)
 .dialect-container {
     -fx-padding: 10 10 0 0;
     -fx-background-color: white;
-    -fx-border-radius: 4; /* FIXME not working on the hbox at the moment */    
+    -fx-border-radius: 4; /* FIXME not working on the hbox at the moment */
 }
 
 .dialect-combobox {
@@ -2850,16 +3410,24 @@ Landing page elements.
 
 /* label */
 .counter {
+    size: 16;
+    -fx-pref-width: size;
+    -fx-pref-height: size;
+
+    -fx-background-radius: 2em;
+    -fx-background-insets: 0;
+    -fx-background-color: -Accent-color-red;
+
+    -fx-translate-y: -2px;
+    -fx-translate-x: 4px;
+}
+
+.counter > .label {
     -fx-text-fill: -Grey-White;
-    -fx-label-padding: 2;
-    -fx-padding: 0 4 1 4;
     -fx-font-family: "Noto Sans";
     -fx-font-size: 11px;
     -fx-font-style: normal;
     -fx-font-weight: 700;
-    -fx-background-radius: 12;
-    -fx-background-color: -Accent-color-red;
-
 }
 
 .split-pane.flat-split-divider:horizontal > .split-pane-divider {
@@ -2964,7 +3532,7 @@ Landing page elements.
 .landing-container .combo-box > .list-cell {
     -fx-background: -Grey-1;
     -fx-background-color: -Grey-1;
-    -fx-text-fill: black;
+
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
 }
 
@@ -3106,6 +3674,32 @@ Styling a context menu for kview ui/ux controls
     -fx-background-color: -fx-focused-mark-color;
     -fx-alignment: center-right;
 }
+
+.kview-context-menu .menu-item .comment-icon{
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+}
+
+.kview-context-menu .menu-item .remove-icon{
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+    -fx-shape: "M12.4999 2.5V3.33333H16.6666V5H15.8333V15.8333C15.8333 16.75 15.0833 17.5 14.1666 17.5H5.83325C4.91659 17.5 4.16659 16.75 4.16659 15.8333V5H3.33325V3.33333H7.49992V2.5H12.4999ZM5.83325 15.8333H14.1666V5H5.83325V15.8333ZM7.49992 6.66667H9.16658V14.1667H7.49992V6.66667ZM12.4999 6.66667H10.8333V14.1667H12.4999V6.66667Z";
+}
+
+.kview-context-menu .menu-item .edit-icon{
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+    -fx-shape: "M11.7167 7.5L12.5 8.28333L4.93333 15.8333H4.16667V15.0667L11.7167 7.5ZM14.7167 2.5C14.5083 2.5 14.2917 2.58333 14.1333 2.74167L12.6083 4.26667L15.7333 7.39167L17.2583 5.86667C17.5833 5.54167 17.5833 5 17.2583 4.69167L15.3083 2.74167C15.1417 2.575 14.9333 2.5 14.7167 2.5ZM11.7167 5.15833L2.5 14.375V17.5H5.625L14.8417 8.28333L11.7167 5.15833Z";
+}
+
+.kview-context-menu .menu-item .favorites-icon{
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+    -fx-shape: "M4.1665 1.66675C2.78579 1.66675 1.6665 2.78604 1.6665 4.16675V15.8334C1.6665 17.2141 2.78579 18.3334 4.1665 18.3334H15.8332C17.2139 18.3334 18.3332 17.2141 18.3332 15.8334V4.16675C18.3332 2.78604 17.2139 1.66675 15.8332 1.66675H4.1665ZM3.33317 4.16675C3.33317 3.70651 3.70627 3.33341 4.1665 3.33341H15.8332C16.2934 3.33341 16.6665 3.70651 16.6665 4.16675V15.8334C16.6665 16.2937 16.2934 16.6667 15.8332 16.6667H4.1665C3.70627 16.6667 3.33317 16.2937 3.33317 15.8334V4.16675Z M9.74463 5.39274C8.40593 5.39274 7.34879 6.44533 7.34879 7.78857C7.34879 8.60503 7.71989 9.32151 8.30295 10.0348C8.88089 10.7419 9.70129 11.4858 10.6573 12.3527L10.6645 12.3593L11.4321 13.0581L12.2003 12.3588L12.2069 12.3528C13.163 11.4859 13.9834 10.7419 14.5613 10.0348C15.1444 9.32151 15.5155 8.60503 15.5155 7.78857C15.5155 6.44533 14.4583 5.39274 13.1196 5.39274C12.4912 5.39274 11.8877 5.63562 11.4321 6.03394C10.9766 5.63562 10.3731 5.39274 9.74463 5.39274ZM8.76546 7.78857C8.76546 7.22267 9.17872 6.80941 9.74463 6.80941C10.1925 6.80941 10.6267 7.10723 10.7728 7.48211L10.8555 7.69441H12.0087L12.0915 7.48211C12.2376 7.10723 12.6717 6.80941 13.1196 6.80941C13.6855 6.80941 14.0988 7.22267 14.0988 7.78857C14.0988 8.20741 13.8708 8.66781 13.367 9.25653C12.9012 9.80085 12.2434 10.4062 11.4304 11.1431C10.6191 10.4062 9.9623 9.80096 9.49688 9.25664C8.99346 8.66787 8.76546 8.20745 8.76546 7.78857Z";
+}
+
+
+
 /* Add Concept menu item */
 .add-notepad {
     -fx-background-color: white;
@@ -3228,7 +3822,7 @@ Styling a context menu for kview ui/ux controls
 
 .add-icon-menu-graphic,
 .concept-edit-description-menu-icon {
-    -fx-background-color: white;    
+    -fx-background-color: white;
     -width-size: 18px;
     -height-size: 18px;
     -fx-min-height: -height-size;
@@ -3580,11 +4174,9 @@ Styling a context menu for kview ui/ux controls
 .popup-container .scroll-bar:vertical .decrement-button,
 .landing-container .scroll-bar:vertical .increment-button ,
 .landing-container .scroll-bar:vertical .decrement-button {
-
     -fx-background-color:transparent;
     -fx-background-radius: 0em;
     -fx-padding:0 10 0 0;
-
 }
 
 .lidr-container  .scroll-bar .increment-arrow,
@@ -3592,8 +4184,7 @@ Styling a context menu for kview ui/ux controls
 .popup-container  .scroll-bar .increment-arrow,
 .popup-container  .scroll-bar .decrement-arrow,
 .landing-container  .scroll-bar .increment-arrow,
-.landing-container  .scroll-bar .decrement-arrow
-{
+.landing-container  .scroll-bar .decrement-arrow {
     -fx-shape: " ";
     -fx-padding:0;
 }
@@ -3738,54 +4329,87 @@ Styling a context menu for kview ui/ux controls
 /*    -fx-color: red;*/
 /*}*/
 /* alternative content using a border and a grad to transparent background - why should TitledPane content have a colour? */
+.popup-container .titled-pane > .title {
+    -fx-padding: 0.3333em 0.75em 0.083333em 0em; /* 4 9 1 9 */
+}
+
 .popup-container .titled-pane > *.content {
     -fx-border-color: transparent;
     -fx-border-insets: -1 0 0 0;
     -fx-background-color: transparent;
-    -fx-padding: -5 0 0 0;
+    -fx-padding: 0 0 4px 0;
+}
+
+.popup-container .titled-pane.status-titled-pane > *.content {
+    -fx-padding: 0;
+}
+
+.popup-container .titled-pane > *.content .option-container {
+    -fx-spacing: 5px;
+    -fx-padding: 2px 0 16px 10px;
+}
+
+.popup-container .titled-pane.status-titled-pane > *.content .option-container {
+    -fx-padding: 5px 10px 5px 0;
+}
+
+.popup-container .titled-pane.status-titled-pane > *.content .radio-button.active {
+    -fx-padding: 0 1px 0 0; /* Fix small misalignment of this radio button */
 }
 
 .popup-container .titled-pane > *.content .option-container .radio-button {
     -fx-label-padding: 4;
     -fx-text-fill: -Grey-White;
-    -fx-padding: 0 0 0 12;
+
+    -fx-label-padding: 0.0em 0.0em 0.0em 0.416667em; /* 0 0 0 5 */
 }
 .popup-container .titled-pane > *.content .option-container .radio-button > .radio,
 .popup-container .titled-pane > *.content .option-container .radio-button:focused > .radio {
-    -fx-background-radius: 0; /* large value to make sure this remains circular */
-    -fx-padding: 0; /* 4 -- padding from outside edge to the inner black dot */
-    -fx-background-color: -Grey-White;
-    -fx-scale-shape: false;
-    -fx-shape: "M8.99984 0.666748C4.39984 0.666748 0.666504 4.40008 0.666504 9.00008C0.666504 13.6001 4.39984 17.3334 8.99984 17.3334C13.5998 17.3334 17.3332 13.6001 17.3332 9.00008C17.3332 4.40008 13.5998 0.666748 8.99984 0.666748ZM8.99984 15.6667C5.3165 15.6667 2.33317 12.6834 2.33317 9.00008C2.33317 5.31675 5.3165 2.33341 8.99984 2.33341C12.6832 2.33341 15.6665 5.31675 15.6665 9.00008C15.6665 12.6834 12.6832 15.6667 8.99984 15.6667Z";
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+
+    -fx-border-style: solid;
+    -fx-border-radius: 1.0em;
+    -fx-border-color: -Grey-White;
+    -fx-border-insets: 0px;
+    -fx-border-width: 2px;
+
+    -fx-padding: 3px;
 }
 .popup-container .titled-pane > *.content .option-container .radio-button:selected > .radio,
 .popup-container .titled-pane > *.content .option-container .radio-button:selected:focused > .radio {
-    -fx-background-color: -Primary-04;
+    -fx-border-color: -Primary-04;
 }
 
 .popup-container .titled-pane > *.content .option-container .radio-button > .radio > .dot {
     -fx-background-color: transparent;
     -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
     -fx-padding: 0.333333em; /* 4 -- radius of the inner black dot when selected */
-    -fx-shape: "M8.99984 13.1667C11.301 13.1667 13.1665 11.3013 13.1665 9.00008C13.1665 6.69889 11.301 4.83342 8.99984 4.83342C6.69865 4.83342 4.83317 6.69889 4.83317 9.00008C4.83317 11.3013 6.69865 13.1667 8.99984 13.1667Z";
 }
 
 .popup-container .titled-pane > *.content .option-container .radio-button:selected > .radio > .dot {
+    -fx-background-insets: 0;
     -fx-background-color: -Primary-04;
-    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-    /*-fx-padding: 0.333333em; !* 4 -- radius of the inner black dot when selected *!*/
-    -fx-shape: "M8.99984 13.1667C11.301 13.1667 13.1665 11.3013 13.1665 9.00008C13.1665 6.69889 11.301 4.83342 8.99984 4.83342C6.69865 4.83342 4.83317 6.69889 4.83317 9.00008C4.83317 11.3013 6.69865 13.1667 8.99984 13.1667Z";
 }
 .popup-container .titled-pane > *.content .scroll-pane .viewport {
     -fx-background-color: transparent;
 }
 
-/* kview Progress bar popup */
+.popup-container .scroll-pane .scroll-bar:vertical {
+    -fx-background-color: rgba(70, 70, 70, 0.1);
+}
+
+/*****************************
+* kview Progress bar popup
+*****************************/
+
 .kview-progress-container {
     -fx-background-insets: 0;
     -fx-background-radius: 6;
     -fx-background-color: transparent;
 }
+
 .kview-progress {
     -fx-background-insets: 0;
     -fx-background-radius: 6;
@@ -3794,7 +4418,7 @@ Styling a context menu for kview ui/ux controls
     -fx-border-width: 1px;
     -fx-border-radius: 6;
     -fx-padding: 14px 20px;
-    -fx-effect: dropshadow(one-pass-box, rgba(0, 0, 0, 0.20), 10, 0.01, 4, 4);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 4, 0, 0, 4);
 }
 
 .kview-progress-container .button.close-button,
@@ -3818,18 +4442,996 @@ Styling a context menu for kview ui/ux controls
     -fx-indeterminate-bar-flip: true;
     -fx-indeterminate-bar-animation-time: 2;
 }
+
 .kview-progress .progress-bar > .bar {
     -fx-background-color: -Accent-color-green;
-    -fx-background-insets: 3 3 4 3;
-    /*-fx-background-radius: 0.583em; *//* 7 */
+    -fx-background-insets: 0;
     -fx-background-radius: 6;
-    -fx-padding: 0.75em;
 }
+
 .kview-progress .progress-bar:indeterminate > .bar {
     -fx-background-color: linear-gradient(to left, transparent, -Accent-color-green);
 }
+
 .kview-progress .progress-bar > .track {
     -fx-background-color: #545D72;
     -fx-background-insets: 0;
     -fx-background-radius: 6;
+}
+
+.kview-progress #titleText {
+    -fx-font-family: "Noto Sans Medium";
+    -fx-font-size: 18px;
+    -fx-font-weight: 500;
+    -fx-font-style: normal;
+    -fx-fill: -Grey-White;
+}
+
+.kview-progress #messageText {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-weight: 400;
+    -fx-fill: -Grey-3;
+}
+
+.kview-progress #valueText {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+    -fx-font-style: normal;
+    -fx-fill: -Accent-color-green;
+}
+
+.kview-progress #statusText {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 400;
+    -fx-fill: -Grey-3;
+}
+
+.kview-progress #cancelProgressButton {
+    -fx-background-insets: 1;
+    -fx-background-color: -Grey-11;
+    -fx-border-color: -Secondary-05;
+    -fx-border-radius: 4;
+    -fx-font-family: "Noto Sans SemiBold";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+    -fx-text-fill: -Secondary-04;
+    -fx-text-alignment: center;
+}
+
+/*****************************
+* Notification popup
+*****************************/
+
+.notification-popup .progress-popup-pane {
+    -fx-spacing: 14;
+    -fx-alignment: bottom_center;
+}
+
+/*****************************
+* Login page styles
+*****************************/
+
+.login-page {
+    -fx-background-color: -Secondary-07;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 8;
+}
+
+.login-page > .left-vbox {
+    -fx-alignment: center;
+    -fx-spacing: 32px;
+}
+
+.login-page > .left-vbox > .label {
+    -fx-font-size: 22px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -Grey-White;
+}
+
+.login-page .center-pane {
+    -fx-background-color: -Grey-2;
+    -fx-background-radius: 16 0 0 16;
+    -fx-padding: 32px;
+    -fx-alignment: center-left;
+}
+
+.login-page .center-vbox {
+    -fx-alignment: center-left;
+}
+
+.login-page .center-vbox > .header-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: 500;
+    -fx-text-fill: -Grey-Black;
+    -fx-padding: 0 0 24 0;
+}
+
+.login-page .center-vbox > .text-field {
+    -fx-font-size: 14px;
+    -fx-pref-height: 36px;
+    -fx-font-weight: 500;
+}
+
+.login-page .center-pane .error-label {
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+    -fx-text-fill: -Accent-color-red;
+    -fx-padding: 0 0 8 0;
+}
+
+.login-page .center-vbox > .signin-button {
+    -fx-font-size: 14px;
+    -fx-text-fill: -Grey-White;
+    -fx-font-weight: 500;
+    -fx-pref-height: 36px;
+    -fx-background-color: -Primary-06;
+    -fx-max-width: infinity;
+}
+
+.login-page .center-vbox > .signin-button:hover {
+    -fx-background-color: -Primary-07;
+}
+
+.login-page .center-vbox > .signin-button:pressed {
+    -fx-background-color: -Primary-05;
+}
+
+.login-page .center-vbox > .signin-button:disabled {
+    -fx-background-color: -Grey-7;
+}
+
+/*****************************
+* next gen reasoner styles
+*****************************/
+
+.reasoner-vertical-scroll-area {
+    -fx-background-color: -Grey-9;
+}
+
+.reasoner-result-header .label {
+    -fx-text-fill: -Grey-1;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-background-color: -Grey-9;
+}
+
+.reasoner-result-header .close {
+    -height: 18px;
+    -width: 18px;
+    -fx-min-height: -height;
+    -fx-pref-height: -height;
+    -fx-max-height: -height;
+    -fx-content-display: graphic-only;
+    -fx-min-width: -width;
+    -fx-pref-width: -width;
+    -fx-max-width: -width;
+    -fx-background-color: -Grey-1;
+    -fx-shape: "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+}
+
+.titled-pane.classification-date {
+    -fx-text-fill: white;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-color: -Grey-9;
+}
+
+.titled-pane.classification-date > .title {
+    -fx-background-color: -Grey-11;
+    -fx-pref-height: 32;
+    -fx-padding: 8 4 4 4;
+}
+
+.titled-pane.classification-date > .title > .arrow-button .arrow {
+    -width-size: 15px;
+    -height-size: 9px;
+    -fx-min-width: -width-size;
+    -fx-pref-width: -width-size;
+    -fx-max-width: -width-size;
+
+    -fx-min-height: -height-size;
+    -fx-pref-height: -height-size;
+    -fx-max-height: -height-size;
+    -fx-shape: "M7.41 8.29508L6 9.70508L12 15.7051L18 9.70508L16.59 8.29508L12 12.8751L7.41 8.29508Z";
+    -fx-background-color: -Secondary-05;
+}
+
+
+.titled-pane.classification-date .content {
+    -fx-background-color: -Grey-8;
+    -fx-border-width: 0px;
+}
+
+.reasoner-entry {
+    -fx-text-fill: -Grey-1;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.reasoner-entry.titled-pane > .title {
+    -fx-text-fill: -Grey-1;
+    -fx-background-color: -Grey-8;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.reasoner-entry .content {
+    -fx-background-color: -Grey-8;
+    -fx-border-width: 0 0 0 0;
+}
+
+.reasoner-label-container {
+    -fx-background-color: white;
+}
+
+.titled-pane.reasoner-entry:collapsed > .title > .arrow-button {
+    -fx-rotate: 90;
+}
+
+.titled-pane.reasoner-entry:expanded > .title > .arrow-button {
+     -fx-rotate: 90;
+}
+
+.titled-pane.reasoner-entry > .title > .arrow-button > .arrow {
+    -width-size: 8px;
+    -height-size: 8px;
+    -fx-min-width: -width-size;
+    -fx-pref-width: -width-size;
+    -fx-max-width: -width-size;
+
+    -fx-min-height: -height-size;
+    -fx-pref-height: -height-size;
+    -fx-max-height: -height-size;
+    -fx-shape: "M10 17L15 12L10 7V17Z";
+    -fx-background-color: white;
+}
+
+
+.reasoner-entry-description {
+    -fx-text-fill: black;
+    -width: 348px;
+    -fx-pref-width: -width;
+    -fx-min-width: -width;
+    -fx-max-width: -width;
+    -fx-background-color: white;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+}
+
+/********************************************************************************
+ * Start of Journal > Pattern Navigator                                         *
+ ********************************************************************************/
+
+.grey-vertical-scroll-area {
+    -fx-background-color: -Grey-9;
+}
+
+.nav-toggle.toggle-button {
+    -fx-border-color: -Grey-7;
+    -fx-background-color: -Grey-2;
+    -fx-text-fill: -Secondary-05;
+    -fx-background-insets: 0;
+    -fx-font-family: "Noto Sans";
+    -fx-letter-spacing: 0.2px;
+    -fx-text-transform: uppercase;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: bold;
+}
+
+.nav-toggle-left.toggle-button {
+    -fx-border-width: 1 0 1 1;
+    -fx-border-radius: 6 0 0 6;
+    -fx-background-radius: 6 0 0 6;
+}
+
+.nav-toggle-right.toggle-button {
+    -fx-border-width: 1;
+    -fx-border-radius: 0 6 6 0;
+    -fx-background-radius: 0 6 6 0;
+}
+
+.nav-toggle:selected.toggle-button {
+    -fx-border-color: -Grey-7;
+    -fx-background-color: -Primary-03;
+    -fx-text-fill: -Grey-12;
+}
+
+.pattern-title-container {
+    -fx-alignment: center_left;
+    -fx-padding: 0 10px 0 14px;
+    -fx-spacing: 8px;
+}
+
+.pattern-title-container .drag-handle-affordance.icon {
+    -fx-min-width: 13px;
+    -fx-max-width: 13px;
+    -fx-max-height: 20px;
+    -fx-min-height: 20px;
+    -fx-background-color: #9A9DA0;
+
+    -fx-scale-shape: false;
+}
+
+/* Pattern Browser ScrollPane */
+
+.pattern-navigation-scroll-pane,
+.pattern-navigation-scroll-pane > .viewport {
+    -fx-background-color: #545d72;
+}
+
+.pattern-navigation-scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.pattern-navigation-scroll-pane > .scroll-bar:vertical .increment-button,
+.pattern-navigation-scroll-pane > .scroll-bar:vertical .decrement-button,
+.pattern-navigation-scroll-pane > .scroll-bar:vertical .increment-arrow,
+.pattern-navigation-scroll-pane > .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 2 0 2;
+}
+
+.pattern-navigation-scroll-pane > .scroll-bar:vertical .thumb {
+    -fx-background-color: #a9aeb8;
+    -fx-background-insets: 3px 5px 3px 2px;
+    -fx-background-radius: 16px;
+}
+
+.pattern-navigation-container {
+    -fx-spacing: 4px;
+    -fx-padding: 0 2px 0 12px;
+}
+
+/* Pattern Browser ListViews */
+
+.pattern-instances-list-view {
+    -fx-background-color: #f1f3f8;
+    -fx-padding: 3px 0 0 0;
+}
+
+.pattern-instances-list-view.list-view .scroll-bar {
+    -fx-background-color: transparent;
+    -fx-padding: 2px 0 0 0;
+}
+
+.pattern-instances-list-view.list-view .scroll-bar:vertical .increment-button,
+.pattern-instances-list-view.list-view .scroll-bar:vertical .decrement-button,
+.pattern-instances-list-view.list-view .scroll-bar:vertical .increment-arrow,
+.pattern-instances-list-view.list-view .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color:transparent;
+    -fx-background-radius: 0em;
+    -fx-padding: 0 2 0 2;
+}
+
+.pattern-instances-list-view.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: #777;
+    -fx-background-insets: 3 5 3 0;
+    -fx-background-radius: 16px;
+}
+
+/* Horizontal scrollbars */
+.pattern-instances-list-view.list-view .scroll-bar:horizontal .increment-arrow,
+.pattern-instances-list-view.list-view .scroll-bar:horizontal .decrement-arrow,
+.pattern-instances-list-view.list-view .scroll-bar:horizontal .increment-button,
+.pattern-instances-list-view.list-view .scroll-bar:horizontal .decrement-button {
+    -fx-padding:0;
+}
+
+/* Cells and Cells content */
+.pattern-instances-list-view.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+
+    -fx-padding: 0 6px 0 6px;
+}
+
+.add-new-instance-icon {
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+    -fx-shape: "M9.99996 1.6665C5.40746 1.6665 1.66663 5.40733 1.66663 9.99984C1.66663 14.5923 5.40746 18.3332 9.99996 18.3332C14.5925 18.3332 18.3333 14.5923 18.3333 9.99984C18.3333 5.40733 14.5925 1.6665 9.99996 1.6665ZM9.99996 3.33317C13.6917 3.33317 16.6666 6.30807 16.6666 9.99984C16.6666 13.6916 13.6917 16.6665 9.99996 16.6665C6.30819 16.6665 3.33329 13.6916 3.33329 9.99984C3.33329 6.30807 6.30819 3.33317 9.99996 3.33317ZM9.16663 5.83317V9.1665H5.83329V10.8332H9.16663V14.1665H10.8333V10.8332H14.1666V9.1665H10.8333V5.83317H9.16663Z";
+}
+
+.remove-icon {
+    -fx-scale-shape: false;
+    -fx-background-color: white;
+    -fx-shape: "M12.5 2.5V3.33333H16.6667V5H15.8334V15.8333C15.8334 16.75 15.0834 17.5 14.1667 17.5H5.83337C4.91671 17.5 4.16671 16.75 4.16671 15.8333V5H3.33337V3.33333H7.50004V2.5H12.5ZM5.83337 15.8333H14.1667V5H5.83337V15.8333ZM7.50004 6.66667H9.16671V14.1667H7.50004V6.66667ZM12.5 6.66667H10.8334V14.1667H12.5V6.66667Z";
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Pattern Window                                                              *
+ *                                                                             *
+ ******************************************************************************/
+
+.pattern-window .semantic-outer-vbox {
+    -fx-spacing: 8px;
+}
+
+.pattern-window .purpose-meaning-container {
+    -fx-spacing: 10px;
+    -fx-padding: 4px 0 0 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Pattern Window & Lidr Window                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.pattern-window.concept-detail-pane,
+.lidr-window.concept-detail-pane {
+    -fx-background-color: transparent;
+}
+
+.pattern-window.concept-detail-pane .main-center-container,
+.lidr-window.concept-detail-pane .main-center-container {
+    -fx-background-color: -Natural-Grey-Main;
+    -fx-background-radius: 0 0 4px 4px;
+
+    -fx-padding: 0 5px 5px 5px;
+}
+
+.pattern-window.concept-detail-pane .main-center-container .properties-tab-container,
+.lidr-window.concept-detail-pane .main-center-container .properties-tab-container {
+    -fx-background-color: transparent;
+}
+
+.pattern-window.concept-detail-pane .main-center-container .titled-pane .content,
+.lidr-window.concept-detail-pane .main-center-container .titled-pane .content {
+    -fx-border-width: 0;
+}
+
+.pattern-window.concept-detail-pane .main-center-container .titled-pane,
+.lidr-window.concept-detail-pane .main-center-container .titled-pane {
+    -fx-padding: 0;
+    -fx-border-width: 1 0 0 0;
+    -fx-border-insets: 0;
+}
+
+.pattern-window.concept-detail-pane .main-center-container .titled-pane >  .title,
+.lidr-window.concept-detail-pane .main-center-container .titled-pane > .title {
+    -fx-padding: 8 4 4 6;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0 -13 0 -1;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .viewport {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .corner {
+    -fx-background-color: transparent;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0 12 0 0;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-max-width: 0;
+    -fx-padding: 4 7 4 -9;
+    -fx-opacity: 0.0;
+    transition: -fx-opacity 0.3s;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane:hover:vertical-scroll-needed .scroll-bar:vertical {
+    -fx-opacity: 1.0;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar:vertical .track {
+    -fx-background-insets: 0 14 0 0;
+    -fx-background-color: transparent;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar .thumb {
+    -fx-background-color: -Grey-1, rgba(0, 0, 0, 0.4);
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 6px;
+    -fx-padding: 0;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar:hover .thumb {
+    -fx-background-color: -Grey-1, rgba(0, 0, 0, 0.5);
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar .increment-button,
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar .decrement-button {
+    -fx-background-insets: 0;
+    -fx-min-width: 0;
+    -fx-pref-width: 0;
+    -fx-min-height: 0;
+    -fx-pref-height: 0;
+    -fx-padding: 0;
+}
+
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar .increment-arrow,
+.concept-detail-pane .main-center-container > .scroll-pane > .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding: 0;
+}
+
+.pattern-window.concept-detail-pane,
+.lidr-window.concept-detail-pane {
+    -fx-border-insets: 0;
+
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+.pattern-window .main-right-container,
+.lidr-window .main-right-container {
+    -fx-background-color: -Natural-Grey-Main;
+
+    -fx-padding: 0;
+    -fx-background-insets: 0 0 0 -3px;
+
+    -fx-background-radius: 0 0 4px 0;
+}
+
+.pattern-window.concept-detail-pane .main-right-container .properties-tab-container-content,
+.lidr-window.concept-detail-pane .main-right-container .properties-tab-container-content {
+    -fx-background-color: -Grey-3;
+    -fx-border-color: -Natural-Grey-Main;
+
+    -fx-border-width: 1px 0 0 0;
+}
+
+.lidr-window .timeline-content.outer-container {
+    -fx-border-color: -Natural-Grey-Main;
+}
+
+
+.pattern-window.concept-detail-pane .main-right-container .properties-tab-container-content .lidr-device,
+.lidr-window.concept-detail-pane .main-right-container .properties-tab-container-content .lidr-device {
+    -fx-background-radius: 0 0 4px 4px;
+}
+
+/************************  Instances Toggle ***********************************/
+
+.instances-main-container {
+    -fx-background-color: -Grey-4;
+    -fx-padding: 15px 0 0 0;
+}
+
+.instances-main-container .main-top-container {
+    -fx-padding: 0 0 15px 0;
+}
+
+.instances-main-container .icon-container {
+    -fx-padding: 0 20px 0 0;
+}
+
+.instances-main-container .help-icon {
+    -fx-background-color: #4A7AD2;
+
+    -fx-max-height: 20px;
+    -fx-max-width: 20px;
+
+    -fx-alignment: top-right;
+
+    -fx-padding: 4px 6px 4px 6px;
+
+    -fx-background-radius: 2em; /* high value so this pane ends up being a circle */
+}
+.instances-main-container .help-icon .question-mark {
+    -fx-shape: "M9.20629 13.0298V12.6733C9.21069 11.9778 9.28771 11.4122 9.43736 10.9765C9.58701 10.5408 9.80708 10.1733 10.0976 9.87395C10.3925 9.57026 10.7578 9.27976 11.1935 9.00248C11.5192 8.79121 11.7921 8.56894 12.0122 8.33566C12.2367 8.09799 12.4061 7.8383 12.5205 7.55661C12.6394 7.27052 12.6988 6.96022 12.6988 6.62572C12.6988 6.15036 12.5866 5.73443 12.3621 5.37792C12.142 5.0214 11.8427 4.74631 11.4642 4.55265C11.0857 4.35459 10.6654 4.25556 10.2032 4.25556C9.76307 4.25556 9.35154 4.35239 8.96861 4.54605C8.59009 4.73531 8.27979 5.017 8.03771 5.39112C7.80004 5.76084 7.6702 6.21859 7.64819 6.76436H6.40039C6.4224 6.03813 6.60286 5.40873 6.94176 4.87616C7.28067 4.34359 7.73402 3.93205 8.3018 3.64156C8.86958 3.34667 9.50338 3.19922 10.2032 3.19922C10.9338 3.19922 11.5764 3.35107 12.131 3.65477C12.6856 3.95406 13.1191 4.36559 13.4316 4.88936C13.7441 5.40873 13.9004 6.00512 13.9004 6.67853C13.9004 7.12307 13.83 7.528 13.6891 7.89332C13.5483 8.25864 13.337 8.59535 13.0553 8.90344C12.778 9.21154 12.4303 9.50204 12.0122 9.77492C11.6161 10.039 11.3014 10.3009 11.0681 10.5606C10.8348 10.8203 10.6676 11.1174 10.5663 11.4519C10.4651 11.782 10.4101 12.1891 10.4013 12.6733V13.0298H9.20629ZM9.84009 17.0042C9.58041 17.0042 9.35594 16.9118 9.16668 16.7269C8.98182 16.5377 8.88939 16.3132 8.88939 16.0535C8.88939 15.7894 8.98182 15.565 9.16668 15.3801C9.35594 15.1953 9.58041 15.1028 9.84009 15.1028C10.0998 15.1028 10.322 15.1953 10.5069 15.3801C10.6962 15.565 10.7908 15.7894 10.7908 16.0535C10.7908 16.2252 10.7468 16.3836 10.6588 16.5289C10.5751 16.6741 10.4607 16.7908 10.3154 16.8788C10.1746 16.9624 10.0161 17.0042 9.84009 17.0042Z";
+    -fx-background-color: white;
+}
+
+.instances-main-container .top-container .text-field {
+    -fx-background-color: white;
+    -fx-background-insets: 0;
+    -fx-background-radius: 5px;
+
+    -fx-border-radius: 5px;
+    -fx-border-color: -Grey-7;
+
+    -fx-font-family: "Noto Sans";
+}
+
+.instances-main-container .top-container .search-icon-container {
+    -fx-padding: 0 8px 0 0;
+
+    -fx-max-height: 20px;
+    -fx-max-width: 20px;
+}
+
+.instances-main-container .top-container .search-icon {
+    -fx-shape: "M7.50065 4.16871C7.27964 4.16871 7.06768 4.25651 6.9114 4.41279C6.75512 4.56907 6.66732 4.78103 6.66732 5.00204C6.66732 5.22306 6.75512 5.43502 6.9114 5.5913C7.06768 5.74758 7.27964 5.83538 7.50065 5.83538C7.72166 5.83538 7.93363 5.74758 8.08991 5.5913C8.24619 5.43502 8.33398 5.22306 8.33398 5.00204C8.33398 4.78103 8.24619 4.56907 8.08991 4.41279C7.93363 4.25651 7.72166 4.16871 7.50065 4.16871ZM5.14232 4.16871C5.31449 3.68076 5.63377 3.25824 6.05615 2.95937C6.47853 2.6605 6.98322 2.5 7.50065 2.5C8.01808 2.5 8.52277 2.6605 8.94515 2.95937C9.36754 3.25824 9.68682 3.68076 9.85898 4.16871H15.834C16.055 4.16871 16.267 4.25651 16.4232 4.41279C16.5795 4.56907 16.6673 4.78103 16.6673 5.00204C16.6673 5.22306 16.5795 5.43502 16.4232 5.5913C16.267 5.74758 16.055 5.83538 15.834 5.83538H9.85898C9.68682 6.32332 9.36754 6.74585 8.94515 7.04472C8.52277 7.34359 8.01808 7.50408 7.50065 7.50408C6.98322 7.50408 6.47853 7.34359 6.05615 7.04472C5.63377 6.74585 5.31449 6.32332 5.14232 5.83538H4.16732C3.9463 5.83538 3.73434 5.74758 3.57806 5.5913C3.42178 5.43502 3.33398 5.22306 3.33398 5.00204C3.33398 4.78103 3.42178 4.56907 3.57806 4.41279C3.73434 4.25651 3.9463 4.16871 4.16732 4.16871H5.14232ZM12.5007 9.16871C12.2796 9.16871 12.0677 9.25651 11.9114 9.41279C11.7551 9.56907 11.6673 9.78103 11.6673 10.002C11.6673 10.2231 11.7551 10.435 11.9114 10.5913C12.0677 10.7476 12.2796 10.8354 12.5007 10.8354C12.7217 10.8354 12.9336 10.7476 13.0899 10.5913C13.2462 10.435 13.334 10.2231 13.334 10.002C13.334 9.78103 13.2462 9.56907 13.0899 9.41279C12.9336 9.25651 12.7217 9.16871 12.5007 9.16871ZM10.1423 9.16871C10.3145 8.68077 10.6338 8.25824 11.0562 7.95937C11.4785 7.6605 11.9832 7.5 12.5007 7.5C13.0181 7.5 13.5228 7.6605 13.9452 7.95937C14.3675 8.25824 14.6868 8.68077 14.859 9.16871H15.834C16.055 9.16871 16.267 9.25651 16.4232 9.41279C16.5795 9.56907 16.6673 9.78103 16.6673 10.002C16.6673 10.2231 16.5795 10.435 16.4232 10.5913C16.267 10.7476 16.055 10.8354 15.834 10.8354H14.859C14.6868 11.3233 14.3675 11.7458 13.9452 12.0447C13.5228 12.3436 13.0181 12.5041 12.5007 12.5041C11.9832 12.5041 11.4785 12.3436 11.0562 12.0447C10.6338 11.7458 10.3145 11.3233 10.1423 10.8354H4.16732C3.9463 10.8354 3.73434 10.7476 3.57806 10.5913C3.42178 10.435 3.33398 10.2231 3.33398 10.002C3.33398 9.78103 3.42178 9.56907 3.57806 9.41279C3.73434 9.25651 3.9463 9.16871 4.16732 9.16871H10.1423ZM7.50065 14.1687C7.27964 14.1687 7.06768 14.2565 6.9114 14.4128C6.75512 14.5691 6.66732 14.781 6.66732 15.002C6.66732 15.2231 6.75512 15.435 6.9114 15.5913C7.06768 15.7476 7.27964 15.8354 7.50065 15.8354C7.72166 15.8354 7.93363 15.7476 8.08991 15.5913C8.24619 15.435 8.33398 15.2231 8.33398 15.002C8.33398 14.781 8.24619 14.5691 8.08991 14.4128C7.93363 14.2565 7.72166 14.1687 7.50065 14.1687ZM5.14232 14.1687C5.31449 13.6808 5.63377 13.2582 6.05615 12.9594C6.47853 12.6605 6.98322 12.5 7.50065 12.5C8.01808 12.5 8.52277 12.6605 8.94515 12.9594C9.36754 13.2582 9.68682 13.6808 9.85898 14.1687H15.834C16.055 14.1687 16.267 14.2565 16.4232 14.4128C16.5795 14.5691 16.6673 14.781 16.6673 15.002C16.6673 15.2231 16.5795 15.435 16.4232 15.5913C16.267 15.7476 16.055 15.8354 15.834 15.8354H9.85898C9.68682 16.3233 9.36754 16.7458 8.94515 17.0447C8.52277 17.3436 8.01808 17.5041 7.50065 17.5041C6.98322 17.5041 6.47853 17.3436 6.05615 17.0447C5.63377 16.7458 5.31449 16.3233 5.14232 15.8354H4.16732C3.9463 15.8354 3.73434 15.7476 3.57806 15.5913C3.42178 15.435 3.33398 15.2231 3.33398 15.002C3.33398 14.781 3.42178 14.5691 3.57806 14.4128C3.73434 14.2565 3.9463 14.1687 4.16732 14.1687H5.14232Z";
+
+    -fx-max-height: 16px;
+    -fx-max-width: 16px;
+
+    -fx-background-color: #4A7AD2;
+}
+
+.instances-main-container .title-container {
+    -fx-spacing: 0.25em;  /* 3 */
+    -fx-alignment: top-center;
+    -fx-padding: 0 0 5px 0;
+}
+
+.instances-main-container .title {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 1.25em; /* 15 */
+    -fx-text-fill: -Grey-11;
+
+    -fx-alignment: center;
+}
+
+.instances-main-container .title-description {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 1.083333em; /* 13 */
+    -fx-text-fill: -Grey-9;
+}
+
+.instances-main-container .top-container {
+    -fx-padding: 5px 35px 0 35px;
+}
+
+.instances-main-container .list-view-container {
+    -fx-padding: 0 35px 17px 35px;
+}
+
+.instances-main-container .list-view-container .list-view,
+.instances-main-container .list-view-container .list-view:focused {
+    -fx-background-color: -Grey-7;
+    -fx-background-radius: 5px;
+    -fx-background-insets: 0;
+
+    -fx-border-width: 0;
+
+    -fx-padding: 10px 8px 10px 8px;
+}
+
+.list-view-container .list-view .instance-cell {
+    -fx-padding: 0 0 8px 0;
+
+    -fx-background-color: transparent;
+}
+
+.list-view-container .list-view .instance-cell .pattern-instance {
+    -fx-padding: 6px 8px 6px 10px;
+    -fx-background-radius: 2px;
+    -fx-background-color: white;
+
+    -fx-effect: dropshadow(gaussian , rgba(0, 0, 0, 0.2), 2, 0, 0 , 2 );
+
+    -fx-pref-height: 30;
+
+    -fx-fill-height: true;
+    -fx-alignment: center_left;
+}
+
+.list-view-container .list-view .pattern-instance .icon {
+    -fx-padding: 0 10px 0 0;
+}
+
+.list-view-container .list-view .pattern-instance .text-container {
+    -fx-spacing: 1px;
+}
+
+.list-view-container .list-view .pattern-instance .title {
+    -fx-font-family: "Noto Sans";
+    -fx-text-fill: #2E3240;
+    -fx-font-size: 1em;
+}
+
+.list-view-container .list-view .pattern-instance .sub-title {
+    -fx-font-family: "Noto Sans";
+    -fx-text-fill: #6E7989;
+    -fx-font-size: 0.916667em;
+}
+
+/********************* General Editing Chapter window *****************************/
+.titled-content-background {
+    -fx-background-color: -Grey-1;
+    -fx-background-radius: 4px 4px 0 0;
+}
+
+.semantic-banner-label {
+    -fx-font-family: "Noto Sans";
+    -fx-text-fill: #212430;
+    -fx-font-weight: 400;
+    -fx-font-size: 17px;
+}
+.semantic-banner-label {
+    -fx-font-family: "Noto Sans";
+    -fx-text-fill: #212430;
+    -fx-font-weight: bolder;
+    -fx-font-size: 12px;
+}
+.semantic-banner-value {
+    -fx-font-family: "Noto Sans";
+    -fx-text-fill: #212430;
+    -fx-font-weight: 400;
+    -fx-font-size: 12px;
+}
+
+/* Semantic Details section - VBox */
+.semantic-field-container {
+
+    -fx-spacing: 12px;
+
+    -fx-fill-width: true;
+    -fx-padding: 20px 12px 40px 12px;
+    -fx-background-color: white;
+}
+.semantic-field-collection-container,
+.semantic-field-ditree-container {
+    -fx-fill-width: true;
+    -fx-padding: 8px 12px;
+    -fx-background-color: -Grey-1;
+}
+
+/* label */
+.semantic-field-type-label {
+    -fx-font-family: "Noto Sans";
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-text-fill: #5E5E5E;
+}
+
+/* label */
+.semantic-field-value {
+    -fx-background-color: transparent;
+    -fx-font-family: "Noto Sans";
+    -fx-font-weight: 600;
+    -fx-font-size: 12px;
+    -fx-text-fill: #212430;
+}
+/* mouse hover */
+.semantic-field-value:hover {
+    -fx-background-color: #F4F9FF;
+    -fx-text-fill: #395C9A;
+    -fx-border-width: 1px;
+    -fx-border-color: #CFD8E4;
+}
+.field-separator {
+    -fx-text-fill: -Grey-7;
+    -fx-background-color: -Grey-7;
+    -fx-border-color: -Grey-7;
+    -fx-pref-height: 1px;
+    -fx-border-style: solid;
+    -fx-border-width: 0.5px;
+    -fx-orientation: horizontal;
+    -fx-halignment: center;
+    -fx-valignment: center;
+    -fx-padding: -2px 0px -2px 0px;
+}
+
+/* cancel, clear form buttons */
+.sub-container .button-bar .button {
+    -fx-border-radius: 4 4 4 4;
+    -fx-border-color: -Secondary-05;
+    -fx-border-width: 1px;
+    -fx-background-color: -Grey-2;
+    -fx-text-fill: -Secondary-05;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-font-weight: 600;
+}
+
+.sub-container .button-bar .button:hover {
+    -fx-background-color: derive(-Grey-2, -2.5%);
+}
+
+.sub-container .button-bar .button:armed {
+    -fx-background-color: derive(-Grey-2, -4%);
+    -fx-border-color: derive(-Secondary-05, 40%);
+
+    -fx-scale-x: 0.99;
+    -fx-scale-y: 0.99;
+}
+
+/* submit button */
+.sub-container .button-bar .primary.button {
+    -fx-border-radius: 4;
+    -fx-background-color: -Secondary-05;
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-font-style: normal;
+    -fx-text-fill: -Grey-White;
+}
+
+.sub-container .button-bar .primary.button:hover {
+    -fx-background-color: derive(-Secondary-05, -10%);
+}
+
+.sub-container .button-bar .primary.button:armed {
+    -fx-background-color: derive(-Secondary-05, -20%);
+    -fx-border-color: transparent;
+}
+
+.semantic-details-scroll.scroll-pane > .scroll-bar:vertical {
+    -fx-pref-height: 410px;
+    -fx-pref-width: 8px;
+    -fx-border-radius: 6;
+    -fx-border-style: solid;
+    -fx-border-color: -Grey-1;
+}
+
+.properties-tab-container-content .controls-container {
+    -fx-padding: 0 12px 0 0;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * KL Controls Context Menu                                                    *
+ *                                                                             *
+ ******************************************************************************/
+
+.klcontext-menu {
+    -fx-background-color: #2e3140;
+    -fx-background-radius: 4px;
+
+    -fx-min-width: 150px;
+}
+
+.klcontext-menu .separator:horizontal {
+    -fx-padding: 0 5px 0 5px;
+}
+
+.klcontext-menu .separator:horizontal .line {
+    -fx-border-color: #555 transparent transparent transparent;
+}
+
+.klcontext-menu .menu-item {
+    -fx-padding: 0.333333em 2em 0.333333em 0.833333em;  /* 4 24 4 10 */
+}
+
+.klcontext-menu .menu-item:hover,
+.klcontext-menu .menu-item:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.klcontext-menu .menu-item > .label {
+    -fx-font-family: "Noto Sans";
+
+    -fx-text-fill: white;
+}
+
+.klcontext-menu .menu-item > .graphic-container {
+    -fx-padding: 0.416667em 0.583333em 0.416667em 0em; /* 5 7 5 0 */
+}
+
+.icon-klcontext-menu {
+    size: 12px;
+
+    -fx-pref-width: size;
+    -fx-max-width: size;
+    -fx-min-width: size;
+
+    -fx-pref-height: size;
+    -fx-max-height: size;
+    -fx-min-height: size;
+
+    -fx-background-color: white;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * KL Boolean Control (Popup)                                                  *
+ *                                                                             *
+ ******************************************************************************/
+
+.boolean-control .combo-box-popup > .list-view {
+    -fx-background-color: #2e3140;
+    -fx-background-radius: 4px;
+}
+
+.boolean-control .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell {
+    -fx-font-family: "Noto Sans";
+
+    -fx-font-size: 14px;
+    -fx-padding: 0.333333em 0.833333em 0.333333em 0.833333em;  /* 4 10 4 10 */
+
+    -fx-background: transparent;
+
+    -fx-text-fill: white;
+}
+
+.boolean-control .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:hover,
+.boolean-control .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:focused {
+    -fx-background-color: rgba(255, 255, 255, 0.1);
+}
+
+.boolean-control .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+}
+
+.boolean-control .combo-box-popup > .list-view > .virtual-flow > .clipped-container > .sheet > .list-cell:selected:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.23);
+}
+
+.boolean-control .list-cell .main-container {
+    -fx-alignment: center_left;
+}
+
+.boolean-control .list-cell .icon.check-mark {
+    width: 16px;
+    height: 12px;
+
+    -fx-min-width: width;
+    -fx-min-height: height;
+    -fx-pref-width: width;
+    -fx-pref-height: height;
+    -fx-max-width: width;
+    -fx-max-height: height;
+
+    -fx-background-color: transparent;
+}
+
+.boolean-control .list-cell:selected .icon.check-mark {
+    -fx-background-color: #5dcf16;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * KLConceptNavigatorControl                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.concept-navigator-container {
+    -fx-background-color: -Grey-8;
+    -fx-padding: 0;
+    -fx-spacing: -8;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Icons                                                                       *
+ *                                                                             *
+ ******************************************************************************/
+
+.icon.pencil {
+    -fx-shape: "M11.7167 7.5L12.5 8.28333L4.93333 15.8333H4.16667V15.0667L11.7167 7.5ZM14.7167 2.5C14.5083 2.5 14.2917 2.58333 14.1333 2.74167L12.6083 4.26667L15.7333 7.39167L17.2583 5.86667C17.5833 5.54167 17.5833 5 17.2583 4.69167L15.3083 2.74167C15.1417 2.575 14.9333 2.5 14.7167 2.5ZM11.7167 5.15833L2.5 14.375V17.5H5.625L14.8417 8.28333L11.7167 5.15833Z";
+}
+
+.icon.trash {
+    -fx-shape: "M12.4987 2.5V3.33333H16.6654V5H15.832V15.8333C15.832 16.75 15.082 17.5 14.1654 17.5H5.83203C4.91536 17.5 4.16536 16.75 4.16536 15.8333V5H3.33203V3.33333H7.4987V2.5H12.4987ZM5.83203 15.8333H14.1654V5H5.83203V15.8333ZM7.4987 6.66667H9.16536V14.1667H7.4987V6.66667ZM12.4987 6.66667H10.832V14.1667H12.4987V6.66667Z";
+}
+
+.icon.plus {
+    -fx-shape: "M9.99935 1.66699C5.40685 1.66699 1.66602 5.40782 1.66602 10.0003C1.66602 14.5928 5.40685 18.3337 9.99935 18.3337C14.5919 18.3337 18.3327 14.5928 18.3327 10.0003C18.3327 5.40782 14.5919 1.66699 9.99935 1.66699ZM9.99935 3.33366C13.6911 3.33366 16.666 6.30856 16.666 10.0003C16.666 13.6921 13.6911 16.667 9.99935 16.667C6.30758 16.667 3.33268 13.6921 3.33268 10.0003C3.33268 6.30856 6.30758 3.33366 9.99935 3.33366ZM9.16602 5.83366V9.16699H5.83268V10.8337H9.16602V14.167H10.8327V10.8337H14.166V9.16699H10.8327V5.83366H9.16602Z";
+}
+
+.icon.check-mark {
+    -fx-shape: "M7.50013 13.4749L4.02513 9.99987L2.8418 11.1749L7.50013 15.8332L17.5001 5.8332L16.3251 4.6582L7.50013 13.4749Z";
+}
+
+.icon.cross {
+    -fx-shape: "M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z";
+}
+
+.icon.six-dots {
+    -fx-shape: "M0 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 2a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M0 9a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M0 16a2 2 0 1 0 4 0a2 2 0 1 0 -4 0 M7 16a2 2 0 1 0 4 0a2 2 0 1 0 -4 0";
+}
+
+.icon.populate {
+    -fx-shape: "M4.12492 15.8333H15.7916V11.6667H17.4583V15.8333C17.4583 16.2754 17.2827 16.6993 16.9701 17.0118C16.6575 17.3244 16.2336 17.5 15.7916 17.5H4.12492C3.68289 17.5 3.25897 17.3244 2.94641 17.0118C2.63385 16.6993 2.45825 16.2754 2.45825 15.8333V4.16667C2.45825 3.72464 2.63385 3.30072 2.94641 2.98816C3.25897 2.67559 3.68289 2.5 4.12492 2.5H8.29158V4.16667H4.12492V15.8333ZM13.5416 5.25L10.7916 2.5H17.4583V9.16667L14.7083 6.41667L9.95829 11.1667L8.79162 10L13.5416 5.25Z";
+}
+
+.editable-title-label {
+    -fx-font-family: "Noto Sans";
+    -fx-font-size: 14px;
+    -fx-font-style: normal;
+    -fx-text-fill: -Grey-11;
+    -fx-font-weight: 500;
+    -fx-padding: 0 0 6px 0;
 }

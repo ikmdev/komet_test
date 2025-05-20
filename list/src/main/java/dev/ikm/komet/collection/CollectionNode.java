@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.collection;
+package dev.ikm.komet_test.collection;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -35,19 +35,19 @@ import org.eclipse.collections.api.list.primitive.MutableIntList;
 import org.eclipse.collections.api.set.primitive.MutableIntSet;
 import org.eclipse.collections.impl.factory.primitive.IntLists;
 import org.eclipse.collections.impl.factory.primitive.IntSets;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.TopPanelFactory;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.dnd.ClipboardHelper;
-import dev.ikm.komet.framework.dnd.KometClipboard;
-import dev.ikm.komet.framework.propsheet.editor.IntIdCollectionEditor;
-import dev.ikm.komet.framework.propsheet.editor.IntIdListEditor;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.list.ListNode;
-import dev.ikm.komet.list.ListNodeFactory;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.TopPanelFactory;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.dnd.ClipboardHelper;
+import dev.ikm.komet_test.framework.dnd.KometClipboard;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdCollectionEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdListEditor;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.list.ListNode;
+import dev.ikm.komet_test.list.ListNodeFactory;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.*;
 import dev.ikm.tinkar.common.util.uuid.UuidUtil;

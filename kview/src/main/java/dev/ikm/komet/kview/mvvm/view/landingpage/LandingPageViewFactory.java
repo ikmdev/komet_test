@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.landingpage;
+package dev.ikm.komet_test.kview.mvvm.view.landingpage;
 
 import javafx.fxml.FXMLLoader;
 

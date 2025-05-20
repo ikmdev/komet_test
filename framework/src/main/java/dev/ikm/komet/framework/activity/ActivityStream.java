@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.activity;
+package dev.ikm.komet_test.framework.activity;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -21,9 +21,9 @@ import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.Preferences;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.Preferences;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.id.PublicIdStringKey;

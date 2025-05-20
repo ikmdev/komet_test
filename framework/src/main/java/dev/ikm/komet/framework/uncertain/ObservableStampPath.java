@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.uncertain;
+package dev.ikm.komet_test.framework.uncertain;
 
 //~--- non-JDK imports --------------------------------------------------------
 
@@ -21,7 +21,7 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.Property;
 import javafx.beans.property.SetProperty;
-import dev.ikm.komet.framework.view.ObservableCoordinate;
+import dev.ikm.komet_test.framework.view.ObservableCoordinate;
 import dev.ikm.tinkar.coordinate.stamp.StampPathImmutable;
 import dev.ikm.tinkar.coordinate.stamp.StampPathDelegate;
 import dev.ikm.tinkar.coordinate.stamp.StampPositionRecord;

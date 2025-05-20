@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.fxutils;
+package dev.ikm.komet_test.kview.fxutils;
 
 import javafx.scene.layout.Region;
 import javafx.scene.shape.Rectangle;

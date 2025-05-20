@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.builder;
+package dev.ikm.komet_test.builder;
 
 import org.junit.jupiter.api.Test;
 

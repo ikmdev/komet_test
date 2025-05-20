@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Border;
-import dev.ikm.komet.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.graphics.Icon;
 
 /**
  * 

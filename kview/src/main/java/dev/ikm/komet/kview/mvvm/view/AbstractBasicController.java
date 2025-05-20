@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view;
+package dev.ikm.komet_test.kview.mvvm.view;
 
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import org.carlfx.cognitive.viewmodel.ViewModel;
 
 import java.util.function.BiConsumer;

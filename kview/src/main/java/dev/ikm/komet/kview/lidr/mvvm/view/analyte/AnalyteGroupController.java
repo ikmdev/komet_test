@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.analyte;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.analyte;
 
-import dev.ikm.komet.framework.Identicon;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.Subscriber;
-import dev.ikm.komet.framework.search.SearchPanelController;
-import dev.ikm.komet.framework.search.SearchResultCell;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.kview.lidr.events.AddResultEvent;
-import dev.ikm.komet.kview.lidr.events.AddResultInterpretationEvent;
-import dev.ikm.komet.kview.lidr.events.LidrPropertyPanelEvent;
-import dev.ikm.komet.kview.lidr.events.ShowPanelEvent;
-import dev.ikm.komet.kview.lidr.mvvm.model.*;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.navigator.graph.MultiParentGraphCell;
+import dev.ikm.komet_test.framework.Identicon;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.Subscriber;
+import dev.ikm.komet_test.framework.search.SearchPanelController;
+import dev.ikm.komet_test.framework.search.SearchResultCell;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.lidr.events.AddResultEvent;
+import dev.ikm.komet_test.kview.lidr.events.AddResultInterpretationEvent;
+import dev.ikm.komet_test.kview.lidr.events.LidrPropertyPanelEvent;
+import dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.*;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.navigator.graph.MultiParentGraphCell;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.entity.EntityService;
@@ -58,12 +58,12 @@ import java.util.UUID;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static dev.ikm.komet.kview.lidr.events.AddResultEvent.ADD_RESULT_TO_ANALYTE_GROUP;
-import static dev.ikm.komet.kview.lidr.events.LidrPropertyPanelEvent.CLOSE_PANEL;
-import static dev.ikm.komet.kview.lidr.events.ShowPanelEvent.SHOW_MANUAL_ADD_RESULTS;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel.*;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
+import static dev.ikm.komet_test.kview.lidr.events.AddResultEvent.ADD_RESULT_TO_ANALYTE_GROUP;
+import static dev.ikm.komet_test.kview.lidr.events.LidrPropertyPanelEvent.CLOSE_PANEL;
+import static dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent.SHOW_MANUAL_ADD_RESULTS;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel.*;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.VIEW_PROPERTIES;
 
 public class AnalyteGroupController implements BasicController {
 
@@ -147,7 +147,7 @@ public class AnalyteGroupController implements BasicController {
         // order to save/update the device and manufacturer concepts
 
         clearView();
-        doneButton.disableProperty().bind(analyteGroupViewModel.getProperty(SAVE_BUTTON_STATE));
+        doneButton.disableProperty().bind(analyteGroupViewModel.getProperty(IS_INVALID));
 
         // setup drag n drop
         setupDragNDrop(analyteSearchStackPane, (publicId) -> {
@@ -502,7 +502,7 @@ public class AnalyteGroupController implements BasicController {
     @FXML
     public void cancel(ActionEvent event) {
         // close properties bump out via event bus
-        clearView();
+        clearViewAndValidate();
         EvtBus evtBus = EvtBusFactory.getDefaultEvtBus();
         evtBus.publish(getConceptTopic(), new LidrPropertyPanelEvent(event.getSource(), CLOSE_PANEL));
     }
@@ -512,6 +512,14 @@ public class AnalyteGroupController implements BasicController {
 
     }
 
+    public void clearViewAndValidate() {
+        clearView();
+        analyteGroupViewModel.validate();
+    }
+    @FXML
+    public void clearView(ActionEvent actionEvent) {
+        clearViewAndValidate();
+    }
     @Override
     public void clearView() {
 
@@ -535,7 +543,7 @@ public class AnalyteGroupController implements BasicController {
 
         // cancel means to clear properties and the model values.
         analyteGroupViewModel.save(true);
-        analyteGroupViewModel.validate();
+
     }
 
     private void clearDragNDropZones(Pane selectedContainer, Runnable task) {

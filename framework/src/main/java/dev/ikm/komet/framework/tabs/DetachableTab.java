@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.tabs;
+package dev.ikm.komet_test.framework.tabs;
 
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.framework.window.WindowComponent;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.framework.window.WindowComponent;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.Node;

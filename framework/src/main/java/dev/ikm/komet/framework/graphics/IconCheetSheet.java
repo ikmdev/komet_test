@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.graphics;
+package dev.ikm.komet_test.framework.graphics;
 
 public enum IconCheetSheet {
     Fontawesome("https://kordamp.org/ikonli/cheat-sheet-fontawesome.html"),

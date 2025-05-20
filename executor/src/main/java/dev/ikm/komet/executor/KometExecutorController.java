@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.executor;
+package dev.ikm.komet_test.executor;
 
 import java.util.concurrent.atomic.AtomicReference;
 

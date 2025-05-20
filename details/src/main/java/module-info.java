@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.details.DetailsNodeFactory;
-import dev.ikm.komet.framework.KometNodeFactory;
+import dev.ikm.komet_test.details.DetailsNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
 
-module dev.ikm.komet.details {
+module dev.ikm.komet_test.details {
 
-    requires transitive dev.ikm.komet.framework;
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.details;
-    exports dev.ikm.komet.details;
-    exports dev.ikm.komet.details.concept;
+    opens dev.ikm.komet_test.details;
+    exports dev.ikm.komet_test.details;
+    exports dev.ikm.komet_test.details.concept;
 
     provides KometNodeFactory
         with DetailsNodeFactory; //, ConceptDetailsNodeFactory; // IKM-544 hide concept detail node from option

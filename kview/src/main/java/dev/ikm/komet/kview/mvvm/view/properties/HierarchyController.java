@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.kview.mvvm.model.ChangeCoordinate;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.kview.mvvm.model.ChangeCoordinate;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.util.time.DateTimeUtil;
 import dev.ikm.tinkar.coordinate.stamp.StampCoordinateRecord;

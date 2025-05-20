@@ -13,29 +13,59 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.details;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.details;
 
-import dev.ikm.komet.framework.Identicon;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.EvtType;
-import dev.ikm.komet.framework.events.Subscriber;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.kview.data.schema.STAMPDetail;
-import dev.ikm.komet.kview.events.StampModifiedEvent;
-import dev.ikm.komet.kview.lidr.events.AddDeviceEvent;
-import dev.ikm.komet.kview.lidr.events.AddResultInterpretationEvent;
-import dev.ikm.komet.kview.lidr.events.LidrPropertyPanelEvent;
-import dev.ikm.komet.kview.lidr.events.ShowPanelEvent;
-import dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper;
-import dev.ikm.komet.kview.lidr.mvvm.model.LidrRecord;
-import dev.ikm.komet.kview.lidr.mvvm.view.properties.PropertiesController;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel;
-import dev.ikm.komet.kview.mvvm.model.DescrName;
-import dev.ikm.komet.kview.mvvm.view.stamp.StampEditController;
-import dev.ikm.komet.kview.mvvm.view.timeline.TimelineController;
-import dev.ikm.komet.kview.mvvm.viewmodel.StampViewModel;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.defaultStyleSheet;
+import static dev.ikm.komet_test.kview.fxutils.SlideOutTrayHelper.isClosed;
+import static dev.ikm.komet_test.kview.fxutils.SlideOutTrayHelper.isOpen;
+import static dev.ikm.komet_test.kview.fxutils.SlideOutTrayHelper.slideIn;
+import static dev.ikm.komet_test.kview.fxutils.SlideOutTrayHelper.slideOut;
+import static dev.ikm.komet_test.kview.fxutils.ViewportHelper.clipChildren;
+import static dev.ikm.komet_test.kview.lidr.events.LidrPropertyPanelEvent.CLOSE_PANEL;
+import static dev.ikm.komet_test.kview.lidr.events.LidrPropertyPanelEvent.OPEN_PANEL;
+import static dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent.SHOW_ADD_ANALYTE_GROUP;
+import static dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent.SHOW_ADD_DEVICE;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.ORDINAL_CONCEPT;
+import static dev.ikm.komet_test.kview.lidr.mvvm.view.details.LidrRecordDetailsController.LIDR_RECORD_FXML;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.CONCEPT_TOPIC;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.CREATE;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.DEVICE_ENTITY;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.EDIT;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.STAMP_VIEW_MODEL;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.VIEW;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel.VIEW_PROPERTIES;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper.addNewLidrRecord;
+import static dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.ViewModelHelper.toStampDetail;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.MODE;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.StampViewModel.MODULES_PROPERTY;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.StampViewModel.PATHS_PROPERTY;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.AUTHOR;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.MODULE;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.PATH;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.STATUS;
+import static dev.ikm.tinkar.coordinate.stamp.StampFields.TIME;
+import dev.ikm.komet_test.framework.Identicon;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.EvtType;
+import dev.ikm.komet_test.framework.events.Subscriber;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.data.schema.STAMPDetail;
+import dev.ikm.komet_test.kview.events.StampModifiedEvent;
+import dev.ikm.komet_test.kview.lidr.events.AddDeviceEvent;
+import dev.ikm.komet_test.kview.lidr.events.AddResultInterpretationEvent;
+import dev.ikm.komet_test.kview.lidr.events.LidrPropertyPanelEvent;
+import dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper;
+import dev.ikm.komet_test.kview.lidr.mvvm.model.LidrRecord;
+import dev.ikm.komet_test.kview.lidr.mvvm.view.properties.PropertiesController;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel;
+import dev.ikm.komet_test.kview.mvvm.model.DescrName;
+import dev.ikm.komet_test.kview.mvvm.view.journal.VerticallyFilledPane;
+import dev.ikm.komet_test.kview.mvvm.view.stamp.StampEditController;
+import dev.ikm.komet_test.kview.mvvm.view.timeline.TimelineController;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.StampViewModel;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.component.Concept;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
@@ -51,12 +81,25 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import org.carlfx.cognitive.loader.*;
+import org.carlfx.cognitive.loader.Config;
+import org.carlfx.cognitive.loader.FXMLMvvmLoader;
+import org.carlfx.cognitive.loader.InjectViewModel;
+import org.carlfx.cognitive.loader.JFXNode;
+import org.carlfx.cognitive.loader.NamedVm;
 import org.carlfx.cognitive.viewmodel.ValidationViewModel;
 import org.carlfx.cognitive.viewmodel.ViewModel;
 import org.controlsfx.control.PopOver;
@@ -69,32 +112,16 @@ import java.time.Instant;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.function.Consumer;
-
-import static dev.ikm.komet.kview.fxutils.CssHelper.defaultStyleSheet;
-import static dev.ikm.komet.kview.fxutils.SlideOutTrayHelper.*;
-import static dev.ikm.komet.kview.fxutils.ViewportHelper.clipChildren;
-import static dev.ikm.komet.kview.lidr.events.LidrPropertyPanelEvent.CLOSE_PANEL;
-import static dev.ikm.komet.kview.lidr.events.LidrPropertyPanelEvent.OPEN_PANEL;
-import static dev.ikm.komet.kview.lidr.events.ShowPanelEvent.SHOW_ADD_ANALYTE_GROUP;
-import static dev.ikm.komet.kview.lidr.events.ShowPanelEvent.SHOW_ADD_DEVICE;
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.ORDINAL_CONCEPT;
-import static dev.ikm.komet.kview.lidr.mvvm.view.details.LidrRecordDetailsController.LIDR_RECORD_FXML;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.CONCEPT_TOPIC;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.CREATE;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.EDIT;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.VIEW;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.VIEW_PROPERTIES;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel.*;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper.addNewLidrRecord;
-import static dev.ikm.komet.kview.lidr.mvvm.viewmodel.ViewModelHelper.toStampDetail;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.MODE;
-import static dev.ikm.komet.kview.mvvm.viewmodel.StampViewModel.*;
 
 public class LidrDetailsController {
     private static final Logger LOG = LoggerFactory.getLogger(LidrDetailsController.class);
-    public static final String EDIT_STAMP_OPTIONS_FXML = "edit-stamp.fxml";
+    public static final String EDIT_STAMP_OPTIONS_FXML = "stamp-edit.fxml";
     public static final URL LIDR_PROPERTIES_VIEW_FXML_URL = PropertiesController.class.getResource("lidr-properties.fxml");
 
     protected static final String CONCEPT_TIMELINE_VIEW_FXML_FILE = "timeline.fxml";
@@ -197,10 +224,10 @@ public class LidrDetailsController {
      * Used slide out the properties view
      */
     @FXML
-    private Pane propertiesSlideoutTrayPane;
+    private VerticallyFilledPane propertiesSlideoutTrayPane;
 
     @FXML
-    private Pane timelineSlideoutTrayPane;
+    private VerticallyFilledPane timelineSlideoutTrayPane;
 
     /**
      * A function from the caller. This class passes a boolean true if classifier button is pressed invoke caller's function to be returned a view.
@@ -394,7 +421,7 @@ public class LidrDetailsController {
         return lidrViewModel;
     }
 
-    public ValidationViewModel getStampViewModel() {
+    public StampViewModel getStampViewModel() {
         return lidrViewModel.getPropertyValue(STAMP_VIEW_MODEL);
     }
 
@@ -434,13 +461,8 @@ public class LidrDetailsController {
         clipChildren(slideoutTrayPane, 0);
         contentViewPane.setLayoutX(-width);
         slideoutTrayPane.setMaxWidth(0);
-
-        Region contentRegion = contentViewPane;
-        // binding the child's height to the preferred height of hte parent
-        // so that when we resize the window the content in the slide out pane
-        // aligns with the details view
-        contentRegion.prefHeightProperty().bind(slideoutTrayPane.heightProperty());
     }
+
     private Consumer<LidrDetailsController> onCloseConceptWindow;
     public void setOnCloseConceptWindow(Consumer<LidrDetailsController> onClose) {
         this.onCloseConceptWindow = onClose;
@@ -451,8 +473,6 @@ public class LidrDetailsController {
         if (this.onCloseConceptWindow != null) {
             onCloseConceptWindow.accept(this);
         }
-        Pane parent = (Pane) detailsOuterBorderPane.getParent();
-        parent.getChildren().remove(detailsOuterBorderPane);
     }
     public Pane getPropertiesSlideoutTrayPane() {
         return propertiesSlideoutTrayPane;
@@ -470,20 +490,20 @@ public class LidrDetailsController {
                 // add a new stamp view model to the concept view model
                 StampViewModel stampViewModel = new StampViewModel();
                 stampViewModel.setPropertyValue(MODE, EDIT)
-                        .setPropertyValue(STATUS_PROPERTY, stamp.state())
-                        .setPropertyValue(AUTHOR_PROPERTY, stamp.author())
-                        .setPropertyValue(MODULE_PROPERTY, stamp.module())
-                        .setPropertyValue(PATH_PROPERTY, stamp.path())
+                        .setPropertyValue(STATUS, stamp.state())
+                        .setPropertyValue(AUTHOR, stamp.author())
+                        .setPropertyValue(MODULE, stamp.module())
+                        .setPropertyValue(PATH, stamp.path())
                         .setPropertyValues(MODULES_PROPERTY, stampViewModel.findAllModules(getViewProperties()), true)
                         .setPropertyValues(PATHS_PROPERTY, stampViewModel.findAllPaths(getViewProperties()), true);
 
                 getLidrViewModel().setPropertyValue(STAMP_VIEW_MODEL,stampViewModel);
             } else {
                 getStampViewModel()
-                        .setPropertyValue(STATUS_PROPERTY, stamp.state())
-                        .setPropertyValue(AUTHOR_PROPERTY, stamp.author())
-                        .setPropertyValue(MODULE_PROPERTY, stamp.module())
-                        .setPropertyValue(PATH_PROPERTY, stamp.path());
+                        .setPropertyValue(STATUS, stamp.state())
+                        .setPropertyValue(AUTHOR, stamp.author())
+                        .setPropertyValue(MODULE, stamp.module())
+                        .setPropertyValue(PATH, stamp.path());
             }
 
             STAMPDetail stampDetail = toStampDetail(getStampViewModel());
@@ -493,6 +513,11 @@ public class LidrDetailsController {
             updateStampViewModel(EDIT, stamp);
         }
 
+        if(entityFacade == null){
+            getStampViewModel().setPropertyValue(MODE, CREATE);
+        }else {
+            getStampViewModel().setPropertyValue(MODE, EDIT);
+        }
         // Display info for top banner area
         updateDeviceBanner();
 
@@ -580,10 +605,10 @@ public class LidrDetailsController {
         ValidationViewModel stampViewModel = getLidrViewModel().getPropertyValue(STAMP_VIEW_MODEL);
         if (getLidrViewModel().getPropertyValue(STAMP_VIEW_MODEL) != null) {
             stampViewModel.setPropertyValue(MODE, mode)
-                    .setPropertyValue(STATUS_PROPERTY, stamp.state())
-                    .setPropertyValue(MODULE_PROPERTY, stamp.module())
-                    .setPropertyValue(PATH_PROPERTY, stamp.path())
-                    .setPropertyValue(TIME_PROPERTY, stamp.time())
+                    .setPropertyValue(STATUS, stamp.state())
+                    .setPropertyValue(MODULE, stamp.module())
+                    .setPropertyValue(PATH, stamp.path())
+                    .setPropertyValue(TIME, stamp.time())
                     .save(true);
         }
     }
@@ -605,7 +630,7 @@ public class LidrDetailsController {
         deviceSummaryText.setText(entityFacade.description());
 
         // Update manufacturer if one exists
-        Optional<Concept> mfg = DataModelHelper.findDeviceManufacturer(entityFacade.publicId());
+        Optional<ConceptFacade> mfg = DataModelHelper.findDeviceManufacturer(entityFacade.publicId());
         mfg.ifPresentOrElse(concept -> mfgSummaryText.setText(
                 ((ConceptFacade) concept).description()),
                 ()-> mfgSummaryText.setText("")
@@ -676,7 +701,16 @@ public class LidrDetailsController {
     @FXML
     public void popupStampEdit(ActionEvent event) {
         if (stampEdit !=null && stampEditController != null) {
+            // refresh modules
+            getStampViewModel().getObservableList(MODULES_PROPERTY).clear();
+            getStampViewModel().getObservableList(MODULES_PROPERTY).addAll(getStampViewModel().findAllModules(getViewProperties()));
+
+            // refresh path
+            getStampViewModel().getObservableList(PATHS_PROPERTY).clear();
+            getStampViewModel().getObservableList(PATHS_PROPERTY).addAll(getStampViewModel().findAllPaths(getViewProperties()));
+
             stampEdit.show((Node) event.getSource());
+            stampEditController.selectActiveStatusToggle();
             return;
         }
 
@@ -692,6 +726,8 @@ public class LidrDetailsController {
         StampEditController stampEditController = stampJFXNode.controller();
 
         stampEditController.updateModel(getViewProperties());
+        stampEditController.selectActiveStatusToggle();
+
         popOver.setOnHidden(windowEvent -> {
             // set Stamp info into Details form
             getStampViewModel().save();
@@ -707,24 +743,25 @@ public class LidrDetailsController {
     }
 
     private void updateUIStamp(ViewModel stampViewModel) {
-        long time = stampViewModel.getValue(TIME_PROPERTY);
+        long time = stampViewModel.getValue(TIME);
         DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MMM-dd HH:mm:ss");
         Instant stampInstance = Instant.ofEpochSecond(time/1000);
         ZonedDateTime stampTime = ZonedDateTime.ofInstant(stampInstance, ZoneOffset.UTC);
         String lastUpdated = DATE_TIME_FORMATTER.format(stampTime);
 
         lastUpdatedText.setText(lastUpdated);
-        ConceptEntity moduleEntity = stampViewModel.getValue(MODULE_PROPERTY);
+        ConceptEntity moduleEntity = stampViewModel.getValue(MODULE);
         if (moduleEntity == null) {
             LOG.warn("Must select a valid module for Stamp.");
             return;
         }
         String moduleDescr = getViewProperties().calculator().getPreferredDescriptionTextWithFallbackOrNid(moduleEntity.nid());
         moduleText.setText(moduleDescr);
-        ConceptEntity pathEntity = stampViewModel.getValue(PATH_PROPERTY);
+
+        ConceptEntity pathEntity = stampViewModel.getValue(PATH);
         String pathDescr = getViewProperties().calculator().getPreferredDescriptionTextWithFallbackOrNid(pathEntity.nid());
         pathText.setText(pathDescr);
-        statusText.setText(stampViewModel.getValue(STATUS_PROPERTY).toString());
+        statusText.setText(stampViewModel.getValue(STATUS).toString());
     }
 
     public void compactSizeWindow() {

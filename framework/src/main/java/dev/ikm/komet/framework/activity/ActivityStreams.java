@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.activity;
+package dev.ikm.komet_test.framework.activity;
 
 import dev.ikm.tinkar.common.id.PublicIdStringKey;
 import dev.ikm.tinkar.common.id.PublicIds;
@@ -24,7 +24,7 @@ import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.map.ImmutableMap;
 import org.eclipse.collections.api.map.MutableMap;
 
-import static dev.ikm.komet.framework.graphics.Icon.*;
+import static dev.ikm.komet_test.framework.graphics.Icon.*;
 
 public class ActivityStreams {
     public static final int marshalVersion = 1;

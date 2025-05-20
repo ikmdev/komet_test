@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.tabs;
+package dev.ikm.komet_test.framework.tabs;
 
-import dev.ikm.komet.framework.KometNode;
+import dev.ikm.komet_test.framework.KometNode;
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.property.ReadOnlyStringProperty;
 import org.junit.jupiter.api.BeforeEach;

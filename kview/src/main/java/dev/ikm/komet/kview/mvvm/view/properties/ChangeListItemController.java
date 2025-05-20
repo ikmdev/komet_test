@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.kview.mvvm.model.ChangeCoordinate;
-import dev.ikm.komet.framework.Identicon;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.model.ChangeCoordinate;
+import dev.ikm.komet_test.framework.Identicon;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.util.time.DateTimeUtil;
 import dev.ikm.tinkar.coordinate.stamp.change.FieldChangeRecord;
@@ -42,7 +42,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.function.Function;
 
-import static dev.ikm.komet.kview.fxutils.CssHelper.toWebColor;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.toWebColor;
 import static dev.ikm.tinkar.common.util.Symbols.HEAVY_TRIANGLE_HEADED_RIGHTWARDS_ARROW;
 import static dev.ikm.tinkar.terms.TinkarTerm.*;
 

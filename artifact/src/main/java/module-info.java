@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.artifact.ArtifactExportNodeFactory;
-import dev.ikm.komet.artifact.ArtifactImportNodeFactory;
-import dev.ikm.komet.framework.KometNodeFactory;
+import dev.ikm.komet_test.artifact.ArtifactExportNodeFactory;
+import dev.ikm.komet_test.artifact.ArtifactImportNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
 
-module dev.ikm.komet.artifact {
+module dev.ikm.komet_test.artifact {
 
-    requires transitive dev.ikm.komet.framework;
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.artifact;
-    exports dev.ikm.komet.artifact;
+    opens dev.ikm.komet_test.artifact;
+    exports dev.ikm.komet_test.artifact;
     
     provides KometNodeFactory
             with ArtifactExportNodeFactory, ArtifactImportNodeFactory;

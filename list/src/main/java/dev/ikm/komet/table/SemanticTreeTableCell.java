@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.table;
+package dev.ikm.komet_test.table;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -23,7 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
-import dev.ikm.komet.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.graphics.Icon;
 
 public class SemanticTreeTableCell extends TreeTableCell {
     @Override

@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
-import dev.ikm.komet.terms.KometTerm;
+import dev.ikm.komet_test.terms.KometTerm;
 import dev.ikm.tinkar.coordinate.logic.LogicCoordinate;
 import dev.ikm.tinkar.coordinate.logic.LogicCoordinateRecord;
 import dev.ikm.tinkar.terms.ConceptFacade;

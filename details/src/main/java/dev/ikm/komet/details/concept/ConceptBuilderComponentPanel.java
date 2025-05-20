@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
-import dev.ikm.komet.framework.observable.ObservableCompoundVersion;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.observable.ObservableCompoundVersion;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 
 public class ConceptBuilderComponentPanel
         extends Pane {

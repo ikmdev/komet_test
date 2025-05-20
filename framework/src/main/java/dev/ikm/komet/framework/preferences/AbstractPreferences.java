@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -33,11 +33,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import org.controlsfx.control.PropertySheet;
-import dev.ikm.komet.framework.propsheet.KometPropertyEditorFactory;
-import dev.ikm.komet.framework.propsheet.KometPropertySheet;
-import dev.ikm.komet.framework.view.ObservableViewWithOverride;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.propsheet.KometPropertyEditorFactory;
+import dev.ikm.komet_test.framework.propsheet.KometPropertySheet;
+import dev.ikm.komet_test.framework.view.ObservableViewWithOverride;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +46,7 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.prefs.BackingStoreException;
 
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.*;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.*;
 
 /**
  * 

@@ -13,10 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.rulebase;
+package dev.ikm.komet_test.framework.rulebase;
 
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -24,7 +22,7 @@ import dev.ikm.tinkar.common.service.PluggableService;
 
 public enum RuleServiceFinder {
     INSTANCE;
-    RuleService service;
+    final RuleService service;
 
     RuleServiceFinder() {
         Optional<RuleService> optionalService = PluggableService.load(RuleService.class).findFirst();

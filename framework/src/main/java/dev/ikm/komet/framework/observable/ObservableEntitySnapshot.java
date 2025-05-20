@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
@@ -27,9 +27,10 @@ import dev.ikm.tinkar.entity.EntityVersion;
 import java.util.Comparator;
 import java.util.function.Predicate;
 
-public class ObservableEntitySnapshot<OE extends ObservableEntity<OV, EV>,
+public abstract sealed class ObservableEntitySnapshot<OE extends ObservableEntity<OV, EV>,
         OV extends ObservableVersion<EV>,
-        EV extends EntityVersion> {
+        EV extends EntityVersion>
+        permits ObservableConceptSnapshot, ObservablePatternSnapshot, ObservableSemanticSnapshot {
     protected final Latest<OV> latestVersion;
     protected final IntIdCollection latestStampIds;
     protected final IntIdCollection allStampIds;

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.dnd;
+package dev.ikm.komet_test.framework.dnd;
 
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -25,7 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import dev.ikm.komet.framework.search.SearchPanelController;
+import dev.ikm.komet_test.framework.search.SearchPanelController;
 import dev.ikm.tinkar.coordinate.stamp.calculator.LatestVersionSearchResult;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.entity.EntityService;

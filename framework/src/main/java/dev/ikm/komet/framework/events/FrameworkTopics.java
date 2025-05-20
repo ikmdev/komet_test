@@ -13,12 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.events;
+package dev.ikm.komet_test.framework.events;
 
 public enum FrameworkTopics {
     RULES_TOPIC,
 
     SEARCH_SORT_TOPIC,
 
-    PROGRESS_TOPIC
+    PROGRESS_TOPIC,
+
+    VERSION_CHANGED_TOPIC,
+
+    CALCULATOR_CACHE_TOPIC
 }

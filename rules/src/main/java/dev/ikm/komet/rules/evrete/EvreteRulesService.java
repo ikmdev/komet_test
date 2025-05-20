@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.evrete;
+package dev.ikm.komet_test.rules.evrete;
 
-import dev.ikm.komet.framework.performance.Statement;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.framework.rulebase.RuleService;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.rules.annotated.AxiomFocusedRules;
-import dev.ikm.komet.rules.annotated.ComponentFocusRules;
-import dev.ikm.komet.rules.annotated.NewConceptRules;
-import dev.ikm.komet.rules.annotated.NewPatternRules;
+import dev.ikm.komet_test.framework.performance.Statement;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.framework.rulebase.RuleService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.rules.annotated.AxiomFocusedRules;
+import dev.ikm.komet_test.rules.annotated.ComponentFocusRules;
+import dev.ikm.komet_test.rules.annotated.NewConceptRules;
+import dev.ikm.komet_test.rules.annotated.NewPatternRules;
 import dev.ikm.tinkar.common.sets.ConcurrentHashSet;
 import dev.ikm.tinkar.coordinate.edit.EditCoordinate;
 import org.eclipse.collections.api.factory.Lists;
@@ -38,6 +38,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.Map;
 
@@ -48,19 +50,21 @@ public class EvreteRulesService implements RuleService {
 
     private static final Logger LOG = LoggerFactory.getLogger(EvreteRulesService.class);
 
-    private KnowledgeService service;
-
-    private Knowledge knowledge;
+    private final Knowledge knowledge;
 
     public EvreteRulesService() throws IOException {
+        Instant t0 = Instant.now();
         Configuration conf = new Configuration();
-        conf.set(Constants.PROP_EXTEND_RULE_CLASSES, "false");
+
+        // Literal data requires the Java compiler and significantly increases build time.
+        // Setting this option will fast-fail the engine in case of a literal condition/action.
+        conf.set(Configuration.DISABLE_LITERAL_DATA, "true");
 
         for (Map.Entry<Object, Object> confEntry: conf.entrySet()) {
             LOG.info(confEntry.toString());
         }
 
-        this.service = new KnowledgeService(conf);
+        KnowledgeService service = new KnowledgeService(conf);
 
         this.knowledge = service.newKnowledge()
                 .importRules(
@@ -72,7 +76,11 @@ public class EvreteRulesService implements RuleService {
                                 NewPatternRules.class
                         )
                 );
-        LOG.info("Constructed EvreteRulesService");
+        Instant t1 = Instant.now();
+
+        // Log the timing. With literal conditions disabled, the cold start time
+        // is expected to be in the range of tens of milliseconds.
+        LOG.info("Constructed EvreteRulesService, duration: {}ms", Duration.between(t0, t1).toMillis());
     }
 
     @Override

@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import org.controlsfx.control.PropertySheet;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.coordinate.view.ViewCoordinate;
 import dev.ikm.tinkar.terms.ConceptFacade;
 import dev.ikm.tinkar.terms.ProxyFactory;

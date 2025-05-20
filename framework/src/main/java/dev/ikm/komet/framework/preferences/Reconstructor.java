@@ -13,18 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Annotation for a static method that can reconstruct an object from a saved configuration, and should have
- * the signature:
+ * Annotation for a static method that can reconstruct an object from a saved configuration,
+ * and should have the signature:
  *
- * @Reconstructor public static Object create(ObservableViewNoOverride windowView, KometPreferences nodePreferences)
- * <p>
- * Where the node preferences are for the object to be reconstructed.
+ * <pre>
+ * {@literal @Reconstructor} public static Object create(ObservableViewNoOverride windowView,
+ *                                                        KometPreferences nodePreferences)
+ * </pre>
+ *
+ * where the node preferences are for the object to be reconstructed.
  */
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Reconstructor {

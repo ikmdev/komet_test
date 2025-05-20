@@ -13,19 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.tabs;
+package dev.ikm.komet_test.framework.tabs;
 
-import dev.ikm.komet.framework.KometNode;
-import dev.ikm.komet.framework.KometNodeFactory;
-import dev.ikm.komet.framework.activity.ActivityStream;
-import dev.ikm.komet.framework.activity.ActivityStreamOption;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.preferences.Reconstructor;
-import dev.ikm.komet.framework.view.ObservableViewNoOverride;
-import dev.ikm.komet.framework.window.WindowComponent;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.preferences.KometPreferencesImpl;
+import dev.ikm.komet_test.framework.KometNode;
+import dev.ikm.komet_test.framework.KometNodeFactory;
+import dev.ikm.komet_test.framework.activity.ActivityStream;
+import dev.ikm.komet_test.framework.activity.ActivityStreamOption;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.preferences.Reconstructor;
+import dev.ikm.komet_test.framework.view.ObservableViewNoOverride;
+import dev.ikm.komet_test.framework.window.WindowComponent;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferencesImpl;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.binary.Encodable;
@@ -53,9 +53,9 @@ import java.lang.annotation.Annotation;
 import java.util.List;
 import java.util.UUID;
 
-import static dev.ikm.komet.framework.KometNodeFactory.KOMET_NODES;
-import static dev.ikm.komet.framework.KometNodeFactory.getKometNodeFactories;
-import static dev.ikm.komet.framework.annotations.KometNodeFactoryFilter.shouldDisplayOnDockFXView;
+import static dev.ikm.komet_test.framework.KometNodeFactory.KOMET_NODES;
+import static dev.ikm.komet_test.framework.KometNodeFactory.getKometNodeFactories;
+import static dev.ikm.komet_test.framework.annotations.KometNodeFactoryFilter.shouldDisplayOnDockFXView;
 
 public class TabGroup extends StackPane implements WindowComponent {
     private static final Logger LOG = LoggerFactory.getLogger(TabGroup.class);

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.common;
+package dev.ikm.komet_test.kview.mvvm.view.common;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

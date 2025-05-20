@@ -2,15 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>dev.ikm.komet.github.test</groupId>
+        <groupId>dev.ikm.komet_test</groupId>
         <artifactId>komet-parent</artifactId>
-        <version>1.81.0-SNAPSHOT</version>
+        <version>1.51.0-SNAPSHOT</version>
     </parent>
     <artifactId>kview</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.carlfx</groupId>
             <artifactId>cognitive</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.carlfx</groupId>
+            <artifactId>axonic</artifactId>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -25,6 +29,10 @@
             <artifactId>search-provider</artifactId>
         </dependency>
         <dependency>
+            <groupId>${tinkar-core.groupId}</groupId>
+            <artifactId>composer</artifactId>
+        </dependency>
+        <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>navigator</artifactId>
         </dependency>
@@ -36,7 +44,36 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>classification</artifactId>
         </dependency>
+        <dependency>
+            <groupId>one.jpro</groupId>
+            <artifactId>jpro-webapi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform</groupId>
+            <artifactId>jpro-auth-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform</groupId>
+            <artifactId>jpro-file</artifactId>
+        </dependency>
         <!--        testing -->
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>testfx-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>testfx-junit5</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>one.jpro.platform.jpms</groupId>
+            <artifactId>openjfx-monocle</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+        </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>executor</artifactId>
@@ -66,6 +103,10 @@
             <groupId>${tinkar-core.groupId}</groupId>
             <artifactId>data-ephemeral-provider</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>dev.ikm.komet_test</groupId>
+            <artifactId>knowledge-layout</artifactId>
         </dependency>
     </dependencies>
 </project>

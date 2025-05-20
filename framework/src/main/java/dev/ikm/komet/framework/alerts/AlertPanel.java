@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.alerts;
+package dev.ikm.komet_test.framework.alerts;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -26,10 +26,10 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.text.Text;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.StyleClasses;
-import dev.ikm.komet.framework.controls.TextAreaReadOnly;
-import dev.ikm.komet.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.StyleClasses;
+import dev.ikm.komet_test.framework.controls.TextAreaReadOnly;
+import dev.ikm.komet_test.framework.graphics.Icon;
 import dev.ikm.tinkar.common.alert.AlertObject;
 import dev.ikm.tinkar.common.alert.AlertResolver;
 

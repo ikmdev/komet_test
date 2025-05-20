@@ -13,15 +13,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.details;
+package dev.ikm.komet_test.kview.mvvm.view.details;
 
-import dev.ikm.komet.kview.mvvm.view.properties.PropertiesController;
-import dev.ikm.komet.kview.mvvm.view.timeline.TimelineController;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.TopPanelFactory;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import static dev.ikm.komet_test.framework.activity.ActivityStreamOption.PUBLISH;
+import static dev.ikm.komet_test.framework.activity.ActivityStreamOption.SYNCHRONIZE;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.defaultStyleSheet;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.ConceptViewModel.CURRENT_ENTITY;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.CURRENT_JOURNAL_WINDOW_TOPIC;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.TopPanelFactory;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.view.properties.PropertiesController;
+import dev.ikm.komet_test.kview.mvvm.view.timeline.TimelineController;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.flow.FlowSubscriber;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.terms.ConceptFacade;
@@ -42,12 +47,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Set;
 import java.util.UUID;
-
-import static dev.ikm.komet.kview.fxutils.CssHelper.defaultStyleSheet;
-import static dev.ikm.komet.kview.mvvm.viewmodel.ConceptViewModel.CURRENT_ENTITY;
-import static dev.ikm.komet.framework.activity.ActivityStreamOption.PUBLISH;
-import static dev.ikm.komet.framework.activity.ActivityStreamOption.SYNCHRONIZE;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.CURRENT_JOURNAL_WINDOW_TOPIC;
 
 public class DetailsNode extends ExplorationNodeAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(DetailsNode.class);
@@ -100,9 +99,9 @@ public class DetailsNode extends ExplorationNodeAbstract {
             // 2) not in fxml view class    - apply(file, view, ...view models)
             // 3) not in fxml view instance - apply(file, view instance, ...view models)
             Config config = new Config(getClass().getResource(CONCEPT_DETAILS_VIEW_FXML_FILE))
-                    .controller(new DetailsController(conceptTopic))
+                    .controller(new DetailsController(conceptTopic, viewProperties))
                     .updateViewModel("conceptViewModel", viewModel ->
-                        viewModel.setPropertyValue(CURRENT_JOURNAL_WINDOW_TOPIC, journalWindowTopic));
+                            viewModel.setPropertyValue(CURRENT_JOURNAL_WINDOW_TOPIC, journalWindowTopic));
             JFXNode<BorderPane, DetailsController> jfxNode = FXMLMvvmLoader.make(config);
 
             this.detailsViewBorderPane = jfxNode.node();
@@ -113,8 +112,8 @@ public class DetailsNode extends ExplorationNodeAbstract {
             String styleSheet = defaultStyleSheet();
             this.detailsViewBorderPane.getStylesheets().add(styleSheet);
 
-
             if (!displayOnJournalView) {
+
                 // Add the menu drop down for coordinates & activity stream options with Blue Title of concept
                 Node topPanel = TopPanelFactory.make(
                         viewProperties,

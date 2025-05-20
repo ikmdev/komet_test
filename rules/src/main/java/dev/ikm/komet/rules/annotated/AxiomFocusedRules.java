@@ -13,49 +13,34 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.rules.annotated;
+package dev.ikm.komet_test.rules.annotated;
 
-import dev.ikm.komet.framework.panel.axiom.AxiomSubjectRecord;
-import dev.ikm.komet.framework.performance.impl.ObservationRecord;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.rules.actions.axiom.*;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomSubjectRecord;
+import dev.ikm.komet_test.framework.performance.impl.ObservationRecord;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.rules.actions.axiom.*;
 import dev.ikm.tinkar.common.sets.ConcurrentHashSet;
 import dev.ikm.tinkar.terms.TinkarTerm;
 import org.evrete.api.RhsContext;
-import org.evrete.dsl.annotation.FieldDeclaration;
+import org.evrete.dsl.annotation.MethodPredicate;
 import org.evrete.dsl.annotation.Rule;
 import org.evrete.dsl.annotation.RuleSet;
 import org.evrete.dsl.annotation.Where;
 
 /**
  * Rules related to axiom-related observations.
- * <p>
- * To simplify the conditions of the rules, this ruleset employs custom field declarations through
- * the use of the {@link FieldDeclaration} annotation.
- * </p>
- * <p>
- * Custom field declarations provide an additional abstraction layer for the domain classes and allow
- * for changing the conditions easily should the domain classes change. And, as a side benefit,
- * we no longer need to include now unnecessary imports via the
- * {@link org.evrete.api.Knowledge#addImport(Class)} method.
- * </p>
- * <p>
- * Custom fields are better placed in a common parent class so they could be reused
- * by multiple rulesets.
- * </p>
  */
 @RuleSet("Axiom focus rules")
 public class AxiomFocusedRules extends RulesBase {
-    //private static final Logger LOG = LoggerFactory.getLogger(AxiomFocusedRules.class);
 
     /**
      * @see RulesBase#isAxiomFocused(ObservationRecord)
      * @see RulesBase#isNotDefinitionRoot(ObservationRecord)
      */
     @Rule("Axiom of interest is not the definition root")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isNotDefinitionRoot"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isNotDefinitionRoot", args = {"$observation"})
     })
     public void axiomIsNotDefinitionRoot(ObservationRecord $observation) {
         // TODO would be nice if Evrete recognized the pattern variable "axiomSubject" and could pass it as a parameter.
@@ -71,12 +56,11 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isDefinitionRoot(ObservationRecord)
      */
     @Rule("Axiom of interest is the definition root")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isDefinitionRoot"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isDefinitionRoot", args = {"$observation"})
     })
-    public void axiomIsDefinitionRoot(ObservationRecord $observation,
-                                      RhsContext ctx) {
+    public void axiomIsDefinitionRoot(ObservationRecord $observation) {
         if ($observation.subject() instanceof AxiomSubjectRecord axiomSubjectRecord) {
             if (!axiomSubjectRecord.axiomTree().containsVertexWithMeaning(TinkarTerm.NECESSARY_SET)) {
                 // allow addition of necessary set
@@ -95,12 +79,11 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isAxiomSet(ObservationRecord)
      */
     @Rule("Axiom of interest is a set")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isAxiomSet"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isAxiomSet", args = {"$observation"})
     })
-    public void axiomIsSet(ObservationRecord $observation,
-                           RhsContext ctx) {
+    public void axiomIsSet(ObservationRecord $observation) {
         if ($observation.subject() instanceof AxiomSubjectRecord axiomSubject) {
             if (axiomSubject.axiomMeaning().equals(TinkarTerm.NECESSARY_SET)) {
                 ChangeSetType changeToSufficientSet = new ChangeSetType(TinkarTerm.SUFFICIENT_SET, "Change to sufficient set", axiomSubject, calculator(), editCoordinate());
@@ -128,9 +111,9 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isAxiomConcept(ObservationRecord)
      */
     @Rule("Axiom of interest is a concept axiom")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isAxiomConcept"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isAxiomConcept", args = {"$observation"})
     })
     public void axiomIsConceptAxiom(ObservationRecord $observation,
                                     RhsContext ctx) {
@@ -150,9 +133,9 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isAxiomRoleGroup(ObservationRecord)
      */
     @Rule("Axiom of interest is a role group")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isAxiomRoleGroup"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isAxiomRoleGroup", args = {"$observation"})
     })
     public void axiomIsRoleGroup(ObservationRecord $observation,
                                  RhsContext ctx) {
@@ -168,13 +151,11 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isAxiomRoleOnly(ObservationRecord)
      */
     @Rule("Axiom of interest is a role but not a role group")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isAxiomRoleOnly"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isAxiomRoleOnly", args = {"$observation"})
     })
-    public void axiomIsRoleButNotARoleGroup(ObservationRecord $observation,
-                                            ConcurrentHashSet<Consequence<?>> $actionList,
-                                            RhsContext ctx) {
+    public void axiomIsRoleButNotARoleGroup(ObservationRecord $observation) {
 
         if ($observation.subject() instanceof AxiomSubjectRecord axiomSubjectRecord) {
 
@@ -199,12 +180,11 @@ public class AxiomFocusedRules extends RulesBase {
      * @see RulesBase#isAxiomFeature(ObservationRecord)
      */
     @Rule("Axiom of interest is a feature")
-    @Where({
-            "$observation.isAxiomFocused",
-            "$observation.isAxiomFeature"
+    @Where(methods = {
+            @MethodPredicate(method = "isAxiomFocused", args = {"$observation"}),
+            @MethodPredicate(method = "isAxiomFeature", args = {"$observation"})
     })
-    public void axiomIsFeature(ObservationRecord $observation,
-                               RhsContext ctx) {
+    public void axiomIsFeature(ObservationRecord $observation) {
 
         if ($observation.subject() instanceof AxiomSubjectRecord axiomSubjectRecord) {
 
@@ -219,10 +199,9 @@ public class AxiomFocusedRules extends RulesBase {
                             o -> {
                                 ChangeFeatureOperator changeFeatureOperator = new ChangeFeatureOperator("Change comparison", o, axiomSubjectRecord, calculator(), editCoordinate());
                                 changeFeatureOperator.doAction();
-                            })
-
+                            }),
+                    new SetValueMenu("Set value", calculator(), editCoordinate(), axiomSubjectRecord)
             );
         }
     }
-
 }

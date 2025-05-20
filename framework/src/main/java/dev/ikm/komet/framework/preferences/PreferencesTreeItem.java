@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.preferences;
+package dev.ikm.komet_test.framework.preferences;
 
 
 import dev.ikm.tinkar.common.service.PluggableService;
 import javafx.scene.control.TreeItem;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +28,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Optional;
 
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
-import static dev.ikm.komet.framework.preferences.PreferenceGroup.Keys.PROPERTY_SHEET_CLASS;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.CHILDREN_NODES;
+import static dev.ikm.komet_test.framework.preferences.PreferenceGroup.Keys.PROPERTY_SHEET_CLASS;
 
 /**
  * 
@@ -76,7 +76,7 @@ public class PreferencesTreeItem extends TreeItem<PreferenceGroup> {
                 PreferencesTreeItem.LOG.error("PropertySheetClass: " + optionalPropertySheetClass + " " + ex.getLocalizedMessage(), ex);
             }
         } else {
-            preferences.put(PROPERTY_SHEET_CLASS, "dev.ikm.komet.framework.preferences.RootPreferences");
+            preferences.put(PROPERTY_SHEET_CLASS, "dev.ikm.komet_test.framework.preferences.RootPreferences");
             return from(preferences, viewProperties, controller);
         }
         return Optional.empty();

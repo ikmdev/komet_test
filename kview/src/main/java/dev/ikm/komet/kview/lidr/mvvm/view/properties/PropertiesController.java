@@ -13,23 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.lidr.mvvm.view.properties;
+package dev.ikm.komet_test.kview.lidr.mvvm.view.properties;
 
-import dev.ikm.komet.kview.lidr.mvvm.view.analyte.AnalyteGroupController;
-import dev.ikm.komet.kview.lidr.mvvm.view.device.DeviceController;
-import dev.ikm.komet.kview.lidr.mvvm.view.results.ResultsController;
-import dev.ikm.komet.kview.lidr.mvvm.viewmodel.LidrViewModel;
-import dev.ikm.komet.kview.lidr.events.ShowPanelEvent;
-import dev.ikm.komet.kview.mvvm.view.properties.HierarchyController;
-import dev.ikm.komet.kview.mvvm.view.properties.HistoryChangeController;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.events.Subscriber;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.lidr.mvvm.view.analyte.AnalyteGroupController;
+import dev.ikm.komet_test.kview.lidr.mvvm.view.device.DeviceController;
+import dev.ikm.komet_test.kview.lidr.mvvm.view.results.ResultsController;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.AnalyteGroupViewModel;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.DeviceViewModel;
+import dev.ikm.komet_test.kview.lidr.mvvm.viewmodel.LidrViewModel;
+import dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent;
+import dev.ikm.komet_test.kview.mvvm.view.properties.HierarchyController;
+import dev.ikm.komet_test.kview.mvvm.view.properties.HistoryChangeController;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.events.Subscriber;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.terms.EntityFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -37,11 +40,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.SVGPath;
-import org.carlfx.cognitive.loader.Config;
-import org.carlfx.cognitive.loader.FXMLMvvmLoader;
-import org.carlfx.cognitive.loader.InjectViewModel;
-import org.carlfx.cognitive.loader.JFXNode;
+import org.carlfx.cognitive.loader.*;
 import org.carlfx.cognitive.viewmodel.SimpleViewModel;
+import org.carlfx.cognitive.viewmodel.ValidationViewModel;
+import org.carlfx.cognitive.viewmodel.ViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +51,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.UUID;
 
-import static dev.ikm.komet.kview.fxutils.CssHelper.genText;
-import static dev.ikm.komet.kview.lidr.events.ShowPanelEvent.*;
-import static dev.ikm.komet.kview.mvvm.viewmodel.FormViewModel.*;
+import static dev.ikm.komet_test.kview.fxutils.CssHelper.genText;
+import static dev.ikm.komet_test.kview.lidr.events.ShowPanelEvent.*;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.FormViewModel.*;
 
 /**
  * The properties window providing tabs of Edit, Hierarchy, History, and Comments.
@@ -143,12 +145,13 @@ public class PropertiesController {
         // +-----------------------------------
         // ! Add a Device and MFG
         // +------------------------------------
+        ValidationViewModel deviceViewModel = new DeviceViewModel()
+                .setPropertyValue(MODE, CREATE)
+                .setPropertyValue(VIEW_PROPERTIES, getViewProperties())
+                .setPropertyValue(CONCEPT_TOPIC, getConceptTopic());
+
         Config deviceConfig = new Config(DEVICE_FXML_URL)
-                .updateViewModel("deviceViewModel", (deviceViewModel) ->
-                        deviceViewModel
-                                .setPropertyValue(MODE, CREATE)
-                                .setPropertyValue(VIEW_PROPERTIES, getViewProperties())
-                                .setPropertyValue(CONCEPT_TOPIC, getConceptTopic()));
+                .addNamedViewModel(new NamedVm("deviceViewModel", deviceViewModel));
 
         JFXNode<Pane, DeviceController> deviceControllerJFXNode = FXMLMvvmLoader.make(deviceConfig);
         addDeviceController = deviceControllerJFXNode.controller();
@@ -157,17 +160,17 @@ public class PropertiesController {
         // +-----------------------------------
         // ! Analyte Group
         // +------------------------------------
+        ValidationViewModel analyteGroupViewModel = new AnalyteGroupViewModel()
+                .setPropertyValue(MODE, CREATE)
+                .setPropertyValue(VIEW_PROPERTIES, getViewProperties())
+                .setPropertyValue(CONCEPT_TOPIC, getConceptTopic());
+
         Config analyteGroupConfig = new Config(ANALYTE_GROUP_FXML_URL)
-                .updateViewModel("analyteGroupViewModel", (analyteGroupViewModel) ->
-                        analyteGroupViewModel
-                                .setPropertyValue(MODE, CREATE)
-                                .setPropertyValue(VIEW_PROPERTIES, getViewProperties())
-                                .setPropertyValue(CONCEPT_TOPIC, getConceptTopic()));
+                .addNamedViewModel(new NamedVm("analyteGroupViewModel", analyteGroupViewModel));
 
         JFXNode<Pane, AnalyteGroupController> analyteControllerJFXNode = FXMLMvvmLoader.make(analyteGroupConfig);
         analyteGroupController = analyteControllerJFXNode.controller();
         analyteGroupPane = analyteControllerJFXNode.node();
-
         // +-----------------------------------
         // ! Results Manual Entry
         // +------------------------------------
@@ -192,8 +195,10 @@ public class PropertiesController {
 
             // TODO swap based on state (addDevice, addAnalyteGroup).
             if (evt.getEventType() == SHOW_ADD_DEVICE) {
+                deviceViewModel.setPropertyValue(DeviceViewModel.IS_INVALID, true);
                 currentAddEditPane = addDevicePane; // must be available.
             } else if (evt.getEventType() == SHOW_ADD_ANALYTE_GROUP) {
+                analyteGroupViewModel.setPropertyValue(AnalyteGroupViewModel.IS_INVALID, true);
                 currentAddEditPane = analyteGroupPane;
             } else if (evt.getEventType() == SHOW_MANUAL_ADD_RESULTS) {
                 currentAddEditPane = manualResultsPane;
@@ -201,6 +206,22 @@ public class PropertiesController {
             updateAddEditPane();
         });
         eventBus.subscribe(getConceptTopic(), ShowPanelEvent.class, showPanelEventSubscriber);
+    }
+
+    /**
+     * Obtain a view model based on variable name.
+     * @param jFXNode a JFXNode object contains JavaFX Node and Controller pair.
+     * @param viewModelVariableName The variable name of the ViewModel instance inside of the controller class.
+     * @return A view model
+     */
+    public static <T extends Node, U, R extends ViewModel> R getViewModel(JFXNode<T, U> jFXNode, String viewModelVariableName) {
+        ViewModel viewModel = jFXNode
+                .namedViewModels()
+                .stream()
+                .filter(namedVm -> namedVm.variableName().equals(viewModelVariableName))
+                .map(NamedVm::viewModel)
+                .findAny().get();
+        return (R) viewModel;
     }
 
     /**

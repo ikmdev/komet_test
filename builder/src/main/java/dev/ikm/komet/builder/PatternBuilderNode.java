@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.builder;
+package dev.ikm.komet_test.builder;
 
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.performance.Topic;
-import dev.ikm.komet.framework.performance.impl.RequestRecord;
-import dev.ikm.komet.framework.rulebase.Consequence;
-import dev.ikm.komet.framework.rulebase.GeneratedActionImmediate;
-import dev.ikm.komet.framework.rulebase.GeneratedActionSuggested;
-import dev.ikm.komet.framework.rulebase.RuleService;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.impl.RequestRecord;
+import dev.ikm.komet_test.framework.rulebase.Consequence;
+import dev.ikm.komet_test.framework.rulebase.GeneratedActionImmediate;
+import dev.ikm.komet_test.framework.rulebase.GeneratedActionSuggested;
+import dev.ikm.komet_test.framework.rulebase.RuleService;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.coordinate.Coordinates;
 import dev.ikm.tinkar.terms.EntityFacade;
 import javafx.event.ActionEvent;

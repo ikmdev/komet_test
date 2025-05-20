@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.table;
+package dev.ikm.komet_test.table;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleObjectProperty;
@@ -23,10 +23,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.util.Callback;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.TopPanelFactory;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.TopPanelFactory;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.common.util.time.DateTimeUtil;

@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.view;
+package dev.ikm.komet_test.framework.view;
 
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.binary.DecoderInput;
 import dev.ikm.tinkar.coordinate.view.ViewCoordinateRecord;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;

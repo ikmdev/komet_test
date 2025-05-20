@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.viewmodel;
+package dev.ikm.komet_test.kview.mvvm.viewmodel;
 
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.kview.mvvm.model.DescrName;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.mvvm.model.DescrName;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.common.service.TinkExecutor;
@@ -25,8 +25,11 @@ import dev.ikm.tinkar.entity.transaction.CommitTransactionTask;
 import dev.ikm.tinkar.entity.transaction.Transaction;
 import dev.ikm.tinkar.terms.State;
 import dev.ikm.tinkar.terms.TinkarTerm;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyStringProperty;
 import org.carlfx.cognitive.validator.MessageType;
 import org.carlfx.cognitive.validator.ValidationMessage;
+import org.carlfx.cognitive.validator.ValidationResult;
 import org.carlfx.cognitive.viewmodel.ViewModel;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
@@ -38,7 +41,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static dev.ikm.komet.kview.lidr.mvvm.model.DataModelHelper.CASE_SIGNIFICANCE_OPTIONS;
+import static dev.ikm.komet_test.kview.lidr.mvvm.model.DataModelHelper.CASE_SIGNIFICANCE_OPTIONS;
 
 public class DescrNameViewModel extends FormViewModel {
 
@@ -62,21 +65,57 @@ public class DescrNameViewModel extends FormViewModel {
 
     public static final String DESCRIPTION_NAME_TYPE = "descrNameType";
 
+    public static final String IS_INVALID = "isInvalid";
+
+    public static final String PREVIOUS_DESCRIPTION_DATA = "previousDescriptionData";
 
     public DescrNameViewModel() {
         super(); // defaults to View mode
-        addProperty(NAME_TEXT, "")
+                addProperty(NAME_TEXT, "")
+                .addValidator(NAME_TEXT, "Name Text", (ReadOnlyStringProperty prop, ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isEmpty().get()) {
+                        validationResult.error("${%s} is required".formatted(NAME_TEXT));
+                    }
+                })
                 .addProperty(NAME_TYPE, (ConceptEntity) null)
+                .addValidator(NAME_TYPE, "Name Type", (ReadOnlyObjectProperty prop, ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isNull().get()) {
+                        validationResult.error("${%s} is required".formatted(NAME_TYPE));
+                    }
+                })
+
                 .addProperty(CASE_SIGNIFICANCE, (ConceptEntity) null)
-                .addProperty(STATUS, TinkarTerm.ACTIVE_STATE)
+                .addValidator(CASE_SIGNIFICANCE, "Case Significance", (ReadOnlyObjectProperty prop, ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isNull().get()) {
+                        validationResult.error("${%s} is required".formatted(CASE_SIGNIFICANCE));
+                    }
+                })
+                .addProperty(STATUS, (ConceptEntity) null)
+                .addValidator(STATUS, "Status", (ReadOnlyObjectProperty prop,ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isNull().get()) {
+                        validationResult.error("${%s} is required".formatted(STATUS));
+                    }
+                })
                 .addProperty(MODULE, (ConceptEntity) null)
+                .addValidator(MODULE, "Module", (ReadOnlyObjectProperty prop, ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isNull().get()) {
+                        validationResult.error("${%s} is required".formatted(MODULE));
+                    }
+                })
                 .addProperty(LANGUAGE, (ConceptEntity) null)
+                .addValidator(LANGUAGE, "Language", (ReadOnlyObjectProperty prop, ValidationResult validationResult, ViewModel viewModel) -> {
+                    if (prop.isNull().get()) {
+                        validationResult.error("${%s} is required".formatted(LANGUAGE));
+                    }
+                })
                 .addProperty(IS_SUBMITTED, false)
                 .addProperty(PARENT_PUBLIC_ID, (PublicId) null)
                 .addProperty(SEMANTIC_PUBLIC_ID, (PublicId) null)
                 .addProperty(TITLE_TEXT, "")
                 .addProperty(DESCRIPTION_NAME_TYPE, "")
-        ;
+                .addProperty(IS_INVALID, true)
+                .addProperty(PREVIOUS_DESCRIPTION_DATA, (DescrName) null)
+            ;
     }
 
     public Set<ConceptEntity> findAllLanguages(ViewProperties viewProperties) {
@@ -205,6 +244,17 @@ public class DescrNameViewModel extends FormViewModel {
                 getValue(LANGUAGE),
                 getValue(SEMANTIC_PUBLIC_ID)
         );
+    }
+
+    public void updateData(DescrName editDescrName) {
+        editDescrName.setParentConcept(getValue(PARENT_PUBLIC_ID));
+        editDescrName.setNameText(getValue(NAME_TEXT));
+        editDescrName.setNameType(getValue(NAME_TYPE));
+        editDescrName.setCaseSignificance(getValue(CASE_SIGNIFICANCE));
+        editDescrName.setStatus(getValue(STATUS));
+        editDescrName.setModule(getValue(MODULE));
+        editDescrName.setLanguage(getValue(LANGUAGE));
+        editDescrName.setSemanticPublicId(getValue(SEMANTIC_PUBLIC_ID));
     }
 
     public void updateOtherName(PublicId publicId) {

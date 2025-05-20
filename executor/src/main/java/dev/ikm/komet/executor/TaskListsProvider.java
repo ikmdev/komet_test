@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.executor;
+package dev.ikm.komet_test.executor;
 
-import dev.ikm.komet.framework.concurrent.TaskListsService;
+import dev.ikm.komet_test.framework.concurrent.TaskListsService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;

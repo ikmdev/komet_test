@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.performance.impl;
+package dev.ikm.komet_test.framework.performance.impl;
 
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
 import org.eclipse.collections.api.list.MutableList;
-import dev.ikm.komet.framework.performance.Statement;
-import dev.ikm.komet.framework.performance.StatementStore;
-import dev.ikm.komet.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.Statement;
+import dev.ikm.komet_test.framework.performance.StatementStore;
+import dev.ikm.komet_test.framework.performance.Topic;
 
 import java.util.HashMap;
 

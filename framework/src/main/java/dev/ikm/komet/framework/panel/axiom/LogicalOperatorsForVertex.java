@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.panel.axiom;
+package dev.ikm.komet_test.framework.panel.axiom;
 
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.entity.graph.EntityVertex;
@@ -72,9 +72,12 @@ public enum LogicalOperatorsForVertex {
 
     PROPERTY_SET(TinkarTerm.PROPERTY_SET),
 
+    // TODO: Retire property pattern implication when starter set stable.
     PROPERTY_PATTERN_IMPLICATION(TinkarTerm.PROPERTY_PATTERN_IMPLICATION),
 
-    IMPLICATION_SET(TinkarTerm.IMPLICATION_SET);
+    PROPERTY_SEQUENCE_IMPLICATION(TinkarTerm.PROPERTY_SEQUENCE_IMPLICATION),
+
+    INCLUSION_SET(TinkarTerm.INCLUSION_SET);
 
     final ConceptFacade logicalMeaning;
 

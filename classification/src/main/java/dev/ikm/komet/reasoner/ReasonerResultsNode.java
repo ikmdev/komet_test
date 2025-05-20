@@ -13,17 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.reasoner;
+package dev.ikm.komet_test.reasoner;
 
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.TopPanelFactory;
-import dev.ikm.komet.framework.activity.ActivityStreams;
-import dev.ikm.komet.framework.concurrent.TaskWrapper;
-import dev.ikm.komet.framework.progress.ProgressHelper;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
-import dev.ikm.komet.reasoner.ui.RunElkOwlReasonerIncrementalTask;
-import dev.ikm.komet.reasoner.ui.RunElkOwlReasonerTask;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.ServiceLoader.Provider;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+import org.eclipse.collections.api.list.ImmutableList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import dev.ikm.komet_test.framework.EditedConceptTracker;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.TopPanelFactory;
+import dev.ikm.komet_test.framework.activity.ActivityStreams;
+import dev.ikm.komet_test.framework.concurrent.TaskWrapper;
+import dev.ikm.komet_test.framework.progress.ProgressHelper;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
+import dev.ikm.komet_test.reasoner.ui.RunReasonerFullTask;
+import dev.ikm.komet_test.reasoner.ui.RunReasonerIncrementalTask;
 import dev.ikm.tinkar.common.alert.AlertStreams;
 import dev.ikm.tinkar.common.service.PluggableService;
 import dev.ikm.tinkar.common.service.TinkExecutor;
@@ -32,36 +47,27 @@ import dev.ikm.tinkar.terms.EntityFacade;
 import dev.ikm.tinkar.terms.TinkarTerm;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import org.eclipse.collections.api.list.ImmutableList;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ServiceLoader.Provider;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 
 public class ReasonerResultsNode extends ExplorationNodeAbstract {
 
-	public static boolean reinferAllHierarchy = false;
-
 	private static final Logger LOG = LoggerFactory.getLogger(ReasonerResultsNode.class);
+
 	protected static final String STYLE_ID = "classification-results-node";
 	protected static final String TITLE = "Reasoner Results";
 	private final BorderPane contentPane = new BorderPane();
 	private final HBox centerBox;
+
+	private static final boolean enable_test_menu_items = false;
 
 	private ReasonerService reasonerService;
 
@@ -76,47 +82,64 @@ public class ReasonerResultsNode extends ExplorationNodeAbstract {
 					activityStreamKeyProperty, optionForActivityStreamKeyProperty, centerBox);
 			this.contentPane.setTop(topPanelParts.topPanel());
 			Platform.runLater(() -> {
-				ArrayList<MenuItem> collectionMenuItems = new ArrayList<>();
-				collectionMenuItems.add(new SeparatorMenuItem());
-
+				ArrayList<MenuItem> menuItems = new ArrayList<>();
+				ArrayList<CheckMenuItem> reasonerServiceMenuItems = new ArrayList<>();
+				menuItems.add(new SeparatorMenuItem());
 				List<ReasonerService> rss = PluggableService.load(ReasonerService.class).stream().map(Provider::get)
 						.sorted(Comparator.comparing(ReasonerService::getName)).toList();
 				for (ReasonerService rs : rss) {
+					// TODO Currently broken
+					if (rs.getName().equals("ElkOwlReasonerService"))
+						continue;
 					LOG.info("Reasoner service add: " + rs);
-					MenuItem item = new MenuItem("Use " + rs.getName());
-					item.setOnAction(x -> {
+					CheckMenuItem item = new CheckMenuItem("Use " + rs.getName());
+					item.setOnAction(_ -> {
 						this.reasonerService = rs;
+						reasonerServiceMenuItems.forEach(xi -> xi.setSelected(false));
+						item.setSelected(true);
 						LOG.info("Reasoner service selected: " + rs.getName());
 					});
-					collectionMenuItems.add(item);
-					if (this.reasonerService == null)
+					menuItems.add(item);
+					reasonerServiceMenuItems.add(item);
+					if (this.reasonerService == null) {
 						this.reasonerService = rs;
+						item.setSelected(true);
+					} else if (rs.getName().equals("ElkSnomedReasonerService")) {
+						reasonerServiceMenuItems.forEach(xi -> xi.setSelected(false));
+						this.reasonerService = rs;
+						item.setSelected(true);
+					}
 				}
 				if (this.reasonerService == null)
 					throw new RuntimeException("No ReasonerService available");
 				LOG.info("Default ReasonerService: " + this.reasonerService.getName());
-				collectionMenuItems.add(new SeparatorMenuItem());
-
+				menuItems.add(new SeparatorMenuItem());
 				{
-					MenuItem item = new MenuItem("Run full reasoner");
-					item.setOnAction(this::elkOwlReasoner);
-					collectionMenuItems.add(item);
+					MenuItem item = new MenuItem("Run reasoner");
+					item.setOnAction(_ -> {
+						runReasoner();
+					});
+					menuItems.add(item);
 				}
-
-				{
-					MenuItem item = new MenuItem("Run incremental reasoner");
-					item.setOnAction(this::elkOwlReasonerIncremental);
-					collectionMenuItems.add(item);
+				if (enable_test_menu_items) {
+					menuItems.add(new SeparatorMenuItem());
+					{
+						MenuItem item = new MenuItem("Run full reasoner (test)");
+						item.setOnAction(_ -> {
+							runFullReasoner();
+						});
+						menuItems.add(item);
+					}
+					{
+						MenuItem item = new MenuItem("Run incremental reasoner (test)");
+						item.setOnAction(_ -> {
+							runIncrementalReasoner();
+						});
+						menuItems.add(item);
+					}
 				}
-
-				{
-					MenuItem item = new MenuItem("Run redo hierarchy reasoner");
-					item.setOnAction(this::elkOwlReasonerRedo);
-					collectionMenuItems.add(item);
-				}
-
 				ObservableList<MenuItem> topMenuItems = topPanelParts.viewPropertiesMenuButton().getItems();
-				topMenuItems.addAll(collectionMenuItems);
+				topMenuItems.addAll(menuItems);
 			});
 		});
 
@@ -134,27 +157,37 @@ public class ReasonerResultsNode extends ExplorationNodeAbstract {
 
 	}
 
-	private void elkOwlReasonerRedo(ActionEvent actionEvent) {
-		reinferAllHierarchy = true;
-		fullReasoner();
+	private boolean confirmRun(String reasoner_msg) {
+		String msg = "Run " + reasoner_msg + " reasoner using " + reasonerService.getName();
+		Alert dlg = new Alert(Alert.AlertType.CONFIRMATION, msg, ButtonType.OK, ButtonType.CANCEL);
+		dlg.setHeaderText(null);
+		Optional<ButtonType> res = dlg.showAndWait();
+		if (res.isPresent() && res.get() == ButtonType.CANCEL)
+			return false;
+		return true;
 	}
 
-	private void elkOwlReasoner(ActionEvent actionEvent) {
-		reinferAllHierarchy = false;
-		fullReasoner();
+	private void runReasoner() {
+		//FIXME we only support the full reasoner at this time
+//		if (reasonerService.isIncrementalReady()) {
+//			runIncrementalReasoner();
+//		} else {
+			runFullReasoner();
+//		}
 	}
 
-	private void fullReasoner() {
-
+	private void runFullReasoner() {
+		if (!confirmRun("full"))
+			return;
 		TinkExecutor.threadPool().execute(() -> {
 			// TODO use a factory for the service and then create here
 			reasonerService.init(getViewProperties().calculator(), TinkarTerm.EL_PLUS_PLUS_STATED_AXIOMS_PATTERN,
 					TinkarTerm.EL_PLUS_PLUS_INFERRED_AXIOMS_PATTERN);
-			RunElkOwlReasonerTask task = new RunElkOwlReasonerTask(reasonerService, resultsController::setResults);
+			RunReasonerFullTask task = new RunReasonerFullTask(reasonerService, resultsController::setResults);
 
 			// publish event of task
 			TaskWrapper<ReasonerService> javafxTask = TaskWrapper.make(task);
-			Future reasonerFuture = ProgressHelper.progress(javafxTask, "Cancel Reasoner");
+			Future<ReasonerService> reasonerFuture = ProgressHelper.progress(javafxTask, "Cancel Reasoner");
 			int conceptCount = 0;
 			try {
 				reasonerFuture.get();
@@ -174,15 +207,27 @@ public class ReasonerResultsNode extends ExplorationNodeAbstract {
 		});
 	}
 
-
-	private void elkOwlReasonerIncremental(ActionEvent actionEvent) {
-		reinferAllHierarchy = false;
+	private void runIncrementalReasoner() {
+		if (!confirmRun("incremental"))
+			return;
+		if (!reasonerService.isIncrementalReady()) {
+			Alert dlg = new Alert(Alert.AlertType.CONFIRMATION, "Need to run full reasoner first", ButtonType.OK);
+			dlg.setHeaderText(null);
+			dlg.showAndWait();
+			return;
+		}
+		if (EditedConceptTracker.getEdits().isEmpty()) {
+			Alert dlg = new Alert(Alert.AlertType.CONFIRMATION, "No edits to process", ButtonType.OK);
+			dlg.setHeaderText(null);
+			dlg.showAndWait();
+			return;
+		}
 		TinkExecutor.threadPool().execute(() -> {
-			RunElkOwlReasonerIncrementalTask task = new RunElkOwlReasonerIncrementalTask(reasonerService,
+			RunReasonerIncrementalTask task = new RunReasonerIncrementalTask(reasonerService,
 					resultsController::setResults);
 			// publish event of task
 			TaskWrapper<ReasonerService> javafxTask = TaskWrapper.make(task);
-			Future reasonerFuture = ProgressHelper.progress(javafxTask, "Cancel Reasoner");
+			Future<ReasonerService> reasonerFuture = ProgressHelper.progress(javafxTask, "Cancel Reasoner");
 			int conceptCount = 0;
 			try {
 				reasonerFuture.get();

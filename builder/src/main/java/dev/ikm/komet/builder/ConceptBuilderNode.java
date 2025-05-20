@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.builder;
+package dev.ikm.komet_test.builder;
 
-import dev.ikm.komet.framework.rulebase.*;
+import dev.ikm.komet_test.framework.rulebase.*;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -26,11 +26,11 @@ import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.performance.Topic;
-import dev.ikm.komet.framework.performance.impl.RequestRecord;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.performance.Topic;
+import dev.ikm.komet_test.framework.performance.impl.RequestRecord;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.coordinate.Coordinates;
 import dev.ikm.tinkar.terms.EntityFacade;
 

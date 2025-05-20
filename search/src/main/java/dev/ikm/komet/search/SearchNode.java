@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.search;
+package dev.ikm.komet_test.search;
 
 import javafx.application.Platform;
 import javafx.beans.property.ReadOnlyDoubleProperty;
@@ -23,11 +23,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.ExplorationNodeAbstract;
-import dev.ikm.komet.framework.search.SearchControllerAndNode;
-import dev.ikm.komet.framework.search.SearchPanelController;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.ExplorationNodeAbstract;
+import dev.ikm.komet_test.framework.search.SearchControllerAndNode;
+import dev.ikm.komet_test.framework.search.SearchPanelController;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.terms.EntityFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

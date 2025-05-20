@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.dnd;
+package dev.ikm.komet_test.framework.dnd;
 
 import java.util.Collections;
 import java.util.Set;
@@ -27,8 +27,8 @@ import java.util.function.IntSupplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dev.ikm.komet.framework.Dialogs;
-import dev.ikm.komet.framework.FxUtils;
+import dev.ikm.komet_test.framework.Dialogs;
+import dev.ikm.komet_test.framework.FxUtils;
 import dev.ikm.tinkar.common.service.CachingService;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import javafx.application.Platform;

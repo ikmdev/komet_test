@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.rulebase;
+package dev.ikm.komet_test.framework.rulebase;
 
 import dev.ikm.tinkar.common.util.text.NaturalOrder;
 import javafx.scene.control.Menu;

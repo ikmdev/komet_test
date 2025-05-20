@@ -13,17 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.details.concept;
+package dev.ikm.komet_test.details.concept;
 
-import dev.ikm.komet.framework.*;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.observable.*;
-import dev.ikm.komet.framework.propsheet.KometPropertyEditorFactory;
-import dev.ikm.komet.framework.propsheet.KometPropertySheet;
-import dev.ikm.komet.framework.view.SimpleEqualityBasedListProperty;
-import dev.ikm.komet.framework.view.ViewProperties;
-import dev.ikm.komet.preferences.KometPreferences;
+import dev.ikm.komet_test.framework.*;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.observable.*;
+import dev.ikm.komet_test.framework.propsheet.KometPropertyEditorFactory;
+import dev.ikm.komet_test.framework.propsheet.KometPropertySheet;
+import dev.ikm.komet_test.framework.view.SimpleEqualityBasedListProperty;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.preferences.KometPreferences;
 import dev.ikm.tinkar.common.service.PrimitiveData;
 import dev.ikm.tinkar.common.service.TinkExecutor;
 import dev.ikm.tinkar.common.util.text.NaturalOrder;
@@ -70,7 +70,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static dev.ikm.komet.framework.KometNodeFactory.THE_CURRENT_OPERATION_IS_NOT_SUPPORTED;
+import static dev.ikm.komet_test.framework.KometNodeFactory.THE_CURRENT_OPERATION_IS_NOT_SUPPORTED;
 
 public class ConceptDetailsNode extends ExplorationNodeAbstract {
     private static final Logger LOG = LoggerFactory.getLogger(ConceptDetailsNode.class);
@@ -269,8 +269,8 @@ public class ConceptDetailsNode extends ExplorationNodeAbstract {
 
     public static Comparator<ObservableEntitySnapshot> compareWithList(IntList patternOrderList) {
         return (o1, o2) -> {
-            if (o1 instanceof SemanticEntityVersion os1) {
-                if (o2 instanceof SemanticEntityVersion os2) {
+            if (o1 instanceof ObservableSemanticSnapshot os1) {
+                if (o2 instanceof ObservableSemanticSnapshot os2) {
                     int o1index = patternOrderList.indexOf(os1.patternNid());
                     int o2index = patternOrderList.indexOf(os2.patternNid());
                     if (o1index == o2index) {

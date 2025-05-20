@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
 import dev.ikm.tinkar.entity.StampEntity;
 import dev.ikm.tinkar.entity.transaction.Transaction;

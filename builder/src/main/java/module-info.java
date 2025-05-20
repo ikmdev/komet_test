@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import dev.ikm.komet.builder.ConceptBuilderNodeFactory;
-import dev.ikm.komet.builder.PatternBuilderNodeFactory;
-import dev.ikm.komet.framework.KometNodeFactory;
+import dev.ikm.komet_test.builder.ConceptBuilderNodeFactory;
+import dev.ikm.komet_test.builder.PatternBuilderNodeFactory;
+import dev.ikm.komet_test.framework.KometNodeFactory;
 
-module dev.ikm.komet.builder {
-    requires transitive dev.ikm.komet.framework;
+module dev.ikm.komet_test.builder {
+    requires transitive dev.ikm.komet_test.framework;
 
-    opens dev.ikm.komet.builder;
-    exports dev.ikm.komet.builder;
+    opens dev.ikm.komet_test.builder;
+    exports dev.ikm.komet_test.builder;
     
     provides KometNodeFactory
             with ConceptBuilderNodeFactory, PatternBuilderNodeFactory;

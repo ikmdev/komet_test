@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet;
+package dev.ikm.komet_test.framework.propsheet;
 
 
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.panel.axiom.AxiomView;
-import dev.ikm.komet.framework.propsheet.editor.IntIdListEditor;
-import dev.ikm.komet.framework.propsheet.editor.IntIdSetEditor;
-import dev.ikm.komet.framework.propsheet.editor.ListEditor;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.panel.axiom.AxiomView;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdListEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.IntIdSetEditor;
+import dev.ikm.komet_test.framework.propsheet.editor.ListEditor;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.terms.EntityProxy;
 import dev.ikm.tinkar.terms.ProxyFactory;
 import javafx.beans.value.ObservableValue;
@@ -44,7 +44,7 @@ import org.controlsfx.property.editor.PropertyEditor;
 
 import java.util.*;
 
-import static dev.ikm.komet.framework.StyleClasses.PROP_SHEET_PROPERTY_NAME;
+import static dev.ikm.komet_test.framework.StyleClasses.PROP_SHEET_PROPERTY_NAME;
 
 public class KometPropertySheetSkin extends SkinBase<KometPropertySheet> {
 
@@ -99,6 +99,7 @@ public class KometPropertySheetSkin extends SkinBase<KometPropertySheet> {
         // layout controls
         content = new BorderPane();
         content.setTop(toolbar);
+
         getChildren().add(content);
 
         // setup listeners
@@ -117,8 +118,13 @@ public class KometPropertySheetSkin extends SkinBase<KometPropertySheet> {
         updateToolbar();
     }
 
+    /**
+     * Refreshes the property sheet content by rebuilding the property container.
+     * This method is called when there are changes in the properties or UI settings.
+     */
     private void refreshProperties() {
-        content.setCenter(buildPropertySheetContainer());
+        Node propertyContent = buildPropertySheetContainer();
+        content.setCenter(propertyContent);
     }
 
     /**************************************************************************

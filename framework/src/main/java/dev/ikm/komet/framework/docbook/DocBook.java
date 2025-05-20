@@ -13,10 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.docbook;
+package dev.ikm.komet_test.framework.docbook;
 
 import org.eclipse.collections.api.list.ImmutableList;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.util.text.DescriptionToToken;
 import dev.ikm.tinkar.coordinate.logic.PremiseType;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;

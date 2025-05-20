@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet.editor;
+package dev.ikm.komet_test.framework.propsheet.editor;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -25,9 +25,9 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import org.controlsfx.property.editor.PropertyEditor;
-import dev.ikm.komet.framework.controls.EntityLabelWithDragAndDrop;
-import dev.ikm.komet.framework.graphics.Icon;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.controls.EntityLabelWithDragAndDrop;
+import dev.ikm.komet_test.framework.graphics.Icon;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.terms.EntityFacade;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

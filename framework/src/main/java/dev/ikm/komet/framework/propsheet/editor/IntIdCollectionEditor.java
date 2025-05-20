@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.propsheet.editor;
+package dev.ikm.komet_test.framework.propsheet.editor;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
@@ -30,10 +30,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import org.controlsfx.property.editor.PropertyEditor;
-import dev.ikm.komet.framework.PseudoClasses;
-import dev.ikm.komet.framework.dnd.DragImageMaker;
-import dev.ikm.komet.framework.dnd.KometClipboard;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.PseudoClasses;
+import dev.ikm.komet_test.framework.dnd.DragImageMaker;
+import dev.ikm.komet_test.framework.dnd.KometClipboard;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.common.id.IntIdCollection;
 import dev.ikm.tinkar.common.id.IntIdList;
 import dev.ikm.tinkar.common.id.IntIdSet;

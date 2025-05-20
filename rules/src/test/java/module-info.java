@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-open module dev.ikm.komet.rules.test {
-    requires dev.ikm.komet.framework;
+open module dev.ikm.komet_test.rules.test {
+    requires dev.ikm.komet_test.framework;
     requires dev.ikm.tinkar.coordinate;
     requires dev.ikm.tinkar.entity;
     requires dev.ikm.tinkar.terms;
     requires javafx.graphics;
     requires org.evrete.core;
     requires org.junit.jupiter.api;
-    requires dev.ikm.komet.rules;
+    requires dev.ikm.komet_test.rules;
 }

@@ -13,39 +13,64 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.kview.mvvm.view.properties;
+package dev.ikm.komet_test.kview.mvvm.view.properties;
 
-import dev.ikm.komet.kview.mvvm.view.BasicController;
-import dev.ikm.komet.kview.events.ClosePropertiesPanelEvent;
-import dev.ikm.komet.kview.events.UpdateSemanticEvent;
-import dev.ikm.komet.kview.mvvm.viewmodel.DescrNameViewModel;
-import dev.ikm.komet.framework.events.EvtBus;
-import dev.ikm.komet.framework.events.EvtBusFactory;
-import dev.ikm.komet.framework.view.ViewProperties;
+import static dev.ikm.komet_test.kview.mvvm.model.DataModelHelper.fetchDescendentsOfConcept;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.CASE_SIGNIFICANCE;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.IS_SUBMITTED;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.LANGUAGE;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.MODULE;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.NAME_TEXT;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.NAME_TYPE;
+import static dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel.STATUS;
+import static dev.ikm.tinkar.terms.TinkarTerm.DESCRIPTION_CASE_SIGNIFICANCE;
+import static dev.ikm.tinkar.terms.TinkarTerm.LANGUAGE_CONCEPT_NID_FOR_DESCRIPTION;
+import dev.ikm.komet_test.framework.events.EvtBus;
+import dev.ikm.komet_test.framework.events.EvtBusFactory;
+import dev.ikm.komet_test.framework.view.ViewProperties;
+import dev.ikm.komet_test.kview.events.ClosePropertiesPanelEvent;
+import dev.ikm.komet_test.kview.events.CreateConceptEvent;
+import dev.ikm.komet_test.kview.mvvm.model.DescrName;
+import dev.ikm.komet_test.kview.mvvm.model.ViewCoordinateHelper;
+import dev.ikm.komet_test.kview.mvvm.view.BasicController;
+import dev.ikm.komet_test.kview.mvvm.viewmodel.DescrNameViewModel;
 import dev.ikm.tinkar.common.id.IntIdSet;
 import dev.ikm.tinkar.common.id.PublicId;
 import dev.ikm.tinkar.coordinate.stamp.calculator.Latest;
 import dev.ikm.tinkar.coordinate.view.calculator.ViewCalculator;
-import dev.ikm.tinkar.entity.*;
+import dev.ikm.tinkar.entity.ConceptEntity;
+import dev.ikm.tinkar.entity.Entity;
+import dev.ikm.tinkar.entity.EntityService;
+import dev.ikm.tinkar.entity.EntityVersion;
+import dev.ikm.tinkar.entity.PatternEntity;
+import dev.ikm.tinkar.entity.PatternEntityVersion;
+import dev.ikm.tinkar.entity.SemanticEntityVersion;
+import dev.ikm.tinkar.entity.StampEntity;
 import dev.ikm.tinkar.terms.ConceptFacade;
 import dev.ikm.tinkar.terms.EntityFacade;
 import dev.ikm.tinkar.terms.TinkarTerm;
 import javafx.beans.InvalidationListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import javafx.util.StringConverter;
 import org.carlfx.cognitive.loader.InjectViewModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
-
-import static dev.ikm.komet.kview.mvvm.viewmodel.DescrNameViewModel.*;
-import static dev.ikm.tinkar.terms.TinkarTerm.DESCRIPTION_CASE_SIGNIFICANCE;
-import static dev.ikm.tinkar.terms.TinkarTerm.LANGUAGE_CONCEPT_NID_FOR_DESCRIPTION;
 
 public class EditDescriptionFormController implements BasicController {
 
@@ -126,6 +151,13 @@ public class EditDescriptionFormController implements BasicController {
                 .setPropertyValue(STATUS, TinkarTerm.ACTIVE_STATE);
 
         populateDialectComboBoxes();
+
+        // bind with viewmodel.
+        otherNameTextField.textProperty().bindBidirectional(otherNameViewModel.getProperty(NAME_TEXT));
+        moduleComboBox.valueProperty().bindBidirectional(otherNameViewModel.getProperty(MODULE));
+        caseSignificanceComboBox.valueProperty().bindBidirectional(otherNameViewModel.getProperty(CASE_SIGNIFICANCE));
+        statusComboBox.valueProperty().bindBidirectional(otherNameViewModel.getProperty(STATUS));
+        languageComboBox.valueProperty().bindBidirectional(otherNameViewModel.getProperty(LANGUAGE));
 
         InvalidationListener invalidationListener = obs -> validateForm();
 
@@ -219,6 +251,7 @@ public class EditDescriptionFormController implements BasicController {
     }
 
     private void setupComboBox(ComboBox comboBox, Collection<ConceptEntity> conceptEntities) {
+        comboBox.getItems().clear();
         comboBox.setConverter(new StringConverter<ConceptEntity>() {
 
             @Override
@@ -259,9 +292,9 @@ public class EditDescriptionFormController implements BasicController {
     }
 
     public void setConceptAndPopulateForm(PublicId publicId) {
-        clearView();
+        editDescrName = null;
         this.publicId = publicId;
-        ViewCalculator viewCalculator = viewProperties.calculator();
+        ViewCalculator viewCalculator = ViewCoordinateHelper.createViewCalculatorLatestByTime(viewProperties);
 
         int nid = EntityService.get().nidForPublicId(publicId);
 
@@ -310,7 +343,7 @@ public class EditDescriptionFormController implements BasicController {
         PatternEntity<PatternEntityVersion> patternEntity = latestEntityVersion.get().pattern();
         PatternEntityVersion patternEntityVersion = viewCalculator.latest(patternEntity).get();
         int indexCaseSig = patternEntityVersion.indexForMeaning(DESCRIPTION_CASE_SIGNIFICANCE);
-        ConceptFacade caseSigConceptFacade = (ConceptFacade) latestEntityVersion.get().fieldValues().get(indexCaseSig);
+        EntityFacade caseSigConceptFacade = (EntityFacade) latestEntityVersion.get().fieldValues().get(indexCaseSig);
         ConceptEntity caseSigConcept = Entity.getFast(caseSigConceptFacade.nid());
         caseSignificanceComboBox.getSelectionModel().select(caseSigConcept);
 
@@ -334,38 +367,49 @@ public class EditDescriptionFormController implements BasicController {
         LOG.info(publicId.toString());
     }
 
-    private void copyUIToViewModelProperties() {
-        if (otherNameViewModel != null) {
-            otherNameViewModel.setPropertyValue(NAME_TEXT, otherNameTextField.getText())
-                    .setPropertyValue(NAME_TYPE, TinkarTerm.REGULAR_NAME_DESCRIPTION_TYPE)
-                    .setPropertyValue(CASE_SIGNIFICANCE, caseSignificanceComboBox.getSelectionModel().getSelectedItem())
-                    .setPropertyValue(STATUS, statusComboBox.getSelectionModel().getSelectedItem())
-                    .setPropertyValue(MODULE, moduleComboBox.getSelectionModel().getSelectedItem())
-                    .setPropertyValue(LANGUAGE, languageComboBox.getSelectionModel().getSelectedItem());
-        }
-    }
-
     @FXML
     private void updateOtherName(ActionEvent actionEvent) {
         actionEvent.consume();
-        otherNameViewModel.setPropertyValue(IS_SUBMITTED, true);
-        copyUIToViewModelProperties();
         otherNameViewModel.save();
 
         if (!otherNameViewModel.hasNoErrorMsgs()) {
-            // publish event with the otherNameViewModel.
+            otherNameViewModel.getValidationMessages().stream().forEach(msg -> LOG.error("Validation error " + msg));
             return;
         }
+
+        otherNameViewModel.setPropertyValue(IS_SUBMITTED, true);
+
+
         LOG.info("Ready to update to the concept view model: " + otherNameViewModel);
 
-        otherNameViewModel.updateOtherName(this.publicId);
-
-        eventBus.publish(conceptTopic, new UpdateSemanticEvent(submitButton, UpdateSemanticEvent.UPDATE_OTHER_NAME,
-                otherNameViewModel.create()));
-
-
+        if(this.publicId != null) { //This if blocked is called when editing the exiting concept.
+            otherNameViewModel.updateOtherName(this.publicId);
+        }else{  // This block is called when editing the while creating the concept.
+            otherNameViewModel.updateData(editDescrName);
+            eventBus.publish(conceptTopic, new CreateConceptEvent(this,
+                    CreateConceptEvent.EDIT_OTHER_NAME, editDescrName));
+        }
         eventBus.publish(conceptTopic, new ClosePropertiesPanelEvent(submitButton,
                 ClosePropertiesPanelEvent.CLOSE_PROPERTIES));
+    }
+
+    private DescrName editDescrName;
+
+    /**
+     * This method prepopulates and sets up the form in edit mode.
+     * @param descrName model values that need to be prepopulated.
+     */
+    public void setConceptAndPopulateForm(DescrName descrName) {
+        editDescrName = descrName;
+        setupComboBox(moduleComboBox, fetchDescendentsOfConcept(getViewProperties(), TinkarTerm.MODULE.publicId()));
+        setupComboBox(statusComboBox, fetchDescendentsOfConcept(getViewProperties(), TinkarTerm.STATUS_VALUE.publicId()));
+        setupComboBox(caseSignificanceComboBox, otherNameViewModel.findAllCaseSignificants(getViewProperties()));
+        setupComboBox(languageComboBox, fetchDescendentsOfConcept(getViewProperties(), TinkarTerm.LANGUAGE.publicId()));
+        otherNameViewModel.setPropertyValue(NAME_TEXT, descrName.getNameText())
+                .setPropertyValue(CASE_SIGNIFICANCE, descrName.getCaseSignificance())
+                .setPropertyValue(STATUS, descrName.getStatus())
+                .setPropertyValue(MODULE, descrName.getModule())
+                .setPropertyValue(LANGUAGE, descrName.getLanguage());
     }
 
 }

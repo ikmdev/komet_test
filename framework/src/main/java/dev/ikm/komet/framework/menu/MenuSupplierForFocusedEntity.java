@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.menu;
+package dev.ikm.komet_test.framework.menu;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
@@ -25,10 +25,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import dev.ikm.komet.framework.MenuItemWithText;
-import dev.ikm.komet.framework.context.AddToContextMenu;
-import dev.ikm.komet.framework.docbook.DocBook;
-import dev.ikm.komet.framework.view.ViewProperties;
+import dev.ikm.komet_test.framework.MenuItemWithText;
+import dev.ikm.komet_test.framework.context.AddToContextMenu;
+import dev.ikm.komet_test.framework.docbook.DocBook;
+import dev.ikm.komet_test.framework.view.ViewProperties;
 import dev.ikm.tinkar.entity.Entity;
 import dev.ikm.tinkar.entity.EntityVersion;
 import dev.ikm.tinkar.terms.EntityFacade;

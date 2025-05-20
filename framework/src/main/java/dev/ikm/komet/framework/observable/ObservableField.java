@@ -13,19 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
+import dev.ikm.tinkar.component.FieldDataType;
+import dev.ikm.tinkar.entity.Entity;
+import dev.ikm.tinkar.entity.Field;
+import dev.ikm.tinkar.entity.FieldRecord;
+import dev.ikm.tinkar.entity.SemanticRecord;
+import dev.ikm.tinkar.entity.SemanticVersionRecord;
+import dev.ikm.tinkar.entity.StampEntity;
+import dev.ikm.tinkar.entity.StampRecord;
+import dev.ikm.tinkar.entity.transaction.Transaction;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.eclipse.collections.api.factory.Lists;
 import org.eclipse.collections.api.list.MutableList;
-import dev.ikm.tinkar.component.FieldDataType;
-import dev.ikm.tinkar.entity.*;
-import dev.ikm.tinkar.entity.transaction.Transaction;
 
-public class ObservableField<T> implements Field<T> {
+public final class ObservableField<T> implements Field<T> {
 
     SimpleObjectProperty<FieldRecord<T>> fieldProperty = new SimpleObjectProperty<>();
     SimpleObjectProperty<T> valueProperty = new SimpleObjectProperty<>();
@@ -33,20 +40,56 @@ public class ObservableField<T> implements Field<T> {
     public final BooleanProperty refreshProperties = new SimpleBooleanProperty(false);
     public final boolean writeOnEveryChange;
 
+
+    /**
+     * Responsible for creating a new an uncommitted semantic version for the versionProperty owned by ObservableVersion.
+     */
+    private InvalidationListener autoSaveChangeListener;
+
+    void setAutoSaveChangeListener(InvalidationListener autoSaveChangeListener) {
+        this.autoSaveChangeListener = autoSaveChangeListener;
+    }
+
+    InvalidationListener getAutoSaveChangeListener() {
+        return this.autoSaveChangeListener;
+    }
+
+    /**
+     * Enables autosave on observable field
+     */
+    public void autoSaveOn() {
+        if (autoSaveChangeListener != null) {
+            valueProperty().removeListener(getAutoSaveChangeListener());
+            valueProperty().addListener(getAutoSaveChangeListener());
+        }
+    }
+
+    /**
+     * Disables autosave on observable field
+     */
+    public void autoSaveOff() {
+        if (autoSaveChangeListener != null) {
+            valueProperty().removeListener(getAutoSaveChangeListener());
+        }
+    }
+
     public ObservableField(FieldRecord<T> fieldRecord, boolean writeOnEveryChange) {
         this.writeOnEveryChange = writeOnEveryChange;
         fieldProperty.set(fieldRecord);
-        valueProperty.set(fieldRecord.value());
+        if (fieldRecord != null) {
+            valueProperty.set(fieldRecord.value());
+        }
         valueProperty.addListener((observable, oldValue, newValue) -> {
-            handleValueChange(newValue);
-            fieldProperty.set(field().withValue(newValue));
+            if (newValue != null) {
+                handleValueChange(newValue);
+                fieldProperty.set(field().withValue(newValue));
+            }
         });
         refreshProperties.addListener((observable, oldValue, newValue) -> {
             if(!newValue){
                 writeToDataBase();
             }
         });
-
     }
     public ObservableField(FieldRecord<T> fieldRecord) {
         this(fieldRecord, true);
@@ -60,13 +103,14 @@ public class ObservableField<T> implements Field<T> {
 
     public void writeToDataBase() {
         this.writeToDatabase(value());
+        fieldProperty.set(field().withValue(value()));
     }
 
     public void writeToDatabase(Object newValue) {
-        StampRecord stamp = Entity.getStamp(fieldProperty.get().semanticVersionStampNid());
+        StampRecord stamp = Entity.getStamp(fieldProperty.get().versionStampNid());
         // Get current version
-        SemanticVersionRecord version = Entity.getVersionFast(field().semanticNid(), field().semanticVersionStampNid());
-        SemanticRecord semantic = Entity.getFast(field().semanticNid());
+        SemanticVersionRecord version = Entity.getVersionFast(field().nid(), field().versionStampNid());
+        SemanticRecord semantic = Entity.getFast(field().nid());
         MutableList fieldsForNewVersion = Lists.mutable.of(version.fieldValues().toArray());
         fieldsForNewVersion.set(fieldIndex(), newValue);
 
@@ -100,7 +144,7 @@ public class ObservableField<T> implements Field<T> {
 
     @Override
     public T value() {
-        return field().value();
+        return valueProperty.get();
     }
 
     @Override
@@ -130,6 +174,10 @@ public class ObservableField<T> implements Field<T> {
 
     public ObjectProperty<T> valueProperty() {
         return valueProperty;
+    }
+
+    public ObjectProperty<FieldRecord<T>> fieldProperty() {
+        return fieldProperty;
     }
 
 }

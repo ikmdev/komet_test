@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package dev.ikm.komet.framework.observable;
+package dev.ikm.komet_test.framework.observable;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -26,7 +26,7 @@ import dev.ikm.tinkar.terms.EntityFacade;
 
 import java.util.concurrent.atomic.AtomicReference;
 
-public class ObservableFieldDefinition
+public final class ObservableFieldDefinition
         implements FieldDefinitionForEntity {
     final AtomicReference<FieldDefinitionRecord> fieldDefinitionReference;
     final SimpleObjectProperty<EntityFacade> dataTypeProperty = new SimpleObjectProperty<>(this, "Field data type");
