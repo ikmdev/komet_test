@@ -30,7 +30,7 @@ jobs:
         run: |
          cd docker
          ls
-         docker build -f Dockerfile-komet-web -t ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }} 
+         docker build -f Dockerfile-komet-web -t ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }} .
          docker push ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
 
 
