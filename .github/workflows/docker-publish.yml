@@ -28,11 +28,11 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker Image
-        run:  docker build -t ${{ secrets.DOCKER_USERNAME }}/ikmdev-site:${{ github.ref_name }} .
+        run:  docker build -t ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }} docker/Dockerfile-nginx
           
 
       - name: Push docker Image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/ikmdev-site:${{ github.ref_name }}
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/komet_test:${{ github.ref_name }}
 
 
 
