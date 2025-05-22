@@ -8,13 +8,16 @@ RUN ./mvnw clean install -Dmaven.javadoc.skip=true -Dmaven.test.skip=true
 RUN ./mvnw clean -f application -Pjpro jpro:release
 
 # Stage 2: Create the final image with the JPro application and Nginx
-FROM nginx:1.26.3
+FROM azul/zulu-openjdk-alpine:23-jre-headless-latest
+
+# Update the package list and install necessary packages
+RUN apk update && apk add --no-cache bash nginx
+
+# Install the glibc compatibility library and GTK+ 3.0 required for JPro applications
+RUN apk add --no-cache libc6-compat gtk+3.0
 
 # Copy custom Nginx configuration
 COPY docker/nginx.conf /etc/nginx/nginx.conf
-
-# Install necessary packages for the JPro application
-RUN apk add --no-cache libc6-compat gtk+3.0
 
 # Copy the JPro application from the builder stage
 COPY --from=builder /komet/application/target/komet-jpro.zip /komet-jpro.zip
