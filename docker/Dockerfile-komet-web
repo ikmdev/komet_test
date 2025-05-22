@@ -14,7 +14,9 @@ FROM azul/zulu-openjdk-alpine:23-jre-headless-latest
 RUN apk update && apk add --no-cache --upgrade bash
 
 # Install the glibc compatibility library and GTK+ 3.0 required for JPro applications
-#RUN apk add --no-cache libc6-compat gtk+3.0 nginx
+RUN apk add --no-cache libc6-compat gtk+3.0 
+
+RUN apk add --no-cache --upgrade nginx
 
 # Copy the JPro application to the image
 COPY --from=builder /komet/application/target/komet-jpro.zip /komet-jpro.zip
@@ -22,7 +24,6 @@ COPY --from=builder /komet/application/target/komet-jpro.zip /komet-jpro.zip
 # Unzip the JPro application
 RUN unzip /komet-jpro.zip -d /jproserver/
 
-FROM nginx:1.26.3
 
 # Copy custom Nginx configuration
 COPY docker/nginx.conf /etc/nginx/nginx.conf
