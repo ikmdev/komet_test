@@ -32,6 +32,7 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 # Copy the different default page in, which allows for proxy paths
 WORKDIR /jproserver/komet-jpro/
 
+EXPOSE 80
 # Start the JPro server
 # CMD (cd jproserver/komet-jpro/; ./bin/restart.sh)
 CMD (cd /jproserver/komet-jpro/ && ./bin/restart.sh &) && nginx
