@@ -4,8 +4,10 @@ run-name: Build & Publish Komet App -- ${{github.ref_name}}
 
 on:
   push:
-   tags:
-      - '*'
+  workflow_dispatch:
+    
+  #  tags:
+  #     - '*'
 
 jobs:
   build:
