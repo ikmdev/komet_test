@@ -32,5 +32,5 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 WORKDIR /jproserver/komet-jpro/
 
 # Start the JPro server
-CMD (cd jproserver/komet-jpro/; ./bin/restart.sh)
-# CMD (cd /jproserver/komet-jpro/ && ./bin/restart.sh &) && nginx -g 'daemon off;'
+# CMD (cd jproserver/komet-jpro/; ./bin/restart.sh)
+CMD (cd /jproserver/komet-jpro/ && ./bin/restart.sh &) && nginx -g 'daemon off;'
