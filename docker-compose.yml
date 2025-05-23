@@ -25,7 +25,7 @@ services:
   nginx:
     build:
       context: .
-      dockerfile: docker/Dockerfile-nginx
+      dockerfile: docker/Dockerfile-komet-web
     container_name: nginx
     #image: ikebox/nginx-test:latest
     ports:
