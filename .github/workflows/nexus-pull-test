@@ -1,0 +1,52 @@
+name: "Pulling From Nexus Workflow"
+
+run-name: "Pulling from Nexus -${{ github.head_ref || github.ref_name }}"
+
+on:
+ workflow_dispatch:
+
+env:
+  NEXUS_REPO_ID: "maven-snapshots"
+  NEXUS_USERNAME: "admin"
+  NEXUS_PASSWORD: ${{secrets.EC2_NEXUS_PASSWORD}}
+  NEXUS_PROFILE: "Ze-Profile"
+
+
+jobs:
+  Update-dropdown:
+    name: Update Dropdown -- ${{ github.head_ref || github.ref_name }}
+    runs-on: ubuntu-24.04
+    if: github.repository_owner == 'ikmdev'
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{secrets.IKMDEVOPS_PAT_TOKEN}}
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+            distribution: 'zulu'
+            java-version: '23'
+
+      - name: Maven Settings File
+        uses: whelk-io/maven-settings-xml-action@v22
+        with:
+          servers: '[{"id": "${{ env.NEXUS_REPO_ID }}", "username": "${{env.NEXUS_USERNAME}}", "password": "${{env.NEXUS_PASSWORD}}"}]'
+          profiles: '[{"id": "${{env.NEXUS_PROFILE}}", "properties": {"altDeploymentRepository": "${{  env.NEXUS_REPO_ID }}::https://nexus.tinkarbuild.com/repository/${{ env.NEXUS_REPO_ID }}"}}]'
+          active_profiles: '["${{env.NEXUS_PROFILE}}"]' 
+          output_file: .m2/settings.xml
+
+      - name: Maven Build
+        run: |
+          ./mvnw clean install\
+            --batch-mode \
+            -U \
+            -e \
+            -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn \
+            -Dmaven.build.cache.enabled=false \
+            -PcodeQuality \
+            -PgenerateData \
+            -s '/home/runner/work/${{github.event.repository.name}}/${{github.event.repository.name}}/.m2/settings.xml' \
+            -DrepositoryId='${{ steps.is_tag.outputs.NEXUS_REPO_ID  }}' \
+
