@@ -27,7 +27,8 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
-         context: ./Docker/Dockerfile-komet-web
+         context: .
+         dockerfile: docker/Dockerfile-komet-web
          push: true
          tags: ${{ secrets.DOCKER_USERNAME }}/komet:${{ github.ref_name }}
 
