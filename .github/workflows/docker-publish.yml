@@ -28,8 +28,7 @@ jobs:
         run: |
          docker build \
          -t ${{ secrets.DOCKER_USERNAME }}/komet:${{ github.ref_name }} \
-         -f docker/ \
-         docker/
+         -f docker/ 
 
 
 
