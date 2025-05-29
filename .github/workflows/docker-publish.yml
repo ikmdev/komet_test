@@ -27,7 +27,7 @@ jobs:
       - name: Build and push Docker image
         run: |
          docker buildx build \ 
-         --file docker/Dockerfile-komet-web \ 
+         --file docker/ \ 
          --tag ${{ secrets.DOCKER_USERNAME }}/komet:${{ github.ref_name }} \ 
          --push \
          docker/
